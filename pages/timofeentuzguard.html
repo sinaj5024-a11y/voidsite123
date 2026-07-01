@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <link rel="shortcut icon" href="/favicon.jpg" />
+    <title>Личный кабинет | VoidWare</title>
+    <meta name="description" content="Личный кабинет пользователя VoidWare." />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+            background: #07070d;
+            color: #fff;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #0a0a14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #7C3AED, #EC4899);
+            border-radius: 12px;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa, #ec4899, #f59e0b, #a78bfa);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 6s ease-in-out infinite alternate;
+        }
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #6d28d9, #db2777);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.35);
+        }
+        .btn-primary:hover::after {
+            opacity: 1;
+        }
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-card {
+            border-radius: 2rem;
+            padding: 2.5rem 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            max-width: 520px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 2rem;
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(236, 72, 153, 0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .profile-card:hover::before {
+            opacity: 1;
+        }
+        .profile-card:hover {
+            border-color: rgba(124, 58, 237, 0.2);
+            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.08);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+        }
+        .info-value {
+            color: #fff;
+            font-weight: 600;
+            text-align: right;
+        }
+        .info-value .highlight {
+            background: linear-gradient(135deg, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 1rem;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .btn-download::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #6d28d9, #db2777);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-download:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.35);
+        }
+        .btn-download:hover::after {
+            opacity: 1;
+        }
+        .btn-download span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .falling-blocks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .falling-block {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(45deg);
+            animation: fall linear infinite;
+            opacity: 0;
+            font-size: 14px;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 640px) {
+            .profile-card {
+                padding: 1.8rem 1.5rem;
+                border-radius: 1.5rem;
+            }
+            .info-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.2rem;
+            }
+            .info-value {
+                text-align: left;
+                width: 100%;
+            }
+        }
+
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        * {
+            -webkit-touch-callout: none;
+        }
+
+        .footer-guard {
+            color: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+
+        .logout-btn {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+        .logout-btn:hover {
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="falling-blocks-container" id="fallingBlocks"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="content">
+
+        <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 header-transition bg-[#07070d]/80 backdrop-blur-md border-b border-white/5 no-select">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between flex-wrap gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl overflow-hidden border border-purple-400/30 shadow-lg shadow-purple-500/10 flex-shrink-0">
+                        <img src="/newicon.jpg" alt="VoidWare logo" class="w-full h-full object-cover" draggable="false" />
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg tracking-tight">VoidWare</h1>
+                        <p class="text-[10px] text-white/40 tracking-wider uppercase">Profile</p>
+                    </div>
+                </div>
+
+                <nav class="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <a href="index.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Главная
+                    </a>
+                    <a href="news.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Новости
+                    </a>
+                    <a href="shop.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Товары
+                    </a>
+                    <a href="profile.html" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-sm transition hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 no-select">
+                        Профиль
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="h-20 sm:h-24"></div>
+
+        <section class="relative max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-8 sm:pb-12 reveal no-select">
+            <div class="text-center">
+                <p class="uppercase tracking-[0.3em] text-purple-400 text-xs sm:text-sm font-semibold mb-3">Личный кабинет</p>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight">
+                    Добро пожаловать, <span class="gradient-text" id="displayUsername">Пользователь</span>
+                </h1>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
+            <div class="profile-card reveal" id="profileCard">
+                <div class="info-row">
+                    <span class="info-label">👤 Логин</span>
+                    <span class="info-value" id="profileUsername">—</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">📅 Подписка действует до</span>
+                    <span class="info-value" id="profileExpiry">—</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">⏳ Осталось дней</span>
+                    <span class="info-value" id="profileDaysLeft">—</span>
+                </div>
+
+                <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+                    <!-- ИСПРАВЛЕННАЯ ССЫЛКА НА СКАЧИВАНИЕ -->
+                    <a href="https://www.dropbox.com/scl/fi/5mwg2440sz2y4cgrpk8ap/VoidWare-Launcher.exe?rlkey=gy2n5dcp1ys8cfwidmk080mll&st=ulfo04nx&dl=1" 
+                       id="downloadLauncher" 
+                       class="btn-download" 
+                       download="VoidWare-Launcher.exe">
+                        <span>⬇️ Скачать лаунчер</span>
+                    </a>
+                    <button class="logout-btn" id="logoutBtn">Выйти</button>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center reveal">
+                <p class="text-white/40 text-sm">
+                    Есть вопросы? <a href="faq.html" class="text-purple-400 hover:text-purple-300 transition underline font-semibold">Перейти в FAQ</a>
+                </p>
+            </div>
+        </section>
+
+        <footer class="border-t border-white/5 bg-[#05050b] no-select">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-center md:text-left">
+                        <h3 class="text-2xl sm:text-3xl font-black tracking-tight mb-1">VoidWare</h3>
+                        <p class="text-white/30 text-sm">© voidware 2026 — Все права защищены.</p>
+                        <p class="footer-guard">TimofeenTuz Guard</p>
+                    </div>
+                    <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
+                        <a href="terms-of-service.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">Пользовательское соглашение</a>
+                        <a href="privacy-policy.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">Политика конфиденциальности</a>
+                        <a href="faq.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">FAQ</a>
+                        <a href="https://t.me/VoidWareDlc" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                            Telegram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // ── Защита ──
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12') { e.preventDefault();
+                return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) { e.preventDefault();
+                return false; }
+            if (e.ctrlKey && e.key === 'u') { e.preventDefault();
+                return false; }
+            if (e.ctrlKey && e.key === 's') { e.preventDefault();
+                return false; }
+        });
+        document.addEventListener('selectstart', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') e.preventDefault();
+        });
+        document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+        document.addEventListener('copy', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') e.preventDefault();
+        });
+        console.log = console.warn = console.error = console.info = console.debug = function() {};
+        console.clear();
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('contextmenu', function(e) { e.preventDefault();
+                return false; });
+        });
+        if (window.top !== window.self) window.top.location = window.self.location;
+
+        // ── Header blur ──
+        const header = document.getElementById('mainHeader');
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    if (window.scrollY > 10) {
+                        header.style.backdropFilter = 'blur(16px)';
+                        header.style.backgroundColor = 'rgba(7,7,13,0.85)';
+                    } else {
+                        header.style.backdropFilter = 'blur(0px)';
+                        header.style.backgroundColor = 'rgba(7,7,13,0.8)';
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // ── Particles ──
+        (function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 100;
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(167, 139, 250, ${this.opacity})`;
+                    ctx.fill();
+                    ctx.shadowColor = 'rgba(124, 58, 237, 0.2)';
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 140) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(167, 139, 250, ${0.06 * (1 - dist / 140)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        })();
+
+        // ── Falling Blocks ──
+        (function initFallingBlocks() {
+            const container = document.getElementById('fallingBlocks');
+            const blockCount = 25;
+            const icons = ['⛏️', '⚔️', '💎', '🛡️', '🚀', '✨'];
+            for (let i = 0; i < blockCount; i++) {
+                const block = document.createElement('div');
+                block.className = 'falling-block';
+                block.textContent = icons[Math.floor(Math.random() * icons.length)];
+                block.style.left = Math.random() * 100 + '%';
+                block.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                block.style.animationDelay = (Math.random() * 10) + 's';
+                block.style.width = (Math.random() * 18 + 18) + 'px';
+                block.style.height = block.style.width;
+                block.style.fontSize = (parseInt(block.style.width) * 0.6) + 'px';
+                container.appendChild(block);
+            }
+        })();
+
+        // ── Reveal ──
+        (function initReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+            reveals.forEach(el => observer.observe(el));
+        })();
+
+        // ── Загрузка данных пользователя ──
+        function loadUserProfile() {
+            const stored = localStorage.getItem('voidware_user');
+            if (!stored) {
+                window.location.href = 'profile.html';
+                return;
+            }
+
+            try {
+                const userData = JSON.parse(stored);
+                const { username, expiry } = userData;
+
+                if (!username || !expiry) {
+                    throw new Error('Неполные данные');
+                }
+
+                const expiryDate = new Date(expiry);
+                const now = new Date();
+
+                document.getElementById('displayUsername').textContent = username;
+                document.getElementById('profileUsername').textContent = username;
+
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById('profileExpiry').textContent = expiryDate.toLocaleDateString('ru-RU', options);
+
+                // Осталось дней
+                const diffMs = expiryDate.getTime() - now.getTime();
+                let daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+                let daysText;
+                if (daysLeft < 0) {
+                    daysText = '❌ Подписка истекла';
+                } else if (expiryDate.getFullYear() >= 2099) {
+                    daysText = '♾️ Бессрочно';
+                } else {
+                    daysText = `${daysLeft} дн.`;
+                }
+                document.getElementById('profileDaysLeft').textContent = daysText;
+
+                // Ссылка на скачивание уже установлена в HTML
+
+            } catch (err) {
+                console.error('Ошибка загрузки профиля:', err);
+                localStorage.removeItem('voidware_user');
+                window.location.href = 'profile.html';
+            }
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('voidware_user');
+            window.location.href = 'profile.html';
+        });
+
+        loadUserProfile();
+    </script>
+
+</body>
+</html>

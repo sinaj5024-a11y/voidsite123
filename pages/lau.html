@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VoidWare Launcher — Minecraft Client</title>
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <link rel="shortcut icon" href="/favicon.jpg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        html,
+        body {
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-width: 100%;
+            min-height: 100vh;
+            background: #07070d;
+            color: #fff;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            padding: 0.5rem;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #0a0a14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #7C3AED, #EC4899, #F59E0B);
+            border-radius: 12px;
+        }
+
+        .bg-main {
+            background: radial-gradient(ellipse at 20% 30%, rgba(124, 58, 237, 0.1), transparent 50%),
+                        radial-gradient(ellipse at 80% 70%, rgba(236, 72, 153, 0.07), transparent 50%),
+                        #07070d;
+            min-height: 100vh;
+            padding: 2rem 1.8rem;
+            border-radius: 1.5rem;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 2rem;
+            padding: 2rem 2.2rem;
+            position: relative;
+            transition: box-shadow 0.5s ease;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 2rem;
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(236, 72, 153, 0.2), rgba(251, 191, 36, 0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.2;
+            transition: opacity 0.6s ease;
+        }
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+        .glass-card:hover {
+            box-shadow: 0 20px 80px rgba(124, 58, 237, 0.12);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa, #ec4899, #f59e0b, #a78bfa);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 6s ease-in-out infinite alternate;
+        }
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .version-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.2rem;
+        }
+        .version-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(124, 58, 237, 0.2);
+            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.08);
+        }
+        .version-card.selected {
+            border-color: rgba(124, 58, 237, 0.4);
+            background: rgba(124, 58, 237, 0.1);
+            box-shadow: 0 0 40px rgba(124, 58, 237, 0.08);
+        }
+        .version-card .badge {
+            padding: 0.2rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        .badge-alpha {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .badge-stable {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        .badge-free {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fcd34d;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 1rem;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(124, 58, 237, 0.2);
+            width: 100%;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #6d28d9, #db2777, #f59e0b);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 70px rgba(124, 58, 237, 0.4);
+        }
+        .btn-primary:hover::after {
+            opacity: 1;
+        }
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.8rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        .btn-secondary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-exit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            background: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 0.8rem;
+        }
+        .btn-exit:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.15);
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 1rem;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(34, 197, 94, 0.2);
+            width: 100%;
+        }
+        .btn-download::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-download:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 70px rgba(34, 197, 94, 0.4);
+        }
+        .btn-download:hover::after {
+            opacity: 1;
+        }
+        .btn-download span {
+            position: relative;
+            z-index: 1;
+        }
+        .btn-download:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .float-3d {
+            display: inline-block;
+            animation: float3d 6s ease-in-out infinite;
+        }
+        @keyframes float3d {
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-14px) scale(1.06);
+            }
+        }
+
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid rgba(124, 58, 237, 0.3);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+            transition: all 0.3s ease;
+            margin-right: 0.3rem;
+        }
+        .logo-img:hover {
+            transform: scale(1.05);
+            border-color: rgba(124, 58, 237, 0.6);
+            box-shadow: 0 0 50px rgba(124, 58, 237, 0.25);
+        }
+
+        .falling-blocks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .falling-block {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(124, 58, 237, 0.06);
+            border: 1px solid rgba(124, 58, 237, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(45deg);
+            animation: fall linear infinite;
+            opacity: 0;
+            font-size: 14px;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 380px;
+            width: 100%;
+            pointer-events: none;
+        }
+        .notification {
+            background: rgba(20, 15, 35, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 0.9rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: auto;
+            position: relative;
+            overflow: hidden; /* ← важно для скругления прогресс-бара */
+        }
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .notification .icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .notification .content {
+            flex: 1;
+        }
+        .notification .title {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .notification .text {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .notification .close-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.2rem;
+            transition: color 0.3s;
+        }
+        .notification .close-btn:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .notification .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #7C3AED, #EC4899);
+            border-radius: 0 0 1rem 1rem;
+            animation: progress 4s linear forwards;
+            width: 100%; /* чтобы не вылазил за скругления */
+        }
+        .notification.error .progress-bar {
+            background: linear-gradient(90deg, #ef4444, #dc2626);
+        }
+        .notification.success .progress-bar {
+            background: linear-gradient(90deg, #22c55e, #16a34a);
+        }
+        @keyframes progress {
+            0% {
+                width: 100%;
+            }
+            100% {
+                width: 0%;
+            }
+        }
+
+        .glow-ring {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transition: all 0.5s ease;
+            margin: 0 0.2rem;
+        }
+        .status-dot.online {
+            background: #22c55e;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        .status-dot.offline {
+            background: #ef4444;
+            animation: none;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-value {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .info-value.fade {
+            opacity: 0;
+            transform: translateY(-5px);
+        }
+        .info-value.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 7, 13, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .loading-overlay.hidden {
+            display: none;
+        }
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(124, 58, 237, 0.2);
+            border-top: 3px solid #7C3AED;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.2), 0 0 60px rgba(124, 58, 237, 0.05);
+            transition: text-shadow 0.5s;
+        }
+
+        .version-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .online-change {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .online-change.up {
+            color: #4ade80;
+        }
+        .online-change.down {
+            color: #f87171;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .status-line {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .version-status-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .version-info-group {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .info-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .badge-info {
+            padding: 0.2rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .download-section {
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .bg-main {
+                padding: 1rem 0.8rem;
+            }
+            .glass-card {
+                padding: 1.2rem 1rem;
+                border-radius: 1.5rem;
+            }
+            .version-card {
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+            .version-card .name {
+                font-size: 0.95rem;
+            }
+            .version-list {
+                gap: 0.7rem;
+            }
+            .logo-img {
+                width: 38px;
+                height: 38px;
+            }
+            .header-logo {
+                gap: 0.7rem;
+            }
+            .version-status-group {
+                gap: 0.3rem;
+            }
+            .version-info-group {
+                gap: 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p class="text-white/60 text-sm">Загрузка статуса сервера...</p>
+    </div>
+
+    <div class="falling-blocks-container" id="fallingBlocks"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="glow-ring" style="width:600px;height:600px;top:-200px;right:-200px;background:radial-gradient(circle,rgba(124,58,237,0.08),transparent);filter:blur(80px);"></div>
+    <div class="glow-ring" style="width:500px;height:500px;bottom:-150px;left:-150px;background:radial-gradient(circle,rgba(236,72,153,0.06),transparent);filter:blur(80px);"></div>
+
+    <div class="bg-main">
+
+        <div class="content max-w-6xl mx-auto">
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+                <div class="header-logo">
+                    <img src="icon.png" alt="VoidWare" class="logo-img float-3d" />
+                    <div class="header-text">
+                        <h1 class="text-3xl md:text-4xl font-black tracking-tight glow-text">
+                            <span class="gradient-text">VoidWare</span> Launcher
+                        </h1>
+                        <p class="text-white/30 text-sm flex items-center gap-2 status-line">
+                            <span class="status-dot online" id="statusDot"></span>
+                            <span id="statusText">Онлайн</span>
+                            <span>·</span>
+                            <span id="statusReady">Готов к запуску</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button class="btn-secondary" id="checkUpdatesBtn">
+                        🔄 Проверить обновления
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6">
+
+                <div class="lg:col-span-2">
+                    <div class="glass-card">
+                        <h2 class="text-xl font-bold mb-4 glow-text">📦 Выберите версию</h2>
+
+                        <div class="version-list" id="versionList">
+                            <div class="version-card selected" data-version="1.21.11" data-type="stable" data-rating="4.9" data-download="true" data-size="60">
+                                <div class="flex items-center gap-3 version-info-group">
+                                    <span>🚀</span>
+                                    <div>
+                                        <div class="name font-semibold">1.21.11</div>
+                                        <div class="text-white/40 text-xs">Стабильная версия с полной поддержкой</div>
+                                    </div>
+                                </div>
+                                <span class="badge badge-stable">Стабильная</span>
+                                <div class="flex items-center gap-2 version-status-group">
+                                    <span class="status-dot online version-status" id="versionStatus1"></span>
+                                    <span class="text-white/40 text-xs version-users online-change" id="versionUsers1">0</span>
+                                </div>
+                            </div>
+
+                            <div class="version-card" data-version="1.16.5 Alpha" data-type="alpha" data-rating="4.7" data-download="true" data-size="485">
+                                <div class="flex items-center gap-3 version-info-group">
+                                    <span>⚔️</span>
+                                    <div>
+                                        <div class="name font-semibold">1.16.5 Alpha</div>
+                                        <div class="text-white/40 text-xs">Тестовая версия с новыми функциями</div>
+                                    </div>
+                                </div>
+                                <span class="badge badge-alpha">Alpha</span>
+                                <div class="flex items-center gap-2 version-status-group">
+                                    <span class="status-dot online version-status" id="versionStatus2"></span>
+                                    <span class="text-white/40 text-xs version-users online-change" id="versionUsers2">0</span>
+                                </div>
+                            </div>
+
+                            <div class="version-card" data-version="1.16.5 Free" data-type="free" data-rating="4.5" data-download="true" data-size="383">
+                                <div class="flex items-center gap-3 version-info-group">
+                                    <span>🎯</span>
+                                    <div>
+                                        <div class="name font-semibold">1.16.5 Free</div>
+                                        <div class="text-white/40 text-xs">Бесплатная версия с базовыми функциями</div>
+                                    </div>
+                                </div>
+                                <span class="badge badge-free">Free</span>
+                                <div class="flex items-center gap-2 version-status-group">
+                                    <span class="status-dot online version-status" id="versionStatus3"></span>
+                                    <span class="text-white/40 text-xs version-users online-change" id="versionUsers3">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <button id="downloadBtn" class="btn-download">
+                                <span>⬇️ Скачать клиент 1.21.11</span>
+                                <svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                            </button>
+                            <button id="launchBtn" class="btn-primary" style="display:none;">
+                                <span>🚀 Запустить выбранную версию</span>
+                            </button>
+                        </div>
+
+                        <div class="mt-3 flex flex-wrap gap-3 text-xs text-white/30">
+                            <span>📁 Размер: <span id="versionSizeDisplay">60</span>MB</span>
+                            <span class="text-white/10">•</span>
+                            <span>🔄 Последнее обновление: сегодня</span>
+                            <span class="text-white/10">•</span>
+                            <span id="onlineCountDisplay">👥 <span id="totalOnline">0</span> онлайн</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="glass-card">
+                        <h2 class="text-xl font-bold mb-4 glow-text">📊 Информация</h2>
+
+                        <div class="space-y-3">
+                            <div class="info-row">
+                                <span class="text-white/40 text-sm">Выбрано</span>
+                                <span class="font-semibold text-purple-300 info-value show" id="selectedVersionDisplay">1.21.11</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="text-white/40 text-sm">Тип</span>
+                                <span class="badge-info badge-stable info-value show" id="selectedTypeDisplay">Стабильная</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="text-white/40 text-sm">Пользователей</span>
+                                <span class="text-white/60 info-value show" id="selectedUsersDisplay">0</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="text-white/40 text-sm">Рейтинг</span>
+                                <span class="text-yellow-400 info-value show" id="selectedRatingDisplay">★★★★★ 4.9</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="text-white/40 text-sm">Статус</span>
+                                <span class="text-green-400 text-sm flex items-center gap-1" id="infoStatusDisplay">
+                                    <span class="status-dot online" id="infoStatusDot"></span>
+                                    <span id="infoStatusText">Онлайн</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="download-section">
+                            <button id="exitBtn" class="btn-exit">
+                                <span>🚪 Выйти</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-6 flex flex-wrap justify-between items-center gap-3 text-white/20 text-xs border-t border-white/5 pt-4">
+                <span>VoidWare Launcher v2.0 · © 2026</span>
+                <span>TimofeenTuz Guard</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <script>
+        // ============================================
+        // ЗАЩИТА ОТ ПРОСМОТРА ИСХОДНОГО КОДА
+        // ============================================
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        document.addEventListener('selectstart', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('copy', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+
+        console.log = function() {};
+        console.warn = function() {};
+        console.error = function() {};
+        console.info = function() {};
+        console.debug = function() {};
+        console.clear();
+
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+
+        // ============================================
+        // ДИНАМИЧЕСКИЙ ОНЛАЙН
+        // ============================================
+
+        const versionUsersElements = [
+            document.getElementById('versionUsers1'),
+            document.getElementById('versionUsers2'),
+            document.getElementById('versionUsers3')
+        ];
+        const totalOnlineEl = document.getElementById('totalOnline');
+        const selectedUsersDisplay = document.getElementById('selectedUsersDisplay');
+
+        const userRanges = [
+            { min: 12, max: 45, current: 30 },
+            { min: 5, max: 25, current: 15 },
+            { min: 3, max: 18, current: 10 }
+        ];
+
+        let versionUsers = [30, 15, 10];
+        let totalOnline = 55;
+        let isOnline = true;
+        let lastStatus = null;
+        let firstLoad = true;
+
+        function getRandomInRange(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function updateOnlineCounts(showEffect = true) {
+            if (!isOnline) {
+                versionUsers = [0, 0, 0];
+                totalOnline = 0;
+            } else {
+                versionUsers = versionUsers.map((val, index) => {
+                    const range = userRanges[index];
+                    let newVal = val + getRandomInRange(-2, 2);
+                    newVal = Math.max(range.min, Math.min(range.max, newVal));
+                    return newVal;
+                });
+                totalOnline = versionUsers.reduce((a, b) => a + b, 0);
+            }
+
+            versionUsersElements.forEach((el, index) => {
+                const oldVal = parseInt(el.textContent) || 0;
+                const newVal = versionUsers[index];
+                el.textContent = newVal;
+                if (showEffect && isOnline) {
+                    el.className = 'text-white/40 text-xs version-users online-change';
+                    if (newVal > oldVal) el.classList.add('up');
+                    else if (newVal < oldVal) el.classList.add('down');
+                    setTimeout(() => {
+                        el.className = 'text-white/40 text-xs version-users online-change';
+                    }, 800);
+                }
+            });
+
+            if (totalOnlineEl) {
+                const oldTotal = parseInt(totalOnlineEl.textContent) || 0;
+                totalOnlineEl.textContent = totalOnline;
+                if (showEffect && isOnline) {
+                    totalOnlineEl.className = 'online-change';
+                    if (totalOnline > oldTotal) totalOnlineEl.classList.add('up');
+                    else if (totalOnline < oldTotal) totalOnlineEl.classList.add('down');
+                    setTimeout(() => {
+                        totalOnlineEl.className = '';
+                    }, 800);
+                }
+            }
+
+            const selectedCard = document.querySelector('.version-card.selected');
+            if (selectedCard) {
+                const index = Array.from(document.querySelectorAll('.version-card')).indexOf(selectedCard);
+                if (index !== -1 && index < versionUsers.length) {
+                    selectedUsersDisplay.textContent = versionUsers[index];
+                }
+            }
+        }
+
+        // ============================================
+        // ОСНОВНАЯ ЛОГИКА
+        // ============================================
+
+        const versionCards = document.querySelectorAll('.version-card');
+        const launchBtn = document.getElementById('launchBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const exitBtn = document.getElementById('exitBtn');
+        const checkUpdatesBtn = document.getElementById('checkUpdatesBtn');
+        const container = document.getElementById('notificationContainer');
+        const selectedVersionDisplay = document.getElementById('selectedVersionDisplay');
+        const selectedTypeDisplay = document.getElementById('selectedTypeDisplay');
+        const selectedRatingDisplay = document.getElementById('selectedRatingDisplay');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const statusReady = document.getElementById('statusReady');
+        const infoStatusDot = document.getElementById('infoStatusDot');
+        const infoStatusText = document.getElementById('infoStatusText');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const versionSizeDisplay = document.getElementById('versionSizeDisplay');
+
+        let selectedVersion = '1.21.11';
+        let selectedType = 'stable';
+        let selectedRating = '4.9';
+        let currentDownload = true;
+
+        const versionStatuses = [
+            document.getElementById('versionStatus1'),
+            document.getElementById('versionStatus2'),
+            document.getElementById('versionStatus3')
+        ];
+
+        function showNotification(icon, title, text, type = 'info', duration = 4000) {
+            const id = Date.now();
+            const notif = document.createElement('div');
+            notif.className = `notification ${type}`;
+            notif.id = `notif-${id}`;
+            notif.innerHTML = `
+                <span class="icon">${icon}</span>
+                <div class="content">
+                    <div class="title">${title}</div>
+                    <div class="text">${text}</div>
+                </div>
+                <button class="close-btn" onclick="closeNotification('${id}')">✕</button>
+                <div class="progress-bar"></div>
+            `;
+            container.appendChild(notif);
+            setTimeout(() => notif.classList.add('show'), 50);
+            const timer = setTimeout(() => closeNotification(id), duration);
+            notif.dataset.timer = timer;
+            return id;
+        }
+
+        function closeNotification(id) {
+            const notif = document.getElementById(`notif-${id}`);
+            if (!notif) return;
+            if (notif.dataset.timer) clearTimeout(notif.dataset.timer);
+            notif.classList.remove('show');
+            setTimeout(() => notif.remove(), 500);
+        }
+
+        // ============================================
+        // ФУНКЦИЯ СКАЧИВАНИЯ — КОПИРОВАНИЕ ССЫЛКИ
+        // ============================================
+        function startDownload(version) {
+            let url = '';
+            if (version === '1.21.11') {
+                url = 'https://www.dropbox.com/scl/fi/hpa4neo72j1gyy2rbvd72/modi.zip?rlkey=08idqrlpeonu43y8xzlsackiq&dl=1';
+            } else if (version === '1.16.5 Alpha') {
+                url = 'https://www.dropbox.com/scl/fi/wf7fxuuf7ssqkv70233tm/VoidWareAlpha.zip?rlkey=bw6biau1ubqh6s78x6msbxw4k&dl=1';
+            } else if (version === '1.16.5 Free') {
+                url = 'https://www.dropbox.com/scl/fi/wtii35rpalrqywosro72h/FrostLineFree.zip?rlkey=lihpjxhcq3m5m806b5b6htufy&st=vapxyrrv&dl=1';
+            } else {
+                showNotification('❌', 'Ошибка', 'Для этой версии скачивание не доступно.', 'error', 3000);
+                return;
+            }
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showNotification('✅', 'Ссылка скопирована!', 'Вставьте ссылку в адресную строку браузера и нажмите Enter для скачивания.', 'success', 5000);
+                }).catch(() => {
+                    fallbackCopy(url);
+                });
+            } else {
+                fallbackCopy(url);
+            }
+
+            function fallbackCopy(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification('✅', 'Ссылка скопирована!', 'Вставьте ссылку в адресную строку браузера и нажмите Enter для скачивания.', 'success', 5000);
+            }
+        }
+
+        // ============================================
+        // ФУНКЦИИ СТАТУСА СЕРВЕРА
+        // ============================================
+
+        async function checkServerStatus() {
+            try {
+                const response = await fetch('status.txt?_=' + Date.now());
+                if (!response.ok) return false;
+                const text = await response.text();
+                return text.split('\n')[0].trim() === 'VoidWare';
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function updateUI(status, showNotif = false) {
+            if (status === lastStatus && !firstLoad) return;
+            isOnline = status;
+            lastStatus = status;
+            firstLoad = false;
+
+            if (isOnline) {
+                statusDot.className = 'status-dot online';
+                statusText.textContent = 'Онлайн';
+                statusReady.textContent = 'Готов к запуску';
+                infoStatusDot.className = 'status-dot online';
+                infoStatusText.textContent = 'Онлайн';
+                infoStatusText.className = 'text-green-400';
+                downloadBtn.disabled = false;
+                updateOnlineCounts(true);
+            } else {
+                statusDot.className = 'status-dot offline';
+                statusText.textContent = 'Офлайн';
+                statusReady.textContent = 'Недоступен';
+                infoStatusDot.className = 'status-dot offline';
+                infoStatusText.textContent = 'Офлайн';
+                infoStatusText.className = 'text-red-400';
+                downloadBtn.disabled = true;
+                versionUsers = [0, 0, 0];
+                totalOnline = 0;
+                updateOnlineCounts(false);
+            }
+
+            versionStatuses.forEach((dot, index) => {
+                dot.className = isOnline ? 'status-dot online' : 'status-dot offline';
+            });
+
+            if (showNotif && lastStatus !== null) {
+                showNotification(isOnline ? '🟢' : '🔴', isOnline ? 'Сервер онлайн' : 'Сервер офлайн', isOnline ? 'Сервер успешно подключен!' : 'Сервера выключены', isOnline ? 'success' : 'error', 3000);
+            }
+        }
+
+        async function loadStatus() {
+            loadingOverlay.classList.remove('hidden');
+            const status = await checkServerStatus();
+            lastStatus = status;
+            updateUI(status, true);
+            loadingOverlay.classList.add('hidden');
+            startOnlineUpdates();
+        }
+
+        let onlineInterval = null;
+
+        function startOnlineUpdates() {
+            if (onlineInterval) clearInterval(onlineInterval);
+            onlineInterval = setInterval(() => {
+                if (isOnline) {
+                    updateOnlineCounts(true);
+                }
+            }, 3000 + Math.random() * 2000);
+        }
+
+        async function autoRefreshStatus() {
+            const status = await checkServerStatus();
+            updateUI(status, true);
+        }
+
+        checkUpdatesBtn.addEventListener('click', function() {
+            const btn = this;
+            btn.disabled = true;
+            btn.textContent = '⏳ Проверка...';
+            showNotification('🔄', 'Обновление', 'Проверка обновлений...', 'info', 2500);
+            setTimeout(() => {
+                showNotification('✅', 'Обновление', 'Новых обновлений не найдено!', 'success', 3000);
+                btn.disabled = false;
+                btn.innerHTML = '🔄 Проверить обновления';
+            }, 2800);
+        });
+
+        function updateInfoDisplay(element, newText, isBadge = false) {
+            element.classList.remove('show');
+            element.classList.add('fade');
+            setTimeout(() => {
+                if (isBadge) {
+                    element.textContent = newText;
+                    const badgeClasses = { 'alpha': 'badge-alpha', 'stable': 'badge-stable', 'free': 'badge-free' };
+                    element.className = 'badge-info info-value show';
+                    if (badgeClasses[selectedType]) element.classList.add(badgeClasses[selectedType]);
+                } else {
+                    element.textContent = newText;
+                }
+                element.classList.remove('fade');
+                element.classList.add('show');
+            }, 300);
+        }
+
+        versionCards.forEach((card, index) => {
+            card.addEventListener('click', function() {
+                versionCards.forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+
+                const newVersion = this.dataset.version;
+                const newType = this.dataset.type;
+                const newRating = this.dataset.rating || '0';
+                const hasDownload = this.dataset.download === 'true';
+                const size = this.dataset.size || '?';
+
+                selectedVersion = newVersion;
+                selectedType = newType;
+                selectedRating = newRating;
+                currentDownload = hasDownload;
+
+                // Обновляем размер
+                versionSizeDisplay.textContent = size;
+
+                updateInfoDisplay(selectedVersionDisplay, selectedVersion, false);
+                const typeLabels = { 'alpha': 'Alpha', 'stable': 'Стабильная', 'free': 'Free' };
+                updateInfoDisplay(selectedTypeDisplay, typeLabels[selectedType] || selectedType, true);
+
+                if (isOnline && index < versionUsers.length) {
+                    selectedUsersDisplay.textContent = versionUsers[index];
+                } else {
+                    selectedUsersDisplay.textContent = '0';
+                }
+
+                const stars = '★'.repeat(Math.round(parseFloat(newRating))) + '☆'.repeat(5 - Math.round(parseFloat(newRating)));
+                updateInfoDisplay(selectedRatingDisplay, `${stars} ${newRating}`, false);
+
+                if (hasDownload) {
+                    downloadBtn.style.display = 'inline-flex';
+                    launchBtn.style.display = 'none';
+                    downloadBtn.innerHTML = `<span>⬇️ Скачать клиент ${newVersion}</span><svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>`;
+                } else {
+                    downloadBtn.style.display = 'none';
+                    launchBtn.style.display = 'inline-flex';
+                }
+            });
+        });
+
+        exitBtn.addEventListener('click', function() {
+            showNotification('🚪', 'Выход', 'Перенаправление...', 'info', 2000);
+            setTimeout(() => {
+                window.location.href = 'data.html';
+            }, 1500);
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            if (!isOnline) {
+                showNotification('❌', 'Ошибка', 'Сервер офлайн! Невозможно скачать клиент.', 'error', 3000);
+                return;
+            }
+            startDownload(selectedVersion);
+        });
+
+        launchBtn.addEventListener('click', function() {
+            if (!isOnline) {
+                showNotification('❌', 'Ошибка', 'Сервер офлайн! Невозможно запустить клиент.', 'error', 3000);
+                return;
+            }
+
+            let emoji = '🚀', msg = 'Запуск ' + selectedVersion + '...';
+            if (selectedType === 'alpha') emoji = '⚔️';
+            else if (selectedType === 'stable') emoji = '🚀';
+            else if (selectedType === 'free') emoji = '🎯';
+
+            this.disabled = true;
+            this.innerHTML = '<span>⏳ Запуск...</span>';
+
+            showNotification(emoji, 'Запуск ' + selectedVersion, msg, 'info', 3000);
+
+            setTimeout(() => {
+                showNotification('✅', 'Успешно!', 'Клиент ' + selectedVersion + ' запущен!', 'success', 3000);
+                this.disabled = false;
+                this.innerHTML = '<span>🚀 Запустить выбранную версию</span>';
+            }, 3000);
+        });
+
+        // Particles
+        (function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+            const COUNT = 100;
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(167, 139, 250, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < COUNT; i++) particles.push(new Particle());
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 140) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(167, 139, 250, ${0.06 * (1 - dist / 140)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // Falling blocks
+        (function initFallingBlocks() {
+            const container = document.getElementById('fallingBlocks');
+            const icons = ['⛏️', '⚔️', '💎', '🛡️', '🚀', '✨'];
+            for (let i = 0; i < 30; i++) {
+                const block = document.createElement('div');
+                block.className = 'falling-block';
+                block.textContent = icons[Math.floor(Math.random() * icons.length)];
+                block.style.left = Math.random() * 100 + '%';
+                block.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                block.style.animationDelay = (Math.random() * 12) + 's';
+                block.style.width = (Math.random() * 20 + 20) + 'px';
+                block.style.height = block.style.width;
+                block.style.fontSize = (parseInt(block.style.width) * 0.6) + 'px';
+                container.appendChild(block);
+            }
+        })();
+
+        loadStatus();
+        setInterval(autoRefreshStatus, 10000);
+    </script>
+
+</body>
+</html>

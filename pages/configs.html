@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <link rel="shortcut icon" href="/favicon.jpg" />
+    <title>Конфиги VoidWare — бесплатные конфиги для читов</title>
+    <meta name="description" content="Бесплатные конфиги для VoidWare. Скачивай готовые настройки для серверов Minecraft." />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* ===== RESET ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+            background: #07070d;
+            color: #fff;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            user-select: none;
+            pointer-events: none;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #0a0a14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #7C3AED, #EC4899);
+            border-radius: 12px;
+        }
+
+        /* ===== GLASS ===== */
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* ===== GRADIENT TEXT ===== */
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa, #ec4899, #f59e0b, #a78bfa);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 6s ease-in-out infinite alternate;
+        }
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #6d28d9, #db2777);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.35);
+        }
+        .btn-primary:hover::after {
+            opacity: 1;
+        }
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(8px);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-danger {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.35);
+            border-color: rgba(239, 68, 68, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* ===== CONFIG CARDS ===== */
+        .config-tilt {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.2s ease;
+            height: 100%;
+        }
+        .config-tilt-inner {
+            transform-style: preserve-3d;
+            transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+            border-radius: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.8rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transform: translateZ(0);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .config-tilt-inner::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(236, 72, 153, 0.4), rgba(251, 191, 36, 0.15));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.2;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: scale(0.95);
+        }
+        .config-tilt:hover .config-tilt-inner::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .config-tilt:hover .config-tilt-inner {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(124, 58, 237, 0.2);
+            box-shadow: 0 20px 70px rgba(124, 58, 237, 0.12);
+            transform: translateZ(20px);
+        }
+
+        .config-server {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.25rem;
+            transition: transform 0.4s ease;
+        }
+        .config-tilt:hover .config-server {
+            transform: translateZ(15px);
+        }
+
+        .config-version {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            transition: transform 0.4s ease;
+        }
+        .config-tilt:hover .config-version {
+            transform: translateZ(12px);
+        }
+
+        .config-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.6;
+            flex: 1;
+            margin-bottom: 1rem;
+            transition: transform 0.4s ease;
+        }
+        .config-tilt:hover .config-desc {
+            transform: translateZ(10px);
+        }
+
+        .config-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.4s ease;
+        }
+        .config-tilt:hover .config-meta {
+            transform: translateZ(8px);
+        }
+        .config-meta .author {
+            color: #a78bfa;
+        }
+
+        .config-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            align-self: flex-start;
+            margin-top: 0.25rem;
+        }
+        .config-download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .config-badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: rgba(124, 58, 237, 0.15);
+            color: #a78bfa;
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            align-self: flex-start;
+            margin-bottom: 0.5rem;
+            transition: transform 0.4s ease;
+        }
+        .config-tilt:hover .config-badge {
+            transform: translateZ(12px);
+        }
+
+        /* ===== FALLING BLOCKS ===== */
+        .falling-blocks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .falling-block {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(45deg);
+            animation: fall linear infinite;
+            opacity: 0;
+            font-size: 14px;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ===== PARTICLES ===== */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .header-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.3), 0 0 60px rgba(124, 58, 237, 0.1);
+        }
+
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        * {
+            -webkit-touch-callout: none;
+        }
+
+        .footer-guard {
+            color: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+        }
+        .empty-state p {
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== ПАРОЛЬ МОДАЛ ===== */
+        .password-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .password-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .password-modal .modal-box {
+            background: #15151e;
+            border-radius: 2rem;
+            padding: 2.5rem 2rem;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .password-modal.active .modal-box {
+            transform: scale(1);
+        }
+        .password-modal .modal-box h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: #fff;
+        }
+        .password-modal .modal-box .sub {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+        .password-modal .modal-box input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            text-align: center;
+            letter-spacing: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .password-modal .modal-box input:focus {
+            border-color: rgba(124, 58, 237, 0.4);
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .password-modal .modal-box .error {
+            color: #fca5a5;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .password-modal .modal-box .error.show {
+            display: block;
+        }
+        .password-modal .modal-box .actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+        .password-modal .modal-box .actions button {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .password-modal .modal-box .actions .btn-confirm {
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            color: #fff;
+        }
+        .password-modal .modal-box .actions .btn-confirm:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+        }
+        .password-modal .modal-box .actions .btn-cancel {
+            background: rgba(255, 255, 255, 0.06);
+            color: #888;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .password-modal .modal-box .actions .btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== АДМИН-ПАНЕЛЬ ===== */
+        .admin-panel {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #07070d;
+            z-index: 9998;
+            overflow-y: auto;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .admin-panel.active {
+            display: block;
+            opacity: 1;
+        }
+        .admin-panel .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 2rem;
+        }
+        .admin-panel .admin-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .admin-panel .admin-header h1 span {
+            color: #a78bfa;
+        }
+        .admin-panel .admin-header .close-admin {
+            padding: 0.6rem 1.5rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .admin-panel .admin-header .close-admin:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        .admin-panel .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .admin-panel .admin-stats .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+        }
+        .admin-panel .admin-stats .stat-card .num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .admin-panel .admin-stats .stat-card .label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 0.2rem;
+        }
+        .admin-panel .admin-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .admin-panel .admin-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            transition: all 0.3s;
+        }
+        .admin-panel .admin-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        .admin-panel .admin-item .info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            flex: 1;
+            min-width: 150px;
+        }
+        .admin-panel .admin-item .info .title {
+            font-weight: 600;
+            color: #fff;
+        }
+        .admin-panel .admin-item .info .sub {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .admin-panel .admin-item .info .sub strong {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .admin-panel .admin-item .actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 640px) {
+            .config-tilt-inner {
+                padding: 1.25rem;
+            }
+            .config-server {
+                font-size: 1.4rem;
+            }
+            .btn-primary,
+            .btn-secondary {
+                padding: 0.6rem 1.4rem;
+                font-size: 0.85rem;
+            }
+            .password-modal .modal-box {
+                padding: 1.5rem;
+            }
+            .admin-panel .admin-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .admin-panel .admin-item .actions {
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="falling-blocks-container" id="fallingBlocks"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="content">
+
+        <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 header-transition bg-[#07070d]/80 backdrop-blur-md border-b border-white/5 no-select">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between flex-wrap gap-3">
+                <div class="flex items-center gap-3">
+                    <div id="logoClicker" class="w-11 h-11 rounded-2xl overflow-hidden border border-purple-400/30 shadow-lg shadow-purple-500/10 flex-shrink-0 cursor-pointer transition hover:scale-105 hover:border-purple-400/60" title="">
+                        <img src="/newicon.jpg" alt="VoidWare logo" class="w-full h-full object-cover" draggable="false" />
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg tracking-tight">VoidWare</h1>
+                        <p class="text-[10px] text-white/40 tracking-wider uppercase">Configs</p>
+                    </div>
+                </div>
+
+                <nav class="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <a href="index.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Главная
+                    </a>
+                    <a href="news.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Новости
+                    </a>
+                    <a href="shop.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Товары
+                    </a>
+                    <a href="configs.html" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-sm transition hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 no-select">
+                        Конфиги
+                    </a>
+                    <a href="profile.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Профиль
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="h-20 sm:h-24"></div>
+
+        <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-8 sm:pb-12 reveal no-select">
+            <div class="text-center">
+                <p class="uppercase tracking-[0.3em] text-purple-400 text-xs sm:text-sm font-semibold mb-3">⚡ Бесплатные конфиги</p>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight glow-text">
+                    Конфиги <span class="gradient-text">VoidWare</span>
+                </h1>
+                <p class="mt-4 text-white/50 text-base sm:text-lg max-w-2xl mx-auto">
+                    Здесь вы можете скачать готовые конфиги для серверов или опубликовать свой собственный.
+                </p>
+                <div class="mt-6 flex flex-wrap justify-center gap-4">
+                    <a href="add-config.html" class="btn-primary">
+                        <span>➕ Опубликовать конфиг</span>
+                    </a>
+                    <button onclick="loadConfigs()" class="btn-secondary">
+                        <span>🔄 Обновить</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
+            <div id="configsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="loading-state text-center py-12 text-white/40 col-span-full">
+                    ⏳ Загрузка конфигов...
+                </div>
+            </div>
+        </section>
+
+        <footer class="border-t border-white/5 bg-[#05050b] no-select">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-center md:text-left">
+                        <h3 class="text-2xl sm:text-3xl font-black tracking-tight mb-1 glow-text">VoidWare</h3>
+                        <p class="text-white/30 text-sm">© voidware 2026 — Все права защищены.</p>
+                        <p class="footer-guard">TimofeenTuz Guard</p>
+                    </div>
+                    <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
+                        <a href="terms-of-service.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">Пользовательское соглашение</a>
+                        <a href="privacy-policy.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">Политика конфиденциальности</a>
+                        <a href="faq.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">FAQ</a>
+                        <a href="https://t.me/VoidWareDlc" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                            Telegram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ===== МОДАЛ ПАРОЛЯ ===== -->
+    <div class="password-modal" id="passwordModal">
+        <div class="modal-box">
+            <h2>🔐 Введите пароль</h2>
+            <p class="sub">Только для администраторов</p>
+            <input type="password" id="adminPassword" placeholder="••••••••" maxlength="20" autocomplete="off" />
+            <div class="error" id="passwordError">❌ Неверный пароль</div>
+            <div class="actions">
+                <button class="btn-cancel" onclick="closePasswordModal()">Отмена</button>
+                <button class="btn-confirm" onclick="checkPassword()">Войти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== АДМИН-ПАНЕЛЬ ===== -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="max-w-7xl mx-auto">
+            <div class="admin-header">
+                <h1>⚙️ <span>Админ-панель</span></h1>
+                <button class="close-admin" onclick="closeAdminPanel()">✕ Закрыть</button>
+            </div>
+
+            <div class="admin-stats" id="adminStats">
+                <div class="stat-card">
+                    <div class="num" id="statTotal">0</div>
+                    <div class="label">Всего конфигов</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num" id="statToday">0</div>
+                    <div class="label">Добавлено сегодня</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num" id="statAuthors">0</div>
+                    <div class="label">Авторов</div>
+                </div>
+            </div>
+
+            <div class="admin-list" id="adminList">
+                <div style="text-align:center;color:rgba(255,255,255,0.3);padding:2rem;">
+                    ⏳ Загрузка конфигов...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // =============================================
+        // ===== VOIDWARE CONFIGS - JSONBin.io =====
+        // =============================================
+
+        const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/6a448fc8da38895dfe198005';
+        const JSONBIN_SECRET = '$2a$10$G8uQQgY/KjMFthwfImHP.efYJ7/SfuHTMbMHGKmP2ln8dJgBvj65C';
+        const JSONBIN_API_KEY = '$2a$10$RJvOSDFhRYeV6MpeqPKzMOkcWhGeiF.TyrFJcXx0DtjtMxQVT/UhS';
+
+        const ADMIN_PASSWORD = '646470As';
+
+        let allConfigs = [];
+        let isAdminMode = false;
+        let logoClickCount = 0;
+        let logoClickTimer = null;
+
+        // === ЗАЩИТА ОТ КОПИРОВАНИЯ ===
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.keyCode === 73 || e.keyCode === 74)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.keyCode === 83)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.keyCode === 67)) {
+                const tag = document.activeElement.tagName;
+                if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        });
+
+        document.addEventListener('selectstart', function(e) {
+            const tag = e.target.tagName;
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('copy', function(e) {
+            const tag = document.activeElement.tagName;
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // === ЛОГОТИП — 10 КЛИКОВ ===
+        document.getElementById('logoClicker').addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            if (document.getElementById('adminPanel').classList.contains('active')) return;
+
+            logoClickCount++;
+
+            if (logoClickCount === 1) {
+                logoClickTimer = setTimeout(() => {
+                    logoClickCount = 0;
+                }, 3000);
+            }
+
+            if (logoClickCount >= 10) {
+                logoClickCount = 0;
+                clearTimeout(logoClickTimer);
+                openPasswordModal();
+            }
+        });
+
+        // === МОДАЛ ПАРОЛЯ ===
+        function openPasswordModal() {
+            document.getElementById('passwordModal').classList.add('active');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('passwordError').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('adminPassword').focus();
+            }, 300);
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('active');
+            document.getElementById('passwordError').classList.remove('show');
+        }
+
+        function checkPassword() {
+            const input = document.getElementById('adminPassword').value.trim();
+            if (input === ADMIN_PASSWORD) {
+                closePasswordModal();
+                openAdminPanel();
+            } else {
+                document.getElementById('passwordError').classList.add('show');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+
+        document.getElementById('adminPassword').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+            if (e.key === 'Escape') {
+                closePasswordModal();
+            }
+        });
+
+        // === АДМИН-ПАНЕЛЬ ===
+        async function openAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            isAdminMode = true;
+            await loadAdminData();
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('active');
+            document.body.style.overflow = '';
+            isAdminMode = false;
+            renderConfigs(allConfigs);
+        }
+
+        async function loadAdminData() {
+            const list = document.getElementById('adminList');
+            list.innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.3);padding:2rem;">⏳ Загрузка...</div>';
+
+            try {
+                const response = await fetch(JSONBIN_URL, {
+                    headers: {
+                        'X-Master-Key': JSONBIN_SECRET,
+                        'X-Access-Key': JSONBIN_API_KEY
+                    }
+                });
+
+                if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+
+                const data = await response.json();
+                allConfigs = data.record.posts || [];
+
+                renderAdminStats(allConfigs);
+                renderAdminList(allConfigs);
+
+            } catch (error) {
+                list.innerHTML = `
+                    <div style="text-align:center;color:#fca5a5;padding:2rem;">
+                        ❌ Ошибка загрузки: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function renderAdminStats(configs) {
+            const today = new Date().toDateString();
+
+            let todayCount = 0;
+            const authors = new Set();
+
+            configs.forEach(c => {
+                if (c.author) authors.add(c.author);
+                const date = new Date(c.createdAt);
+                if (date.toDateString() === today) todayCount++;
+            });
+
+            document.getElementById('statTotal').textContent = configs.length;
+            document.getElementById('statToday').textContent = todayCount;
+            document.getElementById('statAuthors').textContent = authors.size || 0;
+        }
+
+        function renderAdminList(configs) {
+            const list = document.getElementById('adminList');
+
+            if (!configs || configs.length === 0) {
+                list.innerHTML = `
+                    <div style="text-align:center;color:rgba(255,255,255,0.3);padding:2rem;">
+                        📭 Конфигов пока нет
+                    </div>
+                `;
+                return;
+            }
+
+            configs.sort((a, b) => b.createdAt - a.createdAt);
+
+            list.innerHTML = configs.map((config, index) => `
+                <div class="admin-item">
+                    <div class="info">
+                        <div class="title">${escapeHtml(config.server)}</div>
+                        <div class="sub">
+                            📦 ${escapeHtml(config.version)} &nbsp;·&nbsp; 👤 ${escapeHtml(config.author || 'Аноним')}
+                            &nbsp;·&nbsp; 📅 ${formatDate(config.createdAt)}
+                        </div>
+                        <div class="sub" style="font-size:0.7rem;color:rgba(255,255,255,0.2);word-break:break-all;">
+                            🔗 ${escapeHtml(config.download)}
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <a href="${escapeHtml(config.download)}" target="_blank" class="btn-secondary" style="padding:0.4rem 1rem;font-size:0.75rem;">
+                            📥
+                        </a>
+                        <button onclick="deleteConfig(${index})" class="btn-danger">
+                            🗑️ Удалить
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // === УДАЛЕНИЕ КОНФИГА ===
+        async function deleteConfig(index) {
+            if (!confirm('Вы уверены, что хотите удалить этот конфиг?')) return;
+
+            try {
+                const response = await fetch(JSONBIN_URL, {
+                    headers: {
+                        'X-Master-Key': JSONBIN_SECRET,
+                        'X-Access-Key': JSONBIN_API_KEY
+                    }
+                });
+
+                if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+
+                const data = await response.json();
+                const posts = data.record.posts || [];
+
+                posts.splice(index, 1);
+
+                const updateResponse = await fetch(JSONBIN_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': JSONBIN_SECRET,
+                        'X-Access-Key': JSONBIN_API_KEY
+                    },
+                    body: JSON.stringify({ posts: posts })
+                });
+
+                if (!updateResponse.ok) throw new Error(`Ошибка: ${updateResponse.status}`);
+
+                allConfigs = posts;
+                renderAdminStats(allConfigs);
+                renderAdminList(allConfigs);
+                renderConfigs(allConfigs);
+
+                showNotification('✅ Конфиг удалён');
+
+            } catch (error) {
+                alert('❌ Ошибка удаления: ' + error.message);
+            }
+        }
+
+        // === ЗАГРУЗКА КОНФИГОВ ===
+        async function loadConfigs() {
+            const grid = document.getElementById('configsGrid');
+            grid.innerHTML = '<div class="loading-state text-center py-12 text-white/40 col-span-full">⏳ Загрузка конфигов...</div>';
+
+            try {
+                const response = await fetch(JSONBIN_URL, {
+                    headers: {
+                        'X-Master-Key': JSONBIN_SECRET,
+                        'X-Access-Key': JSONBIN_API_KEY
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка: ${response.status}`);
+                }
+
+                const data = await response.json();
+                allConfigs = data.record.posts || [];
+                renderConfigs(allConfigs);
+
+            } catch (error) {
+                console.error('Error:', error);
+                grid.innerHTML = `
+                    <div class="empty-state col-span-full">
+                        <div class="icon">❌</div>
+                        <h3>Ошибка загрузки</h3>
+                        <p style="color:#666;">${error.message}</p>
+                        <button onclick="loadConfigs()" class="btn-secondary" style="margin-top:16px;">🔄 Попробовать снова</button>
+                    </div>
+                `;
+            }
+        }
+
+        // === РЕНДЕР КОНФИГОВ ===
+        function renderConfigs(configs) {
+            const grid = document.getElementById('configsGrid');
+
+            if (!configs || configs.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state col-span-full">
+                        <div class="icon">📭</div>
+                        <h3>Конфигов пока нет</h3>
+                        <p>Стань первым — опубликуй свой конфиг!</p>
+                        <a href="add-config.html" class="btn-primary" style="margin-top:16px;display:inline-flex;">➕ Опубликовать конфиг</a>
+                    </div>
+                `;
+                return;
+            }
+
+            configs.sort((a, b) => b.createdAt - a.createdAt);
+
+            grid.innerHTML = configs.map(config => `
+                <div class="config-tilt" data-tilt>
+                    <div class="config-tilt-inner">
+                        <span class="config-badge">⚡ Конфиг</span>
+                        <div class="config-server gradient-text">${escapeHtml(config.server)}</div>
+                        <div class="config-version">📦 Версия чита: ${escapeHtml(config.version)}</div>
+                        <div class="config-desc">${escapeHtml(config.description || 'Нет описания')}</div>
+                        <a href="${escapeHtml(config.download)}" target="_blank" class="config-download-btn">
+                            📥 Скачать
+                        </a>
+                        <div class="config-meta">
+                            <span class="author">👤 ${escapeHtml(config.author || 'Аноним')}</span>
+                            <span>${formatDate(config.createdAt)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('[data-tilt]').forEach(card => {
+                const inner = card.querySelector('.config-tilt-inner');
+                if (!inner) return;
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -12;
+                    const rotateY = ((x - centerX) / centerX) * 12;
+                    inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(25px)`;
+                });
+                card.addEventListener('mouseleave', function() {
+                    inner.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
+                });
+            });
+        }
+
+        // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(timestamp) {
+            if (!timestamp) return 'Недавно';
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = Math.floor((now - date) / 1000);
+
+            if (diff < 60) return 'только что';
+            if (diff < 3600) return Math.floor(diff / 60) + ' мин назад';
+            if (diff < 86400) return Math.floor(diff / 3600) + ' ч назад';
+            if (diff < 604800) return Math.floor(diff / 86400) + ' дн назад';
+            return date.toLocaleDateString('ru-RU');
+        }
+
+        function showNotification(text) {
+            const el = document.createElement('div');
+            el.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #1e1e2e;
+                color: #e0e0e0;
+                padding: 14px 28px;
+                border-radius: 16px;
+                border: 1px solid #2a2a35;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+                z-index: 9999;
+                font-size: 14px;
+                animation: slideUp 0.3s ease;
+                max-width: 90%;
+            `;
+            el.textContent = text;
+            document.body.appendChild(el);
+            setTimeout(() => {
+                el.style.opacity = '0';
+                el.style.transition = 'opacity 0.3s';
+                setTimeout(() => el.remove(), 300);
+            }, 3000);
+        }
+
+        // === HEADER BLUR ===
+        const header = document.getElementById('mainHeader');
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    if (window.scrollY > 10) {
+                        header.style.backdropFilter = 'blur(16px)';
+                        header.style.backgroundColor = 'rgba(7,7,13,0.85)';
+                    } else {
+                        header.style.backdropFilter = 'blur(0px)';
+                        header.style.backgroundColor = 'rgba(7,7,13,0.8)';
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // === PARTICLES ===
+        (function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 100;
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(167, 139, 250, ${this.opacity})`;
+                    ctx.fill();
+                    ctx.shadowColor = 'rgba(124, 58, 237, 0.2)';
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 140) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(167, 139, 250, ${0.06 * (1 - dist / 140)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        })();
+
+        // === FALLING BLOCKS ===
+        (function initFallingBlocks() {
+            const container = document.getElementById('fallingBlocks');
+            const blockCount = 25;
+            const icons = ['⛏️', '⚔️', '💎', '🛡️', '🚀', '✨'];
+            for (let i = 0; i < blockCount; i++) {
+                const block = document.createElement('div');
+                block.className = 'falling-block';
+                block.textContent = icons[Math.floor(Math.random() * icons.length)];
+                block.style.left = Math.random() * 100 + '%';
+                block.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                block.style.animationDelay = (Math.random() * 10) + 's';
+                block.style.width = (Math.random() * 18 + 18) + 'px';
+                block.style.height = block.style.width;
+                block.style.fontSize = (parseInt(block.style.width) * 0.6) + 'px';
+                container.appendChild(block);
+            }
+        })();
+
+        // === REVEAL ===
+        (function initReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+            reveals.forEach(el => observer.observe(el));
+        })();
+
+        // === ЗАКРЫТИЕ ПО ESC ===
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (document.getElementById('passwordModal').classList.contains('active')) {
+                    closePasswordModal();
+                }
+                if (document.getElementById('adminPanel').classList.contains('active')) {
+                    closeAdminPanel();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', loadConfigs);
+    </script>
+
+</body>
+</html>
