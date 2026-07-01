@@ -173,6 +173,10 @@
             color: rgba(255, 255, 255, 0.25);
             margin-top: 0.3rem;
         }
+        .form-group .hint .example {
+            color: rgba(255, 255, 255, 0.15);
+            font-style: italic;
+        }
 
         .error-msg {
             background: rgba(239, 68, 68, 0.15);
@@ -325,6 +329,16 @@
             margin: 0 auto;
         }
 
+        .link-hint {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 0.3rem;
+            line-height: 1.5;
+        }
+        .link-hint strong {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
         @media (max-width: 640px) {
             .btn-primary,
             .btn-secondary {
@@ -352,7 +366,7 @@
                     </div>
                     <div>
                         <h1 class="font-bold text-lg tracking-tight">VoidWare</h1>
-                        <p class="text-[10px] text-white/40 tracking-wider uppercase">Добавить конфиг</p>
+                        <p class="text-[10px] text-white/40 tracking-wider uppercase">ADD CONFIG</p>
                     </div>
                 </div>
 
@@ -405,9 +419,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label>📥 Ссылка на скачивание</label>
-                        <input type="url" id="download" placeholder="https://example.com/config.json" required />
-                        <div class="hint">Прямая ссылка на файл конфига или архив</div>
+                        <label>📥 Ссылка на скачивание (только Dropbox)</label>
+                        <input type="url" id="download" placeholder="https://www.dropbox.com/..." required />
+                        <div class="link-hint">
+                            📌 <strong>Важно:</strong> ссылка должна быть с <strong>dropbox.com</strong> и заканчиваться на <strong>dl=1</strong><br />
+                            <span class="example">Пример: https://www.dropbox.com/scl/fi/.../config.json?rlkey=...&amp;dl=1</span>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -492,6 +509,28 @@
             if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); return false; }
         });
 
+        // === ПРОВЕРКА ССЫЛКИ (ТОЛЬКО DROPBOX + dl=1) ===
+        function validateDropboxLink(url) {
+            try {
+                const parsed = new URL(url);
+
+                // Проверяем домен
+                if (!parsed.hostname.includes('dropbox.com')) {
+                    return { valid: false, error: '❌ Ссылка должна быть с домена dropbox.com' };
+                }
+
+                // Проверяем параметр dl=1
+                const dlParam = parsed.searchParams.get('dl');
+                if (dlParam !== '1') {
+                    return { valid: false, error: '❌ Ссылка должна заканчиваться на dl=1' };
+                }
+
+                return { valid: true };
+            } catch (_) {
+                return { valid: false, error: '❌ Введите корректную ссылку' };
+            }
+        }
+
         // === КАПЧА ===
         let captchaCode = '';
 
@@ -523,6 +562,7 @@
             errorEl.classList.remove('show');
             successEl.classList.remove('show');
 
+            // === Проверка капчи ===
             if (captchaInput !== captchaCode) {
                 errorEl.textContent = '❌ Неверный код капчи! Попробуйте ещё раз.';
                 errorEl.classList.add('show');
@@ -531,16 +571,17 @@
                 return;
             }
 
+            // === Проверка обязательных полей ===
             if (!server || !version || !download) {
                 errorEl.textContent = '⚠️ Заполните все обязательные поля!';
                 errorEl.classList.add('show');
                 return;
             }
 
-            try {
-                new URL(download);
-            } catch (_) {
-                errorEl.textContent = '⚠️ Введите корректную ссылку (https://...)';
+            // === ПРОВЕРКА ССЫЛКИ (ТОЛЬКО DROPBOX + dl=1) ===
+            const linkCheck = validateDropboxLink(download);
+            if (!linkCheck.valid) {
+                errorEl.textContent = linkCheck.error;
                 errorEl.classList.add('show');
                 return;
             }
