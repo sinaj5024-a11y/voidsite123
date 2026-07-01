@@ -1,7 +1,4 @@
 {
-  "name": "my-site",
-  "version": "1.0.0",
-  "scripts": {
-    "vercel-build": "echo 'Static site deployed'"
-  }
+  "name": "test",
+  "version": "1.0.0"
 }
