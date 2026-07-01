@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VoidWare — Вход в аккаунт</title>
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <link rel="shortcut icon" href="/favicon.jpg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        html,
+        body {
+            overflow: hidden;
+            max-width: 100%;
+            height: 100vh;
+            background: #07070d;
+            color: #fff;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+            background: #0a0a14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #7C3AED, #EC4899, #F59E0B);
+            border-radius: 12px;
+        }
+
+        .bg-gradient-main {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(124, 58, 237, 0.12), transparent 50%),
+                        radial-gradient(ellipse at 80% 50%, rgba(236, 72, 153, 0.08), transparent 50%),
+                        #07070d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-radius: 2rem;
+            padding: 3rem 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+            margin: 1rem;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 2rem;
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(236, 72, 153, 0.3), rgba(251, 191, 36, 0.15));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .neon-pulse {
+            animation: neonPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes neonPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(124, 58, 237, 0.15), 0 0 60px rgba(124, 58, 237, 0.05);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(124, 58, 237, 0.35), 0 0 100px rgba(236, 72, 153, 0.1), 0 0 150px rgba(251, 191, 36, 0.05);
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa, #ec4899, #f59e0b, #a78bfa);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 6s ease-in-out infinite alternate;
+        }
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+        }
+        .input-field:focus {
+            border-color: rgba(124, 58, 237, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.08);
+        }
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 1rem;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(124, 58, 237, 0.2);
+            width: 100%;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #6d28d9, #db2777, #f59e0b);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 70px rgba(124, 58, 237, 0.4);
+        }
+        .btn-primary:hover::after {
+            opacity: 1;
+        }
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 380px;
+            width: 100%;
+            pointer-events: none;
+        }
+        .notification {
+            background: rgba(20, 15, 35, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 0.9rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .notification.hide {
+            transform: translateX(120%);
+            opacity: 0;
+        }
+        .notification::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 1rem;
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(236, 72, 153, 0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .notification .icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .notification .content {
+            flex: 1;
+        }
+        .notification .title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .notification .text {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.05rem;
+        }
+        .notification .close-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.2rem;
+            transition: color 0.3s;
+            flex-shrink: 0;
+            pointer-events: auto;
+        }
+        .notification .close-btn:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .notification .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #7C3AED, #EC4899);
+            border-radius: 0 0 1rem 1rem;
+            animation: progress 4s linear forwards;
+        }
+        .notification.error .progress-bar {
+            background: linear-gradient(90deg, #ef4444, #dc2626);
+        }
+        .notification.success .progress-bar {
+            background: linear-gradient(90deg, #22c55e, #16a34a);
+        }
+        @keyframes progress {
+            0% {
+                width: 100%;
+            }
+            100% {
+                width: 0%;
+            }
+        }
+
+        .float-3d {
+            display: inline-block;
+            animation: float3d 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+        @keyframes float3d {
+            0%,
+            100% {
+                transform: translateY(0) rotateX(0) rotateY(0) scale(1);
+            }
+            25% {
+                transform: translateY(-15px) rotateX(8deg) rotateY(12deg) scale(1.06);
+            }
+            75% {
+                transform: translateY(8px) rotateX(-5deg) rotateY(-10deg) scale(0.94);
+            }
+        }
+
+        .ring-3d {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            border: 2px solid rgba(124, 58, 237, 0.06);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(70deg) rotateZ(0deg);
+            animation: ringSpin 20s linear infinite;
+            transform-style: preserve-3d;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .ring-3d::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            border-radius: 50%;
+            border: 1px solid rgba(236, 72, 153, 0.05);
+            animation: ringSpin 15s linear infinite reverse;
+        }
+        .ring-3d::after {
+            content: '';
+            position: absolute;
+            inset: -40px;
+            border-radius: 50%;
+            border: 1px solid rgba(251, 191, 36, 0.03);
+            animation: ringSpin 25s linear infinite;
+        }
+        @keyframes ringSpin {
+            0% {
+                transform: translate(-50%, -50%) rotateX(70deg) rotateZ(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotateX(70deg) rotateZ(360deg);
+            }
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            opacity: 0.3;
+            animation: orbPulse 5s ease-in-out infinite;
+        }
+        @keyframes orbPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+            50% {
+                transform: scale(1.4);
+                opacity: 0.5;
+            }
+        }
+
+        .falling-blocks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .falling-block {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.12);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(45deg);
+            animation: fall linear infinite;
+            opacity: 0;
+            font-size: 14px;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Блокировка выделения текста */
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .footer-text {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.12);
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        .footer-text .guard {
+            color: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 480px) {
+            .glass-card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+                border-radius: 1.5rem;
+            }
+            .input-field {
+                padding: 0.7rem 1rem;
+                font-size: 0.9rem;
+            }
+            .btn-primary {
+                padding: 0.7rem 1.6rem;
+                font-size: 0.9rem;
+            }
+            .ring-3d {
+                width: 200px;
+                height: 200px;
+            }
+            .ring-3d::before {
+                inset: -15px;
+            }
+            .ring-3d::after {
+                inset: -30px;
+            }
+            .notification-container {
+                top: 10px;
+                right: 10px;
+                max-width: calc(100% - 20px);
+            }
+            .notification {
+                padding: 0.7rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="falling-blocks-container" id="fallingBlocks"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="bg-gradient-main">
+
+        <div class="glow-orb" style="width:500px;height:500px;top:-200px;right:-150px;background:radial-gradient(circle,rgba(124,58,237,0.2),transparent);animation-delay:0s;"></div>
+        <div class="glow-orb" style="width:400px;height:400px;bottom:-150px;left:-100px;background:radial-gradient(circle,rgba(236,72,153,0.15),transparent);animation-delay:2s;"></div>
+
+        <div class="ring-3d"></div>
+
+        <div class="glass-card neon-pulse">
+
+            <div style="text-align:center;margin-bottom:2rem;">
+                <div style="font-size:3rem;display:inline-block;" class="float-3d">🔐</div>
+                <h1 class="text-3xl font-black tracking-tight mt-2">
+                    Войдите в <span class="gradient-text">аккаунт</span>
+                </h1>
+                <p style="color:rgba(255,255,255,0.3);font-size:0.9rem;margin-top:0.3rem;">Введите логин и пароль для доступа</p>
+            </div>
+
+            <form id="loginForm" onsubmit="return false;">
+                <div style="margin-bottom:1.2rem;">
+                    <label style="display:block;font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">Логин</label>
+                    <input type="text" id="loginInput" class="input-field" placeholder="Введите логин" autocomplete="username" />
+                </div>
+
+                <div style="margin-bottom:1.5rem;">
+                    <label style="display:block;font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">Пароль</label>
+                    <input type="password" id="passwordInput" class="input-field" placeholder="Введите пароль" autocomplete="current-password" />
+                </div>
+
+                <button type="submit" id="loginBtn" class="btn-primary">
+                    <span>Войти</span>
+                    <svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                </button>
+            </form>
+
+            <div class="footer-text">
+                <span>VoidWare © 2026</span>
+                <span class="guard">TimofeenTuz Guard</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <script>
+        // ============================================
+        // ЗАЩИТА ОТ ПРОСМОТРА ИСХОДНОГО КОДА
+        // ============================================
+
+        // 1. Блокировка правой кнопки мыши (контекстного меню) - без уведомления
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // 2. Блокировка клавиш для просмотра кода - без уведомлений
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+U (просмотр исходного кода)
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+S (сохранение страницы)
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // 3. Блокировка выделения текста (кроме полей ввода)
+        document.addEventListener('selectstart', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+
+        // 4. Блокировка перетаскивания
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+        // 5. Блокировка копирования (кроме полей ввода) - без уведомления
+        document.addEventListener('copy', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+
+        // 6. Очистка консоли и предотвращение вывода
+        console.log = function() {};
+        console.warn = function() {};
+        console.error = function() {};
+        console.info = function() {};
+        console.debug = function() {};
+        console.clear();
+
+        // 7. Блокировка контекстного меню на изображениях
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        });
+
+        // 8. Защита от iframe
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+
+        // ============================================
+        // ОСНОВНАЯ ЛОГИКА
+        // ============================================
+
+        const loginForm = document.getElementById('loginForm');
+        const loginInput = document.getElementById('loginInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const loginBtn = document.getElementById('loginBtn');
+        const container = document.getElementById('notificationContainer');
+
+        function showNotification(icon, title, text, type = 'info', duration = 4000) {
+            const id = Date.now();
+            const notif = document.createElement('div');
+            notif.className = `notification ${type}`;
+            notif.id = `notif-${id}`;
+            notif.innerHTML = `
+                <span class="icon">${icon}</span>
+                <div class="content">
+                    <div class="title">${title}</div>
+                    <div class="text">${text}</div>
+                </div>
+                <button class="close-btn" onclick="closeNotification('${id}')">✕</button>
+                <div class="progress-bar"></div>
+            `;
+
+            container.appendChild(notif);
+
+            setTimeout(() => {
+                notif.classList.add('show');
+            }, 50);
+
+            const timer = setTimeout(() => {
+                closeNotification(id);
+            }, duration);
+
+            notif.dataset.timer = timer;
+
+            return id;
+        }
+
+        function closeNotification(id) {
+            const notif = document.getElementById(`notif-${id}`);
+            if (!notif) return;
+            if (notif.dataset.timer) {
+                clearTimeout(notif.dataset.timer);
+            }
+            notif.classList.remove('show');
+            notif.classList.add('hide');
+            setTimeout(() => {
+                if (notif.parentNode) {
+                    notif.remove();
+                }
+            }, 500);
+        }
+
+        // Проверка статуса сервера
+        async function checkServerStatus() {
+            try {
+                const response = await fetch('status.txt?_=' + Date.now());
+                if (!response.ok) return false;
+                const text = await response.text();
+                const firstLine = text.split('\n')[0].trim();
+                return firstLine === 'VoidWare';
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function checkCredentials(login, password) {
+            return new Promise((resolve, reject) => {
+                fetch('dast.txt')
+                    .then(response => {
+                        if (!response.ok) {
+                            reject('Файл dast.txt не найден');
+                            return;
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        if (!data) {
+                            reject('Файл пуст');
+                            return;
+                        }
+                        const lines = data.split('\n');
+                        let found = false;
+                        for (let line of lines) {
+                            line = line.trim();
+                            if (line === '') continue;
+                            const parts = line.split(/\s+/);
+                            if (parts.length >= 2) {
+                                const fileLogin = parts[0];
+                                const filePassword = parts.slice(1).join(' ');
+                                if (fileLogin === login && filePassword === password) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                        resolve(found);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    });
+            });
+        }
+
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const login = loginInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!login || !password) {
+                showNotification('⚠️', 'Ошибка', 'Заполните все поля', 'error', 3500);
+                return;
+            }
+
+            // Проверяем статус сервера
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span>⏳ Проверка соединения...</span>';
+
+            const isOnline = await checkServerStatus();
+            if (!isOnline) {
+                showNotification('🔴', 'Ошибка соединения', 'Нет подключения к серверам', 'error', 4000);
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<span>Войти</span><svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>';
+                return;
+            }
+
+            // Сервер онлайн — проверяем логин/пароль
+            loginBtn.innerHTML = '<span>⏳ Проверка данных...</span>';
+
+            checkCredentials(login, password)
+                .then(found => {
+                    if (found) {
+                        showNotification('✅', 'Успешно!', 'Добро пожаловать, ' + login + '!', 'success', 3000);
+                        loginBtn.innerHTML = '<span>✅ Успешно!</span>';
+                        setTimeout(() => {
+                            window.location.href = 'lau.html';
+                        }, 1000);
+                    } else {
+                        showNotification('❌', 'Ошибка входа', 'Неверный логин или пароль', 'error', 4000);
+                        loginBtn.disabled = false;
+                        loginBtn.innerHTML = '<span>Войти</span><svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>';
+                        loginInput.value = '';
+                        passwordInput.value = '';
+                        loginInput.focus();
+                    }
+                })
+                .catch(error => {
+                    showNotification('❌', 'Ошибка', error, 'error', 4000);
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '<span>Войти</span><svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>';
+                });
+        });
+
+        loginInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                passwordInput.focus();
+            }
+        });
+
+        passwordInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Particles Canvas
+        (function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 80;
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(167, 139, 250, ${this.opacity})`;
+                    ctx.fill();
+                    ctx.shadowColor = 'rgba(124, 58, 237, 0.2)';
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 140) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(167, 139, 250, ${0.06 * (1 - dist / 140)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        })();
+
+        // Falling Blocks
+        (function initFallingBlocks() {
+            const container = document.getElementById('fallingBlocks');
+            const blockCount = 25;
+            const icons = ['⛏️', '⚔️', '💎', '🛡️', '🚀', '✨'];
+            for (let i = 0; i < blockCount; i++) {
+                const block = document.createElement('div');
+                block.className = 'falling-block';
+                block.textContent = icons[Math.floor(Math.random() * icons.length)];
+                block.style.left = Math.random() * 100 + '%';
+                block.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                block.style.animationDelay = (Math.random() * 10) + 's';
+                block.style.width = (Math.random() * 20 + 20) + 'px';
+                block.style.height = block.style.width;
+                block.style.fontSize = (parseInt(block.style.width) * 0.6) + 'px';
+                container.appendChild(block);
+            }
+        })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <link rel="shortcut icon" href="/favicon.jpg" />
+    <title>FAQ — Часто задаваемые вопросы | VoidWare</title>
+    <meta name="description" content="Ответы на частые вопросы о VoidWare: как установить, запустить, решить проблемы с античитом, получить поддержку." />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* ── Reset & Base ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+            background: #07070d;
+            color: #fff;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #0a0a14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #7C3AED, #EC4899);
+            border-radius: 12px;
+        }
+
+        /* ── Glass-morphism utility ── */
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* ── Gradient text with animation ── */
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa, #ec4899, #f59e0b, #a78bfa);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 6s ease-in-out infinite alternate;
+        }
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ── Buttons ── */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #6d28d9, #db2777);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.35);
+        }
+        .btn-primary:hover::after {
+            opacity: 1;
+        }
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── FAQ Cards ── */
+        .faq-item {
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .faq-item::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 1.5rem;
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(236, 72, 153, 0.15));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .faq-item:hover::before {
+            opacity: 1;
+        }
+        .faq-item:hover {
+            border-color: rgba(124, 58, 237, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.05);
+        }
+        .faq-item.open {
+            border-color: rgba(124, 58, 237, 0.3);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.08);
+        }
+        .faq-item.open::before {
+            opacity: 1;
+        }
+
+        .faq-question {
+            cursor: pointer;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        .faq-question:hover {
+            background: rgba(124, 58, 237, 0.06);
+        }
+        .faq-question h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            transition: all 0.3s;
+            flex: 1;
+        }
+        .faq-item.open .faq-question h3 {
+            background: linear-gradient(135deg, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .faq-arrow {
+            flex-shrink: 0;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #a78bfa;
+            width: 24px;
+            height: 24px;
+        }
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+            padding: 0 1.5rem;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 600px;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+        .faq-answer-content {
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        .faq-answer-content ul {
+            list-style: none;
+            padding: 0.25rem 0 0.25rem 1.2rem;
+        }
+        .faq-answer-content ul li {
+            position: relative;
+            padding: 0.2rem 0;
+        }
+        .faq-answer-content ul li::before {
+            content: '▸';
+            position: absolute;
+            left: -1.2rem;
+            color: #a78bfa;
+        }
+        .faq-answer-content a {
+            color: #a78bfa;
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+        .faq-answer-content a:hover {
+            color: #ec4899;
+        }
+
+        /* ── Falling blocks ── */
+        .falling-blocks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .falling-block {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(45deg);
+            animation: fall linear infinite;
+            opacity: 0;
+            font-size: 14px;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ── Particles canvas ── */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* ── Content above everything ── */
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── Reveal animations ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Header blur ── */
+        .header-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .faq-question {
+                padding: 1rem 1.2rem;
+            }
+            .faq-question h3 {
+                font-size: 0.95rem;
+            }
+            .faq-answer {
+                padding: 0 1.2rem;
+            }
+            .faq-item.open .faq-answer {
+                padding: 0 1.2rem 1.2rem 1.2rem;
+            }
+            .faq-answer-content {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ── Общие стили защиты ── */
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        * {
+            -webkit-touch-callout: none;
+        }
+
+        .footer-guard {
+            color: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── FALLING BLOCKS ─── -->
+    <div class="falling-blocks-container" id="fallingBlocks"></div>
+
+    <!-- ─── PARTICLES CANVAS ─── -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ─── CONTENT ─── -->
+    <div class="content">
+
+        <!-- ─── HEADER ─── -->
+        <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 header-transition bg-[#07070d]/80 backdrop-blur-md border-b border-white/5 no-select">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between flex-wrap gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl overflow-hidden border border-purple-400/30 shadow-lg shadow-purple-500/10 flex-shrink-0">
+                        <img src="/newicon.jpg" alt="VoidWare logo" class="w-full h-full object-cover" draggable="false" />
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg tracking-tight">VoidWare</h1>
+                        <p class="text-[10px] text-white/40 tracking-wider uppercase">FAQ</p>
+                    </div>
+                </div>
+
+                <nav class="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <a href="index.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Главная
+                    </a>
+                    <a href="news.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Новости
+                    </a>
+                    <a href="shop.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Товары
+                    </a>
+                    <!-- Добавлена кнопка "Профиль" без эмодзи в стиле glass -->
+                    <a href="profile.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                        Профиль
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- ─── SPACER ─── -->
+        <div class="h-20 sm:h-24"></div>
+
+        <!-- ─── HERO ─── -->
+        <section class="relative max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-8 sm:pb-12 reveal no-select">
+            <div class="text-center">
+                <p class="uppercase tracking-[0.3em] text-purple-400 text-xs sm:text-sm font-semibold mb-3">Помощь</p>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight">
+                    Часто задаваемые <span class="gradient-text">вопросы</span>
+                </h1>
+                <p class="mt-4 text-white/50 text-base sm:text-lg max-w-2xl mx-auto">
+                    Ответы на самые популярные вопросы о VoidWare
+                </p>
+            </div>
+        </section>
+
+        <!-- ─── FAQ LIST ─── -->
+        <section class="max-w-4xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
+            <div class="space-y-4">
+
+                <!-- Вопрос 1 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>🚀 Как установить и запустить VoidWare?</h3>
+                        <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>1. Скачайте лоадер клиента и установите версию 1.21.11.<br />2. На рабочем столе появится папка VoidWare.<br />3. Заходите в папку там инструкция дальше.<br />4. После запуска отправляете свой HWID.<br />5. После ответа продавца можете запускать чит и играть.</p>
+                            <p class="text-purple-300/60 text-sm mt-2">⚠️ Убедитесь, что антивирус не блокирует файлы (добавьте лоадер в исключения).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 2 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>🛡️ Поддержка и техпомощь — куда писать?</h3>
+                        <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>По всем техническим вопросам, проблемам с запуском, активацией или работой модулей обращайтесь в наш официальный Telegram-канал: <a href="https://t.me/VoidWareDlc" target="_blank">@VoidWareDlc</a>.<br />Перед обращением, пожалуйста, опишите проблему подробно и приложите скриншот ошибки (если есть). Среднее время ответа — до 12 часов.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 3 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>🔧 Что делать, если античит банит или клиент не работает на сервере?</h3>
+                        <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>VoidWare имеет встроенные обходы большинства античитов (Funsky, PetuhAc, PuzoAc и др.), но ни один чит не даёт 100% гарантии. Если вас заблокировали на конкретном сервере:</p>
+                            <ul>
+                                <li>Попробуйте уменьшить настройки модулей (например, снизить диапазон KillAura).</li>
+                                <li>Используйте режим "Neuro" или "Custom".</li>
+                                <li>Обновите клиент до последней версии.</li>
+                            </ul>
+                            <p>Мы не несём ответственности за бан вашего аккаунта на сторонних серверах. Рекомендуем использовать чит на свой страх и риск.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 4 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>💳 Как купить ключ и активировать его?</h3>
+                        <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Перейдите в раздел <a href="shop.html">«Товары»</a> на нашем сайте. Выберите подходящий тариф (месяц, навсегда или сброс HWID). Нажмите «Купить» — вы перейдёте на защищённую страницу FunPay. После оплаты вы получите лицензионный ключ. Скопируйте его и вставьте в лаунчер VoidWare при первом запуске. Ключ привязывается к вашему HWID автоматически.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 5 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>🔄 Как обновить VoidWare до новой версии?</h3>
+                        <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>В лоадере заходите на нужную версию чита и нажимаете кнопку Обновить или Скачать. Все обновления для владельцев ключей бесплатны.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ─── CTA ─── -->
+            <div class="mt-12 text-center reveal">
+                <p class="text-white/50 text-base sm:text-lg">
+                    Не нашли ответа на свой вопрос?
+                    <a href="https://t.me/VoidWareDlc" target="_blank" class="text-purple-400 hover:text-purple-300 underline transition font-semibold">Напишите нам в Telegram</a>
+                </p>
+                <div class="mt-5">
+                    <a href="https://t.me/VoidWareDlc" target="_blank" class="btn-primary">
+                        <span>Написать в Telegram</span>
+                        <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── FOOTER ─── -->
+        <footer class="border-t border-white/5 bg-[#05050b] no-select">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-center md:text-left">
+                        <h3 class="text-2xl sm:text-3xl font-black tracking-tight mb-1">VoidWare</h3>
+                        <p class="text-white/30 text-sm">© voidware 2026 — Все права защищены.</p>
+                        <p class="footer-guard">TimofeenTuz Guard</p>
+                    </div>
+                    <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
+                        <a href="terms-of-service.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">Пользовательское соглашение</a>
+                        <a href="privacy-policy.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">Политика конфиденциальности</a>
+                        <a href="faq.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">FAQ</a>
+                        <a href="https://t.me/VoidWareDlc" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                            Telegram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- ─── END CONTENT ─── -->
+
+    <!-- ─── SCRIPTS ─── -->
+    <script>
+        // ============================================
+        // ЗАЩИТА ОТ ПРОСМОТРА ИСХОДНОГО КОДА
+        // ============================================
+
+        // 1. Блокировка правой кнопки мыши (контекстного меню) - без уведомления
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // 2. Блокировка клавиш для просмотра кода - без уведомлений
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+U (просмотр исходного кода)
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+S (сохранение страницы)
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // 3. Блокировка выделения текста (кроме полей ввода)
+        document.addEventListener('selectstart', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+
+        // 4. Блокировка перетаскивания
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+        // 5. Блокировка копирования (кроме полей ввода) - без уведомления
+        document.addEventListener('copy', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+
+        // 6. Очистка консоли и предотвращение вывода
+        console.log = function() {};
+        console.warn = function() {};
+        console.error = function() {};
+        console.info = function() {};
+        console.debug = function() {};
+        console.clear();
+
+        // 7. Блокировка контекстного меню на изображениях
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        });
+
+        // 8. Защита от iframe
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+
+        // ============================================
+        // ОСНОВНАЯ ЛОГИКА (FAQ)
+        // ============================================
+
+        // ── FAQ Accordion ──
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        });
+
+        // ── Header blur on scroll ──
+        const header = document.getElementById('mainHeader');
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    if (window.scrollY > 10) {
+                        header.style.backdropFilter = 'blur(16px)';
+                        header.style.backgroundColor = 'rgba(7,7,13,0.85)';
+                    } else {
+                        header.style.backdropFilter = 'blur(0px)';
+                        header.style.backgroundColor = 'rgba(7,7,13,0.8)';
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // ── Smooth anchor scroll ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ── Particles Canvas ──
+        (function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 100;
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(167, 139, 250, ${this.opacity})`;
+                    ctx.fill();
+                    ctx.shadowColor = 'rgba(124, 58, 237, 0.2)';
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 140) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(167, 139, 250, ${0.06 * (1 - dist / 140)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        })();
+
+        // ── Falling Blocks ──
+        (function initFallingBlocks() {
+            const container = document.getElementById('fallingBlocks');
+            const blockCount = 25;
+            const icons = ['⛏️', '⚔️', '💎', '🛡️', '🚀', '✨'];
+            for (let i = 0; i < blockCount; i++) {
+                const block = document.createElement('div');
+                block.className = 'falling-block';
+                block.textContent = icons[Math.floor(Math.random() * icons.length)];
+                block.style.left = Math.random() * 100 + '%';
+                block.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                block.style.animationDelay = (Math.random() * 10) + 's';
+                block.style.width = (Math.random() * 18 + 18) + 'px';
+                block.style.height = block.style.width;
+                block.style.fontSize = (parseInt(block.style.width) * 0.6) + 'px';
+                container.appendChild(block);
+            }
+        })();
+
+        // ── Scroll Reveal ──
+        (function initReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            reveals.forEach(el => observer.observe(el));
+        })();
+    </script>
+
+</body>
+</html>
