@@ -4,669 +4,267 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- FAVICON -->
     <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
     <link rel="shortcut icon" href="/favicon.jpg" />
     <link rel="apple-touch-icon" href="/favicon.jpg" />
 
-    <!-- SEO -->
-    <title>VoidWare — чит на Майнкрафт 1.21.11 | Minecraft Cheat Client</title>
-    <meta name="description" content="VoidWare — современный чит-клиент для Minecraft 1.21.11 и 1.16.5. PvP клиент с обходами, визуалом, оптимизацией и лучшими функциями для Minecraft." />
-    <meta name="keywords" content="VoidWare, voidware client, minecraft cheat, minecraft hacked client, чит minecraft, чит на майнкрафт" />
+    <title>VoidWare — Синий минимализм</title>
+    <meta name="description" content="VoidWare — современный чит-клиент для Minecraft" />
     <meta name="robots" content="index, follow" />
-    <meta name="author" content="VoidWare" />
-    <meta property="og:title" content="VoidWare — чит на Minecraft 1.21.11" />
-    <meta property="og:description" content="Лучший PvP клиент для Minecraft 1.21.11 и 1.16.5." />
 
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         /* ── Reset & Base ── */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        html,
-        body {
-            overflow-x: hidden;
-            max-width: 100%;
-            background: #07070d;
-            color: #fff;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            background: #0a0e1a;
+            color: #e8edf5;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             scroll-behavior: smooth;
             user-select: none;
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            pointer-events: none;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-            user-select: none;
-            -webkit-user-select: none;
+            overflow-x: hidden;
         }
 
-        /* ── Scrollbar ── */
-        ::-webkit-scrollbar {
-            width: 6px;
-            background: #0a0a14;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #7C3AED, #EC4899);
-            border-radius: 12px;
-        }
+        ::-webkit-scrollbar { width: 4px; background: #0a0e1a; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0ea5e9, #06b6d4); border-radius: 12px; }
 
-        /* ── Glass-morphism utility ── */
+        /* ── Glass ── */
         .glass {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(14, 165, 233, 0.08);
         }
-        .glass-light {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .glass-heavy {
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(14, 165, 233, 0.12);
         }
 
-        /* ── Gradient text with animation ── */
+        /* ── Gradient Text (сине-бирюзовый) ── */
         .gradient-text {
-            background: linear-gradient(135deg, #a78bfa, #ec4899, #f59e0b, #a78bfa);
-            background-size: 300% 300%;
+            background: linear-gradient(135deg, #38bdf8, #06b6d4, #2dd4bf);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientMove 6s ease-in-out infinite alternate;
-        }
-        .gradient-text-light {
-            background: linear-gradient(135deg, #c4b5fd, #f9a8d4, #fcd34d, #c4b5fd);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientMove 8s ease-in-out infinite alternate;
-        }
-        @keyframes gradientMove {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
         }
 
-        /* ── Buttons ── */
+        /* ── Buttons (синие) ── */
         .btn-primary {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 2rem;
+            gap: 0.6rem;
+            padding: 1rem 2.8rem;
             border-radius: 9999px;
             font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 0.01em;
-            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            font-size: 1rem;
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
             color: #fff;
             border: none;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
-            position: relative;
-            overflow: hidden;
-            user-select: none;
-            -webkit-user-select: none;
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
         }
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            background: linear-gradient(135deg, #6d28d9, #db2777);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.35);
-        }
-        .btn-primary:hover::after {
-            opacity: 1;
-        }
-        .btn-primary span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(8px);
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 50px rgba(14, 165, 233, 0.35); }
 
         .btn-outline {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 2rem;
+            gap: 0.6rem;
+            padding: 1rem 2.8rem;
             border-radius: 9999px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
             background: transparent;
-            color: #fff;
-            border: 1.5px solid rgba(124, 58, 237, 0.5);
+            color: #e8edf5;
+            border: 1.5px solid rgba(14, 165, 233, 0.35);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            user-select: none;
-            -webkit-user-select: none;
+            transition: all 0.3s;
         }
-        .btn-outline:hover {
-            background: rgba(124, 58, 237, 0.15);
-            border-color: #7C3AED;
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
-        }
+        .btn-outline:hover { background: rgba(14, 165, 233, 0.08); border-color: #0ea5e9; transform: translateY(-3px); }
 
-        /* ── 3D TILT CARDS (STATS) ── */
-        .stat-tilt {
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            transition: transform 0.2s ease;
-        }
-        .stat-tilt-inner {
-            transform-style: preserve-3d;
-            transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
-            border-radius: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 2rem 1.5rem;
-            text-align: center;
+        /* ─── Diagonal sections ─── */
+        .diagonal-section {
             position: relative;
+            padding: 6rem 2rem;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-            transform: translateZ(0);
         }
-        .stat-tilt-inner::before {
+        .diagonal-section::before {
             content: '';
             position: absolute;
-            inset: -2px;
-            border-radius: 2rem;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(236, 72, 153, 0.4), rgba(251, 191, 36, 0.15));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: inherit;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 70%);
+            z-index: 1;
             pointer-events: none;
-            opacity: 0.2;
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            transform: scale(0.95);
         }
-        .stat-tilt:hover .stat-tilt-inner::before {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .stat-tilt:hover .stat-tilt-inner {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(124, 58, 237, 0.2);
-            box-shadow: 0 25px 80px rgba(124, 58, 237, 0.15);
-            transform: translateZ(20px);
-        }
-        .stat-tilt .stat-icon {
-            font-size: 3rem;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            display: block;
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.1));
-        }
-        .stat-tilt:hover .stat-icon {
-            transform: scale(1.2) rotate(-8deg) translateZ(15px);
-            filter: drop-shadow(0 0 40px rgba(124, 58, 237, 0.2));
-        }
-        .stat-tilt .stat-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            transition: transform 0.4s ease;
-        }
-        .stat-tilt:hover .stat-number {
-            transform: scale(1.05) translateZ(10px);
-        }
-        .stat-tilt .stat-label {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 0.25rem;
-            transition: transform 0.4s ease;
-        }
-        .stat-tilt:hover .stat-label {
-            transform: translateZ(8px);
-        }
-
-        /* ── 3D TILT CARDS (FEATURES) ── */
-        .feature-tilt {
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            transition: transform 0.2s ease;
-            height: 100%;
-            display: flex;
-        }
-        .feature-tilt-inner {
-            transform-style: preserve-3d;
-            transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
-            border-radius: 1.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 1.8rem 1.5rem;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            transform: translateZ(0);
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            height: 100%;
-        }
-        .feature-tilt-inner::before {
+        .diagonal-section::after {
             content: '';
             position: absolute;
-            inset: -2px;
-            border-radius: 1.5rem;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(236, 72, 153, 0.4), rgba(251, 191, 36, 0.15));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0.2;
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            transform: scale(0.95);
-        }
-        .feature-tilt:hover .feature-tilt-inner::before {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .feature-tilt:hover .feature-tilt-inner {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(124, 58, 237, 0.2);
-            box-shadow: 0 20px 70px rgba(124, 58, 237, 0.12);
-            transform: translateZ(20px);
-        }
-        .feature-tilt .feature-icon {
-            font-size: 2.8rem;
-            display: inline-block;
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            margin-bottom: 0.5rem;
-            filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.1));
-            flex-shrink: 0;
-        }
-        .feature-tilt:hover .feature-icon {
-            transform: scale(1.25) rotate(10deg) translateZ(15px);
-            filter: drop-shadow(0 0 40px rgba(124, 58, 237, 0.2));
-        }
-        .feature-tilt .feature-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-            transition: transform 0.4s ease;
-            flex-shrink: 0;
-        }
-        .feature-tilt:hover .feature-title {
-            transform: translateZ(10px);
-        }
-        .feature-tilt .feature-desc {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.5);
-            transition: transform 0.4s ease;
-            flex: 1;
-            margin-bottom: 0.5rem;
-        }
-        .feature-tilt:hover .feature-desc {
-            transform: translateZ(8px);
-        }
-        .feature-tilt .feature-rating {
-            display: inline-block;
-            font-size: 0.8rem;
-            color: #fbbf24;
-            letter-spacing: 1px;
-            margin-top: auto;
-            transition: transform 0.4s ease;
-            flex-shrink: 0;
-        }
-        .feature-tilt:hover .feature-rating {
-            transform: translateZ(8px);
-        }
-
-        /* ── 3D CUBE ── */
-        .cube-wrapper {
-            perspective: 1000px;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-            transition: transform 0.3s ease;
-        }
-        .cube-wrapper:hover {
-            transform: scale(1.05) rotateX(5deg) rotateY(5deg);
-        }
-        .cube {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: spinCube 12s infinite linear;
-        }
-        .cube-face {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4.5rem;
-            background: rgba(124, 58, 237, 0.15);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: inset 0 0 30px rgba(124, 58, 237, 0.2);
-            text-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
-            transition: box-shadow 0.5s ease;
-        }
-        .cube-wrapper:hover .cube-face {
-            box-shadow: inset 0 0 60px rgba(124, 58, 237, 0.4);
-        }
-        .cube-face-front {
-            transform: translateZ(100px);
-        }
-        .cube-face-back {
-            transform: rotateY(180deg) translateZ(100px);
-        }
-        .cube-face-right {
-            transform: rotateY(90deg) translateZ(100px);
-        }
-        .cube-face-left {
-            transform: rotateY(-90deg) translateZ(100px);
-        }
-        .cube-face-top {
-            transform: rotateX(90deg) translateZ(100px);
-        }
-        .cube-face-bottom {
-            transform: rotateX(-90deg) translateZ(100px);
-        }
-        @keyframes spinCube {
-            0% {
-                transform: rotateX(0) rotateY(0);
-            }
-            100% {
-                transform: rotateX(360deg) rotateY(720deg);
-            }
-        }
-        .cube-glow {
-            position: absolute;
-            inset: -20px;
-            border-radius: 40px;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.3), transparent 70%);
-            filter: blur(30px);
-            z-index: -1;
-            transition: opacity 0.5s ease;
-        }
-        .cube-wrapper:hover .cube-glow {
-            opacity: 1.5;
-        }
-
-        /* ── Falling blocks ── */
-        .falling-blocks-container {
-            position: fixed;
-            top: 0;
+            bottom: -2px;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            height: 60px;
+            background: inherit;
+            clip-path: polygon(0 30%, 100% 0, 100% 100%, 0 100%);
+            z-index: 1;
             pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .falling-block {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            background: rgba(124, 58, 237, 0.1);
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: rotate(45deg);
-            animation: fall linear infinite;
-            opacity: 0;
-            font-size: 14px;
-        }
-        @keyframes fall {
-            0% {
-                transform: translateY(-50px) rotate(0deg) scale(0.5);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(calc(100vh + 100px)) rotate(720deg) scale(1.2);
-                opacity: 0;
-            }
         }
 
-        /* ── Typing text ── */
-        .typing-wrapper {
-            display: inline-block;
-            border-right: 3px solid #a78bfa;
-            padding-right: 6px;
-            animation: blink-caret 0.8s step-end infinite;
-        }
-        @keyframes blink-caret {
-            0%,
-            100% {
-                border-color: #a78bfa;
-            }
-            50% {
-                border-color: transparent;
-            }
-        }
-
-        /* ── Seo hidden ── */
-        .seo-hidden {
-            position: absolute;
-            left: -99999px;
-            top: -99999px;
-            opacity: 0;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        /* ── Particles canvas overlay ── */
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
-        /* ── Content above everything ── */
-        .content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ── Reveal animations ── */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px) scale(0.95);
-            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 640px) {
-            .cube-wrapper {
-                width: 150px;
-                height: 150px;
-            }
-            .cube-face {
-                width: 150px;
-                height: 150px;
-                font-size: 3.5rem;
-            }
-            .cube-face-front {
-                transform: translateZ(75px);
-            }
-            .cube-face-back {
-                transform: rotateY(180deg) translateZ(75px);
-            }
-            .cube-face-right {
-                transform: rotateY(90deg) translateZ(75px);
-            }
-            .cube-face-left {
-                transform: rotateY(-90deg) translateZ(75px);
-            }
-            .cube-face-top {
-                transform: rotateX(90deg) translateZ(75px);
-            }
-            .cube-face-bottom {
-                transform: rotateX(-90deg) translateZ(75px);
-            }
-            .btn-primary,
-            .btn-secondary,
-            .btn-outline {
-                padding: 0.6rem 1.4rem;
-                font-size: 0.85rem;
-            }
-            .stat-tilt .stat-number {
-                font-size: 2.4rem;
-            }
-            .stat-tilt .stat-icon {
-                font-size: 2.2rem;
-            }
-            .feature-tilt .feature-icon {
-                font-size: 2rem;
-            }
-        }
-
-        /* ── Fullscreen Easter Egg ── */
-        .easter-egg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.92);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-        .easter-egg-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-        .easter-egg-overlay img {
-            max-width: 90%;
-            max-height: 90%;
+        /* ─── Stat Cards (синие) ─── */
+        .stat-card {
+            background: rgba(255,255,255,0.02);
             border-radius: 2rem;
-            box-shadow: 0 0 80px rgba(124, 58, 237, 0.3);
-            border: 2px solid rgba(124, 58, 237, 0.2);
-            animation: eggPulse 2s ease-in-out infinite;
-            object-fit: contain;
-        }
-        @keyframes eggPulse {
-            0%,
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 60px rgba(124, 58, 237, 0.2);
-            }
-            50% {
-                transform: scale(1.02);
-                box-shadow: 0 0 100px rgba(124, 58, 237, 0.4);
-            }
-        }
-        .easter-egg-counter {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10000;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.8rem;
-            font-family: 'Inter', sans-serif;
-            pointer-events: none;
-            display: none;
-        }
-        .easter-egg-counter.show {
-            display: block;
-        }
-
-        /* ── Header blur ── */
-        .header-transition {
+            padding: 2rem 2.5rem;
+            border: 1px solid rgba(14, 165, 233, 0.06);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 2rem;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(6, 182, 212, 0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .stat-card:hover::before { opacity: 1; }
+        .stat-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.03); }
+
+        /* ─── Feature Cards (синие) ─── */
+        .feature-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 1.5rem;
+            padding: 2rem 1.8rem;
+            border: 1px solid rgba(14, 165, 233, 0.06);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card:hover {
+            border-color: rgba(14, 165, 233, 0.25);
+            transform: translateY(-6px);
+            background: rgba(255,255,255,0.03);
+            box-shadow: 0 20px 60px rgba(14, 165, 233, 0.04);
+        }
+        .feature-card .icon-wrap {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: rgba(14, 165, 233, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        .feature-card:hover .icon-wrap {
+            background: rgba(14, 165, 233, 0.15);
+            transform: scale(1.1) rotate(-5deg);
         }
 
-        /* ── About Client Section ── */
+        /* ─── Review Cards ─── */
+        .review-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(14, 165, 233, 0.06);
+            transition: all 0.3s;
+        }
+        .review-card:hover { border-color: rgba(14, 165, 233, 0.2); transform: scale(1.02); }
+
+        /* ─── Timeline ─── */
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            border-left: 2px solid rgba(14, 165, 233, 0.15);
+            transition: all 0.3s;
+        }
+        .timeline-item:hover { border-left-color: #0ea5e9; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+        .timeline-item .dot-glow {
+            position: absolute;
+            left: -15px;
+            top: -3px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.15), transparent 70%);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 1; }
+        }
+
+        /* ─── Marquee ─── */
+        .marquee {
+            overflow: hidden;
+            padding: 1.2rem 0;
+            border-top: 1px solid rgba(14, 165, 233, 0.05);
+            border-bottom: 1px solid rgba(14, 165, 233, 0.05);
+        }
+        .marquee-track {
+            display: flex;
+            gap: 3rem;
+            animation: marqueeScroll 25s linear infinite;
+            width: max-content;
+        }
+        .marquee-track span {
+            color: rgba(255,255,255,0.1);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+        }
+        .marquee-track .highlight { color: rgba(14, 165, 233, 0.25); }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ─── Video ─── */
+        .video-wrapper {
+            border-radius: 2rem;
+            overflow: hidden;
+            border: 1px solid rgba(14, 165, 233, 0.08);
+        }
+        .video-wrapper video { width: 100%; display: block; }
+
+        /* ─── About Section ─── */
         .about-section {
             border-radius: 2.5rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 2.5rem 2.5rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(14, 165, 233, 0.06);
+            padding: 2.5rem;
             transition: all 0.4s ease;
         }
         .about-section:hover {
-            border-color: rgba(124, 58, 237, 0.15);
-            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.05);
+            border-color: rgba(14, 165, 233, 0.12);
+            box-shadow: 0 8px 40px rgba(14, 165, 233, 0.03);
         }
         .about-section h2 {
             font-size: 2.2rem;
@@ -674,7 +272,7 @@
             margin-bottom: 1.5rem;
         }
         .about-section p {
-            color: rgba(255, 255, 255, 0.65);
+            color: rgba(255,255,255,0.6);
             line-height: 1.8;
             font-size: 1.05rem;
         }
@@ -687,710 +285,684 @@
             gap: 0.6rem 1.5rem;
         }
         .about-section ul li {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255,255,255,0.5);
             font-size: 0.95rem;
             padding: 0.3rem 0 0.3rem 1.8rem;
             position: relative;
             line-height: 1.5;
         }
         .about-section ul li::before {
-            content: '✦';
+            content: '◆';
             position: absolute;
             left: 0;
-            color: #a78bfa;
-            font-size: 0.8rem;
+            color: #0ea5e9;
+            font-size: 0.6rem;
         }
         @media (max-width: 640px) {
-            .about-section {
-                padding: 1.5rem;
-            }
-            .about-section h2 {
-                font-size: 1.6rem;
-            }
-            .about-section ul {
-                grid-template-columns: 1fr;
-            }
-            .about-section p {
-                font-size: 0.9rem;
-            }
+            .about-section { padding: 1.5rem; }
+            .about-section h2 { font-size: 1.6rem; }
+            .about-section ul { grid-template-columns: 1fr; }
         }
 
-        /* ── 3D floating icons ── */
-        .float-3d {
-            display: inline-block;
-            animation: float3d 6s ease-in-out infinite;
-            transform-style: preserve-3d;
-        }
-        @keyframes float3d {
-            0%,
-            100% {
-                transform: translateY(0) rotateX(0) rotateY(0) scale(1);
-            }
-            25% {
-                transform: translateY(-18px) rotateX(10deg) rotateY(15deg) scale(1.08);
-            }
-            75% {
-                transform: translateY(12px) rotateX(-6deg) rotateY(-12deg) scale(0.92);
-            }
+        /* ─── Particles ─── */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
         }
 
-        /* ── Glow text ── */
+        /* ─── Easter Egg ─── */
+        .easter-egg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            backdrop-filter: blur(30px);
+        }
+        .easter-egg-overlay.active { display: flex; opacity: 1; }
+        .easter-egg-overlay img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 2rem;
+            box-shadow: 0 0 100px rgba(14, 165, 233, 0.3);
+            border: 2px solid rgba(14, 165, 233, 0.2);
+            animation: eggPulse 2s ease-in-out infinite;
+        }
+        @keyframes eggPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 60px rgba(14, 165, 233, 0.2); }
+            50% { transform: scale(1.03); box-shadow: 0 0 120px rgba(14, 165, 233, 0.4); }
+        }
+        .easter-egg-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            color: rgba(255,255,255,0.15);
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            pointer-events: none;
+            display: none;
+        }
+        .easter-egg-counter.show { display: block; }
+
+        /* ─── Reveal ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.23,1,0.32,1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .seo-hidden { position: absolute; left: -99999px; top: -99999px; }
+
         .glow-text {
-            text-shadow: 0 0 20px rgba(124, 58, 237, 0.3), 0 0 60px rgba(124, 58, 237, 0.1);
-            transition: text-shadow 0.5s;
-        }
-        .glow-text:hover {
-            text-shadow: 0 0 50px rgba(124, 58, 237, 0.6), 0 0 100px rgba(236, 72, 153, 0.3);
-        }
-
-        /* ── Защита от выделения ── */
-        .no-select {
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
-        /* ── Блокировка контекстного меню ── */
-        * {
-            -webkit-touch-callout: none;
+            text-shadow: 0 0 30px rgba(14, 165, 233, 0.15), 0 0 60px rgba(14, 165, 233, 0.05);
         }
 
         .footer-guard {
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255,255,255,0.15);
             font-weight: 600;
             letter-spacing: 0.1em;
             margin-top: 0.2rem;
         }
+
+        /* ─── ОСТРОВНАЯ ШАПКА (синяя) ─── */
+        .island-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .island-piece {
+            background: rgba(10, 14, 26, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(14, 165, 233, 0.08);
+            border-radius: 9999px;
+            padding: 0.4rem 0.8rem;
+            box-shadow: 0 8px 60px rgba(0,0,0,0.5);
+            transition: all 0.4s ease;
+        }
+        .island-piece.scrolled {
+            background: rgba(10, 14, 26, 0.9);
+            border-color: rgba(14, 165, 233, 0.15);
+        }
+        .piece-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+        }
+        .piece-logo .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1rem;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
+        }
+        .piece-logo .text {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #e8edf5;
+        }
+        .piece-logo .text .highlight {
+            background: linear-gradient(135deg, #38bdf8, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .piece-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.3rem;
+        }
+        .piece-nav a {
+            padding: 0.3rem 0.9rem;
+            border-radius: 9999px;
+            color: rgba(255,255,255,0.35);
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .piece-nav a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.04);
+        }
+        .piece-nav a.active {
+            color: #fff;
+            background: rgba(14, 165, 233, 0.1);
+        }
+        .piece-btn {
+            padding: 0.3rem 1.4rem;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .piece-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(14, 165, 233, 0.25);
+        }
+        .piece-burger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .piece-burger span {
+            width: 20px;
+            height: 2px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .island-container {
+                top: 12px;
+                left: 12px;
+                right: 12px;
+                transform: none;
+                justify-content: space-between;
+                gap: 8px;
+            }
+            .island-piece {
+                border-radius: 16px;
+                padding: 0.4rem 0.6rem;
+            }
+            .piece-nav { display: none; }
+            .piece-nav.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: calc(100% + 10px);
+                left: 0;
+                right: 0;
+                background: rgba(10,14,26,0.98);
+                backdrop-filter: blur(24px);
+                border-radius: 16px;
+                padding: 1rem;
+                gap: 0.3rem;
+                border: 1px solid rgba(14,165,233,0.1);
+            }
+            .piece-nav.mobile-open a {
+                padding: 0.7rem 1rem;
+                text-align: center;
+            }
+            .piece-burger { display: flex; }
+            .piece-btn { padding: 0.3rem 1rem; font-size: 0.7rem; }
+            .piece-logo .text { font-size: 0.8rem; }
+        }
+
+        @media (max-width: 640px) {
+            .diagonal-section { padding: 4rem 1.5rem; }
+            .stat-card { padding: 1.5rem; }
+            .btn-primary, .btn-outline { padding: 0.8rem 1.8rem; font-size: 0.9rem; }
+        }
     </style>
 </head>
-
 <body>
 
-    <!-- ─── FALLING BLOCKS ─── -->
-    <div class="falling-blocks-container" id="fallingBlocks"></div>
-
-    <!-- ─── PARTICLES CANVAS ─── -->
+    <!-- ─── PARTICLES ─── -->
     <canvas id="particles-canvas"></canvas>
 
     <!-- ─── SEO HIDDEN ─── -->
     <div class="seo-hidden">
         <h1>VoidWare — чит клиент для Minecraft 1.21.11</h1>
-        <h2>VoidWare Client для Minecraft 1.16.5</h2>
-        <p>VoidWare — современный чит-клиент для Minecraft 1.21.11 и 1.16.5. Содержит лучшие PvP функции, bypass обходы, utility моды, ESP, оптимизацию FPS.</p>
+        <p>VoidWare — современный чит-клиент для Minecraft 1.21.11 и 1.16.5.</p>
     </div>
 
-    <!-- ─── CONTENT ─── -->
-    <div class="content">
+    <!-- ─── ОСТРОВНАЯ ШАПКА (новая, синяя) ─── -->
+    <div class="island-container" id="container">
+        <div class="island-piece" id="island1">
+            <div class="piece-logo" id="logoClicker">
+                <div class="icon">V</div>
+                <span class="text">Void<span class="highlight">Ware</span></span>
+            </div>
+        </div>
+        <div class="island-piece" id="island2">
+            <nav class="piece-nav" id="navLinks">
+                <a href="#" class="active">Главная</a>
+                <a href="#">Новости</a>
+                <a href="#">Товары</a>
+                <a href="#">Профиль</a>
+                <button class="piece-btn">Скачать</button>
+            </nav>
+            <div class="piece-burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
 
-        <!-- ─── HEADER ─── -->
-        <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 header-transition bg-[#07070d]/80 backdrop-blur-md border-b border-white/5 no-select">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between flex-wrap gap-3">
-                <div class="flex items-center gap-3">
-                    <div id="logoClicker" class="w-11 h-11 rounded-2xl overflow-hidden border border-purple-400/30 shadow-lg shadow-purple-500/10 flex-shrink-0 cursor-pointer transition hover:scale-105 hover:border-purple-400/60" title="Кликни 10 раз на логотип...">
-                        <img src="/newicon.jpg" alt="VoidWare logo" class="w-full h-full object-cover" draggable="false" />
-                    </div>
-                    <div>
-                        <h1 class="font-bold text-lg tracking-tight">VoidWare</h1>
-                        <p class="text-[10px] text-white/40 tracking-wider uppercase">Minecraft 1.21.11</p>
-                    </div>
+    <!-- ─── ОСНОВНОЙ КОНТЕНТ ─── -->
+    <div class="content" style="position:relative; z-index:2;">
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SECTION 1: HERO (новый) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <section class="diagonal-section min-h-screen flex items-center justify-center" style="background: radial-gradient(ellipse at 50% 30%, rgba(14,165,233,0.04), #0a0e1a 70%); padding-top: 120px;">
+            <div class="max-w-4xl mx-auto w-full text-center">
+                <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass border border-blue-400/15 mb-8">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-400"></span>
+                    </span>
+                    <span class="text-blue-200/70 text-sm font-medium">✦ Версия 2.0 — Полностью обновлён</span>
                 </div>
 
-                <nav class="flex flex-wrap items-center gap-2 sm:gap-3">
-                    <a href="index.html" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-sm transition hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 no-select">
-                        Главная
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-black leading-[0.9] tracking-tight glow-text">
+                    Void<span class="gradient-text">Ware</span>
+                </h1>
+                <p class="text-3xl sm:text-4xl font-light text-white/20 mt-2">#1 Minecraft Client</p>
+
+                <p class="mt-6 text-lg text-white/35 max-w-2xl mx-auto leading-relaxed">
+                    Новый уровень игры. Продвинутые обходы, максимальная стабильность и стильный интерфейс для Minecraft 1.21.11.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 mt-10">
+                    <a href="#" class="btn-primary">
+                        Начать использовать
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
-                    <a href="news.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
-                        Новости
-                    </a>
-                    <a href="shop.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
-                        Товары
-                    </a>
-                    <!-- Исправленная кнопка "Профиль" — без эмодзи, стиль как у "Новости" и "Товары" -->
-                    <a href="profile.html" class="px-5 py-2.5 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
-                        Профиль
-                    </a>
-                </nav>
+                    <a href="#features" class="btn-outline">Смотреть возможности</a>
+                </div>
+
+                <div class="flex items-center justify-center gap-6 mt-10 text-white/15">
+                    <span class="flex items-center gap-2 text-sm">⭐ 4.9/5</span>
+                    <span class="w-px h-6 bg-white/5"></span>
+                    <span class="flex items-center gap-2 text-sm">👤 55+ активных</span>
+                    <span class="w-px h-6 bg-white/5"></span>
+                    <span class="flex items-center gap-2 text-sm">🔄 Еженедельно</span>
+                </div>
             </div>
-        </header>
+        </section>
 
-        <!-- ─── SPACER ─── -->
-        <div class="h-20 sm:h-24"></div>
+        <!-- ─── MARQUEE ─── -->
+        <div class="marquee">
+            <div class="marquee-track">
+                <span>✦ VOIDWARE — ЛУЧШИЙ КЛИЕНТ ДЛЯ MINECRAFT</span>
+                <span class="highlight">✦ 1.21.11 И 1.16.5</span>
+                <span>✦ PVP, ОБХОДЫ, ВИЗУАЛ, ОПТИМИЗАЦИЯ</span>
+                <span class="highlight">✦ 55+ АКТИВНЫХ</span>
+                <span>✦ ПОДДЕРЖКА 24/7</span>
+                <span class="highlight">✦ ОБНОВЛЕНИЯ</span>
+                <span>✦ VOIDWARE — ЛУЧШИЙ КЛИЕНТ ДЛЯ MINECRAFT</span>
+                <span class="highlight">✦ 1.21.11 И 1.16.5</span>
+                <span>✦ PVP, ОБХОДЫ, ВИЗУАЛ, ОПТИМИЗАЦИЯ</span>
+                <span class="highlight">✦ 55+ АКТИВНЫХ</span>
+                <span>✦ ПОДДЕРЖКА 24/7</span>
+                <span class="highlight">✦ ОБНОВЛЕНИЯ</span>
+            </div>
+        </div>
 
-        <!-- ─── HERO ─── -->
-        <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-16 sm:pb-24 overflow-hidden reveal no-select">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full glass border border-purple-400/20 mb-6 sm:mb-8 no-select">
-                        <span class="relative flex h-2.5 w-2.5">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-400"></span>
-                        </span>
-                        <span class="text-purple-200 text-xs sm:text-sm font-medium tracking-wide">⚡ Лучший PvP клиент</span>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SECTION 2: STATS (новые карточки) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <section class="diagonal-section py-24" style="background: radial-gradient(ellipse at 70% 50%, rgba(6,182,212,0.04), #0a0e1a 60%);">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="text-center mb-16">
+                    <p class="text-blue-400 text-sm font-semibold tracking-[0.2em] uppercase">Статистика</p>
+                    <h2 class="text-4xl sm:text-5xl font-black mt-2">Цифры, <span class="gradient-text">которые впечатляют</span></h2>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="stat-card reveal">
+                        <div class="text-5xl mb-2">📊</div>
+                        <div class="text-4xl font-black gradient-text">5,234</div>
+                        <div class="text-white/35 text-sm">Запусков клиента</div>
+                        <div class="text-xs text-blue-400/25 mt-1">+12% за месяц</div>
                     </div>
+                    <div class="stat-card reveal">
+                        <div class="text-5xl mb-2">👥</div>
+                        <div class="text-4xl font-black gradient-text">55</div>
+                        <div class="text-white/35 text-sm">Активных пользователей</div>
+                        <div class="text-xs text-blue-400/25 mt-1">онлайн каждый день</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="text-5xl mb-2">⚡</div>
+                        <div class="text-4xl font-black gradient-text">99.7%</div>
+                        <div class="text-white/35 text-sm">Стабильность работы</div>
+                        <div class="text-xs text-blue-400/25 mt-1">почти без вылетов</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="text-5xl mb-2">🏆</div>
+                        <div class="text-4xl font-black gradient-text">4.9</div>
+                        <div class="text-white/35 text-sm">Средняя оценка</div>
+                        <div class="text-xs text-blue-400/25 mt-1">на основе отзывов</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-black leading-[0.95] tracking-tight glow-text no-select">
-                        VoidWare —<br />
-                        <span class="gradient-text">мощность,</span><br />
-                        <span class="gradient-text-light">стиль и</span><br />
-                        <span class="gradient-text" id="typing-text">стабильность.</span>
-                    </h1>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SECTION 3: FEATURES (новый дизайн) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <section id="features" class="diagonal-section py-24" style="background: radial-gradient(ellipse at 50% 50%, rgba(14,165,233,0.03), #0a0e1a 60%);">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="text-center mb-16">
+                    <p class="text-blue-400 text-sm font-semibold tracking-[0.2em] uppercase">Возможности</p>
+                    <h2 class="text-4xl sm:text-5xl font-black mt-2">Всё для <span class="gradient-text">комфортной игры</span></h2>
+                    <p class="text-white/20 mt-3 max-w-2xl mx-auto">Современные технологии для максимального преимущества</p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="feature-card reveal">
+                        <div class="icon-wrap">🛡️</div>
+                        <h3 class="font-bold text-xl mb-1">Обходы античита</h3>
+                        <p class="text-white/35 text-sm">Продвинутая система байпасов</p>
+                        <span class="inline-block mt-3 text-xs text-blue-400/40">★★★★★</span>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrap">⚡</div>
+                        <h3 class="font-bold text-xl mb-1">Максимальная стабильность</h3>
+                        <p class="text-white/35 text-sm">Работает без вылетов и лагов</p>
+                        <span class="inline-block mt-3 text-xs text-blue-400/40">★★★★★</span>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrap">🚀</div>
+                        <h3 class="font-bold text-xl mb-1">Оптимизация FPS</h3>
+                        <p class="text-white/35 text-sm">Высокая производительность</p>
+                        <span class="inline-block mt-3 text-xs text-blue-400/40">★★★★☆</span>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrap">✨</div>
+                        <h3 class="font-bold text-xl mb-1">Современный UI</h3>
+                        <p class="text-white/35 text-sm">Красивый интерфейс</p>
+                        <span class="inline-block mt-3 text-xs text-blue-400/40">★★★★★</span>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrap">🔒</div>
+                        <h3 class="font-bold text-xl mb-1">Анти-детект</h3>
+                        <p class="text-white/35 text-sm">Защита от античитов</p>
+                        <span class="inline-block mt-3 text-xs text-blue-400/40">★★★★☆</span>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrap">🔄</div>
+                        <h3 class="font-bold text-xl mb-1">Совместимость</h3>
+                        <p class="text-white/35 text-sm">1.21.11 и 1.16.5</p>
+                        <span class="inline-block mt-3 text-xs text-blue-400/40">★★★★★</span>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrap">💬</div>
+                        <h3 class="font-bold text-xl mb-1">Поддержка 24/7</h3>
+                        <p class="text-white/35 text-sm">Всегда на связи в Telegram</p>
+                        <span class="inline-block mt-3 text-xs text-blue-400/40">★★★★★</span>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon-wrap">📦</div>
+                        <h3 class="font-bold text-xl mb-1">Регулярные обновления</h3>
+                        <p class="text-white/35 text-sm">Новые функции каждую неделю</p>
+                        <span class="inline-block mt-3 text-xs text-blue-400/40">★★★★★</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                    <p class="mt-6 sm:mt-8 text-base sm:text-lg text-white/50 leading-relaxed max-w-xl no-select">
-                        Современный клиент для Minecraft 1.21.11 с продвинутыми функциями,
-                        плавной оптимизацией и красивым визуальным стилем.
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SECTION 4: ABOUT + VIDEO (новое оформление) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <section class="diagonal-section py-24" style="background: radial-gradient(ellipse at 30% 70%, rgba(6,182,212,0.03), #0a0e1a 60%);">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="about-section reveal mb-16">
+                    <h2>О клиенте <span class="gradient-text">VoidWare</span></h2>
+                    <p>
+                        VoidWare — это современный клиент, созданный для комфортной игры на серверах Minecraft.
+                        Мы объединили передовые технологии обхода античитов, интуитивный интерфейс и высокую
+                        производительность, чтобы каждый игрок мог чувствовать себя уверенно.
                     </p>
-
-                    <div class="flex flex-wrap gap-3 sm:gap-4 mt-8">
-                        <a href="shop.html" class="btn-primary no-select">
-                            <span>Купить клиент</span>
-                            <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                        </a>
-                        <a href="#video" class="btn-secondary no-select">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z" /></svg>
-                            Смотреть обзор
-                        </a>
-                    </div>
+                    <p class="mt-3">
+                        Клиент разрабатывается с учётом всех современных требований: поддержка последних версий,
+                        регулярные обновления, адаптация под разные сервера и активная обратная связь.
+                    </p>
+                    <ul>
+                        <li>Полная совместимость с Minecraft 1.21.11 и 1.16.5</li>
+                        <li>Интеллектуальная система обхода античитов</li>
+                        <li>Оптимизация для слабых и мощных ПК</li>
+                        <li>Красивый и настраиваемый интерфейс</li>
+                        <li>Быстрая и отзывчивая поддержка</li>
+                        <li>Регулярные обновления и новые функции</li>
+                        <li>Безопасная HWID-активация</li>
+                        <li>Доступ к эксклюзивным модулям</li>
+                    </ul>
                 </div>
 
-                <div class="flex justify-center relative">
-                    <div class="cube-wrapper" id="cubeWrapper">
-                        <div class="cube-glow"></div>
-                        <div class="cube">
-                            <div class="cube-face cube-face-front">⛏️</div>
-                            <div class="cube-face cube-face-back">⚔️</div>
-                            <div class="cube-face cube-face-right">💎</div>
-                            <div class="cube-face cube-face-left">🛡️</div>
-                            <div class="cube-face cube-face-top">🚀</div>
-                            <div class="cube-face cube-face-bottom">✨</div>
+                <div id="video" class="reveal">
+                    <div class="mb-6">
+                        <p class="text-blue-400 text-sm font-semibold tracking-[0.2em] uppercase">Видео</p>
+                        <h2 class="text-3xl sm:text-4xl font-black mt-1">Обзор клиента <span class="gradient-text">VoidWare</span></h2>
+                    </div>
+                    <div class="video-wrapper glass p-2">
+                        <video controls preload="metadata" playsinline controlsList="nodownload" disablePictureInPicture>
+                            <source src="obzor.mp4" type="video/mp4" />
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SECTION 5: TIMELINE (новый) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <section class="diagonal-section py-24" style="background: radial-gradient(ellipse at 50% 30%, rgba(14,165,233,0.03), #0a0e1a 60%);">
+            <div class="max-w-4xl mx-auto w-full">
+                <div class="text-center mb-16">
+                    <p class="text-blue-400 text-sm font-semibold tracking-[0.2em] uppercase">Развитие</p>
+                    <h2 class="text-4xl sm:text-5xl font-black mt-2">История <span class="gradient-text">VoidWare</span></h2>
+                </div>
+                <div class="space-y-12">
+                    <div class="timeline-item reveal">
+                        <div class="dot-glow"></div>
+                        <div class="flex items-center gap-4 mb-1">
+                            <span class="text-3xl">🚀</span>
+                            <span class="text-sm text-blue-400/40 font-semibold">Январь 2026</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Запуск VoidWare 1.0</h3>
+                        <p class="text-white/35">Первый релиз с базовым набором функций</p>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="dot-glow"></div>
+                        <div class="flex items-center gap-4 mb-1">
+                            <span class="text-3xl">⚡</span>
+                            <span class="text-sm text-blue-400/40 font-semibold">Март 2026</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Система обходов</h3>
+                        <p class="text-white/35">Внедрена продвинутая система байпасов</p>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="dot-glow"></div>
+                        <div class="flex items-center gap-4 mb-1">
+                            <span class="text-3xl">✨</span>
+                            <span class="text-sm text-blue-400/40 font-semibold">Июнь 2026</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Редизайн UI</h3>
+                        <p class="text-white/35">Обновлён интерфейс и визуальные эффекты</p>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="dot-glow"></div>
+                        <div class="flex items-center gap-4 mb-1">
+                            <span class="text-3xl">🏆</span>
+                            <span class="text-sm text-blue-400/40 font-semibold">Август 2026</span>
+                        </div>
+                        <h3 class="text-xl font-bold">55+ активных пользователей</h3>
+                        <p class="text-white/35">Сообщество продолжает расти</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SECTION 6: REVIEWS (новые) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <section class="diagonal-section py-24" style="background: radial-gradient(ellipse at 70% 60%, rgba(6,182,212,0.03), #0a0e1a 60%);">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="text-center mb-16">
+                    <p class="text-blue-400 text-sm font-semibold tracking-[0.2em] uppercase">Отзывы</p>
+                    <h2 class="text-4xl sm:text-5xl font-black mt-2">Что говорят <span class="gradient-text">игроки</span></h2>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-6">
+                    <div class="review-card reveal">
+                        <div class="flex items-center gap-2 text-yellow-400/80 mb-3">★★★★★</div>
+                        <p class="text-white/50 text-sm leading-relaxed">"Лучший клиент, который я пробовал. Обходы работают идеально, FPS высокий."</p>
+                        <div class="flex items-center gap-3 mt-4">
+                            <div class="w-10 h-10 rounded-full bg-blue-500/15 flex items-center justify-center text-sm text-blue-300">А</div>
+                            <div><p class="font-semibold text-sm">Alex_Pro</p><p class="text-white/15 text-xs">Игрок 3 года</p></div>
+                        </div>
+                    </div>
+                    <div class="review-card reveal">
+                        <div class="flex items-center gap-2 text-yellow-400/80 mb-3">★★★★★</div>
+                        <p class="text-white/50 text-sm leading-relaxed">"Интерфейс просто огонь! Всё плавно, красиво и интуитивно понятно."</p>
+                        <div class="flex items-center gap-3 mt-4">
+                            <div class="w-10 h-10 rounded-full bg-cyan-500/15 flex items-center justify-center text-sm text-cyan-300">М</div>
+                            <div><p class="font-semibold text-sm">MegaPvP</p><p class="text-white/15 text-xs">Про игрок</p></div>
+                        </div>
+                    </div>
+                    <div class="review-card reveal">
+                        <div class="flex items-center gap-2 text-yellow-400/80 mb-3">★★★★☆</div>
+                        <p class="text-white/50 text-sm leading-relaxed">"Отличный клиент, хотелось бы больше визуальных тем. В остальном всё супер!"</p>
+                        <div class="flex items-center gap-3 mt-4">
+                            <div class="w-10 h-10 rounded-full bg-blue-500/15 flex items-center justify-center text-sm text-blue-300">Д</div>
+                            <div><p class="font-semibold text-sm">DarkMaster</p><p class="text-white/15 text-xs">Игрок 1 год</p></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ─── STATS ─── -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 reveal no-select">
-            <div class="mb-8 sm:mb-12">
-                <p class="uppercase tracking-[0.3em] text-purple-400 text-xs sm:text-sm font-semibold mb-2">Статистика</p>
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">VoidWare <span class="gradient-text">в цифрах</span></h2>
-            </div>
-            <div class="grid sm:grid-cols-3 gap-4 sm:gap-6" id="statsContainer">
-                <div class="stat-tilt" data-tilt>
-                    <div class="stat-tilt-inner">
-                        <span class="stat-icon float-3d">🖥️</span>
-                        <div class="stat-number gradient-text">
-                            <span class="stat-number-value" data-target="5000">0</span><span>+</span>
-                        </div>
-                        <div class="stat-label">Запусков клиента</div>
-                        <div class="text-xs text-purple-400/40 mt-1">на 1.21.11 и 1.16.5</div>
-                    </div>
-                </div>
-                <div class="stat-tilt" data-tilt>
-                    <div class="stat-tilt-inner">
-                        <span class="stat-icon float-3d" style="animation-delay:1s;">👤</span>
-                        <div class="stat-number gradient-text-light">
-                            <span class="stat-number-value" data-target="55">0</span><span>+</span>
-                        </div>
-                        <div class="stat-label">Активных пользователей</div>
-                        <div class="text-xs text-purple-400/40 mt-1">онлайн каждый день</div>
-                    </div>
-                </div>
-                <div class="stat-tilt" data-tilt>
-                    <div class="stat-tilt-inner">
-                        <span class="stat-icon float-3d" style="animation-delay:2s;">⚙️</span>
-                        <div class="stat-number gradient-text">
-                            <span class="stat-number-value" data-target="99">0</span><span>%</span>
-                        </div>
-                        <div class="stat-label">Стабильность клиента</div>
-                        <div class="text-xs text-purple-400/40 mt-1">почти без вылетов</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ─── ABOUT (Features) ─── -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 reveal no-select">
-            <div class="rounded-[2.5rem] sm:rounded-[3.5rem] glass p-6 sm:p-10 md:p-14 border border-white/5">
-                <div class="grid lg:grid-cols-2 gap-10 items-start">
-                    <div>
-                        <p class="uppercase tracking-[0.3em] text-purple-400 text-xs sm:text-sm font-semibold mb-3">О клиенте</p>
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 glow-text">
-                            Создан для <span class="gradient-text">доминирования.</span>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SECTION 7: CTA (новый) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <section class="diagonal-section py-24" style="background: radial-gradient(ellipse at 50% 80%, rgba(14,165,233,0.06), #0a0e1a 60%);">
+            <div class="max-w-4xl mx-auto w-full text-center">
+                <div class="glass-heavy rounded-3xl p-12 sm:p-16 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/3 to-cyan-500/3"></div>
+                    <div class="relative">
+                        <h2 class="text-4xl sm:text-5xl md:text-6xl font-black leading-[1.05]">
+                            Готов к<br>
+                            <span class="gradient-text">Новому уровню</span>?
                         </h2>
-                        <p class="text-white/50 leading-relaxed text-base sm:text-lg">
-                            Разработчики VoidWare уделили огромное внимание стабильности, обходам и визуальной части клиента.
-                            Каждый элемент был тщательно оптимизирован для комфортной игры и максимальной производительности.
+                        <p class="text-white/35 text-lg mt-4 max-w-lg mx-auto">
+                            Присоединяйся к сообществу VoidWare и получи доступ к лучшим функциям для Minecraft.
                         </p>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="feature-tilt" data-tilt>
-                            <div class="feature-tilt-inner">
-                                <span class="feature-icon float-3d">🛡️</span>
-                                <div class="feature-title">Обходы</div>
-                                <div class="feature-desc">Продвинутые bypass функции</div>
-                                <div class="feature-rating">★★★★★</div>
-                            </div>
+                        <div class="flex flex-wrap justify-center gap-4 mt-10">
+                            <a href="#" class="btn-primary">
+                                Начать сейчас
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                            </a>
+                            <a href="#" class="btn-outline">Узнать больше</a>
                         </div>
-                        <div class="feature-tilt" data-tilt>
-                            <div class="feature-tilt-inner">
-                                <span class="feature-icon float-3d" style="animation-delay:1s;">⚡</span>
-                                <div class="feature-title">Стабильность</div>
-                                <div class="feature-desc">Максимально плавная работа</div>
-                                <div class="feature-rating">★★★★★</div>
-                            </div>
-                        </div>
-                        <div class="feature-tilt" data-tilt>
-                            <div class="feature-tilt-inner">
-                                <span class="feature-icon float-3d" style="animation-delay:2s;">🚀</span>
-                                <div class="feature-title">Оптимизация</div>
-                                <div class="feature-desc">Высокий FPS даже на слабых ПК</div>
-                                <div class="feature-rating">★★★★☆</div>
-                            </div>
-                        </div>
-                        <div class="feature-tilt" data-tilt>
-                            <div class="feature-tilt-inner">
-                                <span class="feature-icon float-3d" style="animation-delay:0.5s;">✨</span>
-                                <div class="feature-title">Визуал</div>
-                                <div class="feature-desc">Красивый и современный интерфейс</div>
-                                <div class="feature-rating">★★★★★</div>
-                            </div>
-                        </div>
-                        <div class="feature-tilt" data-tilt>
-                            <div class="feature-tilt-inner">
-                                <span class="feature-icon float-3d" style="animation-delay:1.5s;">🕵️</span>
-                                <div class="feature-title">Анти-детект</div>
-                                <div class="feature-desc">Продвинутая защита от античитов</div>
-                                <div class="feature-rating">★★★★☆</div>
-                            </div>
-                        </div>
-                        <div class="feature-tilt" data-tilt>
-                            <div class="feature-tilt-inner">
-                                <span class="feature-icon float-3d" style="animation-delay:2.5s;">🔄</span>
-                                <div class="feature-title">Совместимость</div>
-                                <div class="feature-desc">Полная поддержка 1.21.11 и 1.16.5</div>
-                                <div class="feature-rating">★★★★★</div>
-                            </div>
-                        </div>
-                        <div class="feature-tilt" data-tilt>
-                            <div class="feature-tilt-inner">
-                                <span class="feature-icon float-3d" style="animation-delay:0.8s;">💬</span>
-                                <div class="feature-title">Поддержка 24/7</div>
-                                <div class="feature-desc">Мы всегда на связи в Telegram</div>
-                                <div class="feature-rating">★★★★★</div>
-                            </div>
-                        </div>
-                        <div class="feature-tilt" data-tilt>
-                            <div class="feature-tilt-inner">
-                                <span class="feature-icon float-3d" style="animation-delay:1.8s;">📦</span>
-                                <div class="feature-title">Регулярные обновления</div>
-                                <div class="feature-desc">Новые функции каждую неделю</div>
-                                <div class="feature-rating">★★★★★</div>
-                            </div>
+                        <div class="flex justify-center gap-8 mt-8 text-white/15 text-xs">
+                            <span>⚡ 55+ онлайн</span>
+                            <span>⭐ 4.9/5</span>
+                            <span>🔄 Еженедельно</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ─── VIDEO ─── -->
-        <section id="video" class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 reveal no-select">
-            <div class="mb-8 sm:mb-10">
-                <p class="uppercase tracking-[0.3em] text-purple-400 text-xs sm:text-sm font-semibold mb-2">Видео</p>
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3">Обзор клиента <span class="gradient-text">VoidWare</span></h2>
-                <p class="text-white/50 text-base sm:text-lg max-w-2xl">Посмотрите полноценный обзор клиента с демонстрацией визуала, функций и производительности.</p>
-            </div>
-            <div class="rounded-[2rem] sm:rounded-[3rem] overflow-hidden glass border border-white/5 p-2 sm:p-3">
-                <div class="aspect-video rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden bg-black/50">
-                    <video class="w-full h-full object-cover" controls preload="metadata" playsinline controlsList="nodownload" disablePictureInPicture>
-                        <source src="obzor.mp4" type="video/mp4" />
-                        Ваш браузер не поддерживает видео.
-                    </video>
+        <!-- ─── FOOTER (новый) ─── -->
+        <footer class="border-t border-white/5 bg-[#080c18]">
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-black gradient-text">VoidWare</h3>
+                        <p class="text-white/15 text-sm mt-2">© 2026 Все права защищены.</p>
+                        <p class="footer-guard">TimofeenTuz Guard</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-sm text-white/25 uppercase tracking-wider">Навигация</h4>
+                        <ul class="mt-4 space-y-2 text-sm text-white/20">
+                            <li><a href="#" class="hover:text-white/50 transition">Главная</a></li>
+                            <li><a href="#" class="hover:text-white/50 transition">Новости</a></li>
+                            <li><a href="#" class="hover:text-white/50 transition">Товары</a></li>
+                            <li><a href="#" class="hover:text-white/50 transition">Профиль</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-sm text-white/25 uppercase tracking-wider">Информация</h4>
+                        <ul class="mt-4 space-y-2 text-sm text-white/20">
+                            <li><a href="#" class="hover:text-white/50 transition">Соглашение</a></li>
+                            <li><a href="#" class="hover:text-white/50 transition">Конфиденциальность</a></li>
+                            <li><a href="#" class="hover:text-white/50 transition">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-sm text-white/25 uppercase tracking-wider">Контакты</h4>
+                        <ul class="mt-4 space-y-2 text-sm text-white/20">
+                            <li><a href="https://t.me/VoidWareDlc" target="_blank" class="hover:text-white/50 transition flex items-center gap-2">📱 Telegram</a></li>
+                            <li><a href="#" class="hover:text-white/50 transition flex items-center gap-2">📧 support@voidware.ru</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-10 pt-6 border-t border-white/5 text-center text-white/5 text-xs">
+                    <p>VoidWare — неофициальный клиент для Minecraft. Не связан с Mojang AB.</p>
                 </div>
             </div>
-        </section>
+        </footer>
 
-        <!-- ─── ABOUT CLIENT (NEW SECTION) ─── -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 reveal no-select">
-            <div class="about-section">
-                <h2>О клиенте <span class="gradient-text">VoidWare</span></h2>
-                <p>
-                    VoidWare — это не просто чит-клиент, это комплексное решение для комфортной игры на серверах Minecraft.
-                    Мы объединили передовые технологии обхода античитов, интуитивно понятный интерфейс и максимальную
-                    производительность, чтобы каждый игрок мог чувствовать себя уверенно.
-                </p>
-                <p class="mt-3">
-                    Клиент разрабатывается с учётом всех современных требований: поддержка последних версий Minecraft,
-                    регулярные обновления, адаптация под разные сервера и активная обратная связь с сообществом.
-                    VoidWare — это выбор тех, кто ценит своё время и хочет получать максимум удовольствия от игры.
-                </p>
-                <ul>
-                    <li>Полная совместимость с Minecraft 1.21.11 и 1.16.5</li>
-                    <li>Интеллектуальная система обхода античитов</li>
-                    <li>Оптимизация для слабых и мощных ПК</li>
-                    <li>Красивый и настраиваемый интерфейс</li>
-                    <li>Быстрая и отзывчивая поддержка</li>
-                    <li>Регулярные обновления и новые функции</li>
-                    <li>Безопасная HWID-активация</li>
-                    <li>Доступ к эксклюзивным модулям</li>
-                </ul>
-            </div>
-        </section>
+    </div>
 
-        <!-- ─── CTA ─── -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 reveal no-select">
-            <div class="rounded-[2.5rem] sm:rounded-[3.5rem] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden border border-purple-400/10"
-            style="background: radial-gradient(ellipse at 50% 80%, rgba(124,58,237,0.12), rgba(5,5,13,0.9) 70%);">
-            <div class="absolute inset-0 pointer-events-none">
-                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-purple-500/10 blur-3xl rounded-full"></div>
-            </div>
-            <div class="relative z-10">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 glow-text">
-                    Готов <span class="gradient-text">доминировать</span>?
-                </h2>
-                <p class="text-white/50 text-base sm:text-lg max-w-xl mx-auto mb-8">
-                    Присоединяйся к сообществу VoidWare и получи доступ к лучшим функциям для Minecraft.
-                </p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="shop.html" class="btn-primary no-select">
-                        <span>Купить клиент</span>
-                        <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                    </a>
-                    <a href="#" class="btn-outline no-select">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
-                        Подробнее
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- ─── EASTER EGG ─── -->
+    <div class="easter-egg-overlay" id="easterEggOverlay">
+        <img src="/ownervoidware.png" alt="Easter Egg" id="easterEggImage" draggable="false" />
+    </div>
+    <div class="easter-egg-counter" id="easterEggCounter">Кликни ещё <span id="clickCount">10</span> раз на логотип...</div>
 
-    <!-- ─── FOOTER ─── -->
-    <footer class="border-t border-white/5 bg-[#05050b] no-select">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="text-center md:text-left">
-                    <h3 class="text-2xl sm:text-3xl font-black tracking-tight mb-1 glow-text">VoidWare</h3>
-                    <p class="text-white/30 text-sm">© voidware 2026 — Все права защищены.</p>
-                    <p class="footer-guard">TimofeenTuz Guard</p>
-                </div>
-                <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
-                    <a href="terms-of-service.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">Пользовательское соглашение</a>
-                    <a href="privacy-policy.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">Политика конфиденциальности</a>
-                    <a href="faq.html" class="text-white/40 hover:text-white/70 transition text-sm no-select">FAQ</a>
-                    <a href="https://t.me/VoidWareDlc" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition no-select">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                        Telegram
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-</div>
-<!-- ─── END CONTENT ─── -->
-
-<!-- ─── EASTER EGG OVERLAY ─── -->
-<div class="easter-egg-overlay" id="easterEggOverlay">
-    <img src="/ownervoidware.png" alt="VoidWare Easter Egg" id="easterEggImage" draggable="false" />
-</div>
-<div class="easter-egg-counter" id="easterEggCounter">Кликни ещё <span id="clickCount">10</span> раз на логотип...</div>
-
-<!-- ─── SCRIPTS ─── -->
-<script>
-    // ── ЗАЩИТА ОТ КОПИРОВАНИЯ ──
-
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        return false;
-    });
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'F12' || e.keyCode === 123) {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.keyCode === 73 || e.keyCode === 74)) {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.keyCode === 83)) {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.keyCode === 67)) {
+    <!-- ─── SCRIPTS ─── -->
+    <script>
+        // ── ЗАЩИТА ──
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) { e.preventDefault(); }
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); }
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); }
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
+                const tag = document.activeElement.tagName;
+                if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); }
+            }
+        });
+        document.addEventListener('selectstart', e => {
+            const tag = e.target.tagName;
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); }
+        });
+        document.addEventListener('dragstart', e => e.preventDefault());
+        document.addEventListener('copy', e => {
             const tag = document.activeElement.tagName;
-            if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
-                e.preventDefault();
-                return false;
-            }
-        }
-    });
-
-    document.addEventListener('selectstart', function(e) {
-        const tag = e.target.tagName;
-        if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    document.addEventListener('dragstart', function(e) {
-        e.preventDefault();
-        return false;
-    });
-
-    document.addEventListener('copy', function(e) {
-        const tag = document.activeElement.tagName;
-        if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    let devtoolsDetect = false;
-    const element = new Image();
-    Object.defineProperty(element, 'id', {
-        get: function() {
-            devtoolsDetect = true;
-        }
-    });
-    console.log('%c', element);
-
-    document.addEventListener('keyup', function(e) {
-        if (e.key === 'PrintScreen' || e.keyCode === 44) {
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    // ── 3D TILT EFFECT ──
-    document.querySelectorAll('[data-tilt]').forEach(card => {
-        const inner = card.querySelector('.stat-tilt-inner, .feature-tilt-inner');
-        if (!inner) return;
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -12;
-            const rotateY = ((x - centerX) / centerX) * 12;
-            const translateZ = 25;
-            inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); }
         });
-        card.addEventListener('mouseleave', function() {
-            inner.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
-        });
-    });
 
-    // ── 3D CUBE PARALLAX ──
-    const cubeWrapper = document.getElementById('cubeWrapper');
-    if (cubeWrapper) {
-        document.addEventListener('mousemove', function(e) {
-            const x = (e.clientX / window.innerWidth - 0.5) * 20;
-            const y = (e.clientY / window.innerHeight - 0.5) * 20;
-            cubeWrapper.style.transform = `rotateX(${-y}deg) rotateY(${x}deg) scale(1.05)`;
-        });
-        cubeWrapper.addEventListener('mouseleave', function() {
-            cubeWrapper.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-        });
-    }
-
-    // ── Header blur on scroll ──
-    const header = document.getElementById('mainHeader');
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                if (window.scrollY > 10) {
-                    header.style.backdropFilter = 'blur(16px)';
-                    header.style.backgroundColor = 'rgba(7,7,13,0.85)';
-                } else {
-                    header.style.backdropFilter = 'blur(0px)';
-                    header.style.backgroundColor = 'rgba(7,7,13,0.8)';
-                }
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-
-    // ── Smooth anchor scroll ──
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-
-    // ── Particles Canvas ──
-    (function initParticles() {
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-        const PARTICLE_COUNT = 100;
-
-        function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.3;
-                this.speedY = (Math.random() - 0.5) * 0.3;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > width) this.speedX *= -1;
-                if (this.y < 0 || this.y > height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(167, 139, 250, ${this.opacity})`;
-                ctx.fill();
-                ctx.shadowColor = 'rgba(124, 58, 237, 0.2)';
-                ctx.shadowBlur = 6;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-            }
-        }
-
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
-            particles.push(new Particle());
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 140) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(167, 139, 250, ${0.06 * (1 - dist / 140)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-    })();
-
-    // ── Falling Blocks ──
-    (function initFallingBlocks() {
-        const container = document.getElementById('fallingBlocks');
-        const blockCount = 30;
-        const icons = ['⛏️', '⚔️', '💎', '🛡️', '🚀', '✨'];
-        for (let i = 0; i < blockCount; i++) {
-            const block = document.createElement('div');
-            block.className = 'falling-block';
-            block.textContent = icons[Math.floor(Math.random() * icons.length)];
-            block.style.left = Math.random() * 100 + '%';
-            block.style.animationDuration = (Math.random() * 8 + 6) + 's';
-            block.style.animationDelay = (Math.random() * 10) + 's';
-            block.style.width = (Math.random() * 20 + 20) + 'px';
-            block.style.height = block.style.width;
-            block.style.fontSize = (parseInt(block.style.width) * 0.6) + 'px';
-            container.appendChild(block);
-        }
-    })();
-
-    // ── Typing effect ──
-    (function initTyping() {
-        const el = document.getElementById('typing-text');
-        if (!el) return;
-        const text = 'стабильность.';
-        let index = 0;
-        const speed = 120;
-        el.textContent = '';
-        function type() {
-            if (index < text.length) {
-                el.textContent += text.charAt(index);
-                index++;
-                setTimeout(type, speed);
-            }
-        }
-        setTimeout(type, 600);
-    })();
-
-    // ── Animated counters ──
-    (function initCounters() {
-        const statNumbers = document.querySelectorAll('.stat-number-value');
-        let countersAnimated = false;
-
-        function animateCounter(el) {
-            const target = parseInt(el.getAttribute('data-target'));
-            if (isNaN(target) || target <= 0) {
-                el.textContent = '0';
-                return;
-            }
-            let current = 0;
-            const steps = 80;
-            const increment = target / steps;
-            let step = 0;
-            const timer = setInterval(() => {
-                step++;
-                current += increment;
-                if (step >= steps || current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                el.textContent = Math.floor(current);
-            }, 20);
-        }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !countersAnimated) {
-                    countersAnimated = true;
-                    statNumbers.forEach(el => {
-                        const target = parseInt(el.getAttribute('data-target'));
-                        if (!isNaN(target) && target > 0) {
-                            el.textContent = '0';
-                            animateCounter(el);
-                        } else {
-                            el.textContent = target || '0';
-                        }
-                    });
-                }
-            });
-        }, { threshold: 0.3 });
-
-        const statsSection = document.getElementById('statsContainer');
-        if (statsSection) observer.observe(statsSection);
-    })();
-
-    // ── Scroll Reveal ──
-    (function initReveal() {
+        // ── SCROLL REVEAL ──
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1399,71 +971,140 @@
                 }
             });
         }, { threshold: 0.15 });
-
         reveals.forEach(el => observer.observe(el));
-    })();
 
-    // ── EASTER EGG: 10 кликов по логотипу ──
-    (function initEasterEgg() {
-        const logo = document.getElementById('logoClicker');
-        const overlay = document.getElementById('easterEggOverlay');
-        const counterEl = document.getElementById('easterEggCounter');
-        const clickCountEl = document.getElementById('clickCount');
-        let clickCount = 0;
-        const requiredClicks = 10;
-        let isActive = false;
+        // ── EASTER EGG ──
+        (function initEasterEgg() {
+            const logo = document.getElementById('logoClicker');
+            const overlay = document.getElementById('easterEggOverlay');
+            const counterEl = document.getElementById('easterEggCounter');
+            const clickCountEl = document.getElementById('clickCount');
+            let clickCount = 0;
+            const requiredClicks = 10;
+            let isActive = false;
 
-        logo.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (isActive) return;
-
-            clickCount++;
-            const remaining = requiredClicks - clickCount;
-
-            if (clickCount < requiredClicks) {
-                counterEl.classList.add('show');
-                clickCountEl.textContent = remaining;
-                logo.style.transform = 'scale(0.92)';
-                setTimeout(() => {
-                    logo.style.transform = '';
-                }, 150);
-            }
-
-            if (clickCount >= requiredClicks) {
-                isActive = true;
-                counterEl.classList.remove('show');
-                overlay.classList.add('active');
-                setTimeout(() => {
-                    overlay.classList.remove('active');
-                    setTimeout(() => {
-                        clickCount = 0;
-                        isActive = false;
-                    }, 300);
-                }, 5000);
-            }
-        });
-
-        overlay.addEventListener('click', function() {
-            overlay.classList.remove('active');
-            setTimeout(() => {
-                clickCount = 0;
-                isActive = false;
-                counterEl.classList.remove('show');
-            }, 300);
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && overlay.classList.contains('active')) {
-                overlay.classList.remove('active');
-                setTimeout(() => {
-                    clickCount = 0;
-                    isActive = false;
+            logo.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isActive) return;
+                clickCount++;
+                const remaining = requiredClicks - clickCount;
+                if (clickCount < requiredClicks) {
+                    counterEl.classList.add('show');
+                    clickCountEl.textContent = remaining;
+                    logo.style.transform = 'scale(0.92)';
+                    setTimeout(() => { logo.style.transform = ''; }, 150);
+                }
+                if (clickCount >= requiredClicks) {
+                    isActive = true;
                     counterEl.classList.remove('show');
-                }, 300);
+                    overlay.classList.add('active');
+                    setTimeout(() => {
+                        overlay.classList.remove('active');
+                        setTimeout(() => { clickCount = 0; isActive = false; }, 300);
+                    }, 5000);
+                }
+            });
+
+            overlay.addEventListener('click', function() {
+                overlay.classList.remove('active');
+                setTimeout(() => { clickCount = 0; isActive = false; counterEl.classList.remove('show'); }, 300);
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    overlay.classList.remove('active');
+                    setTimeout(() => { clickCount = 0; isActive = false; counterEl.classList.remove('show'); }, 300);
+                }
+            });
+        })();
+
+        // ── PARTICLES (синие) ──
+        (function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 80;
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
             }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.25;
+                    this.speedY = (Math.random() - 0.5) * 0.25;
+                    this.opacity = Math.random() * 0.4 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
+                    ctx.fill();
+                    ctx.shadowColor = 'rgba(14, 165, 233, 0.1)';
+                    ctx.shadowBlur = 4;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(56, 189, 248, ${0.04 * (1 - dist / 120)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        })();
+
+        // ── Островная шапка: скролл ──
+        const island1 = document.getElementById('island1');
+        const island2 = document.getElementById('island2');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY > 20;
+            island1.classList.toggle('scrolled', scrolled);
+            island2.classList.toggle('scrolled', scrolled);
         });
-    })();
-</script>
+
+        // ── Мобильное меню ──
+        const burger = document.getElementById('burger');
+        const navLinks = document.getElementById('navLinks');
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-open');
+        });
+    </script>
 
 </body>
 </html>
