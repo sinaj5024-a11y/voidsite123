@@ -5,226 +5,219 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
     <link rel="shortcut icon" href="/favicon.jpg" />
-    <title>Новости VoidWare — обновления и анонсы</title>
-    <meta name="description" content="Свежие новости VoidWare: добавлены новые функции, исправлены баги, проведена оптимизация." />
+    <title>Новости VoidWare</title>
+    <meta name="description" content="Свежие новости VoidWare: обновления, новые функции, исправления." />
     <script src="https://cdn.tailwindcss.com">
     </script>
-
     <style>
-        /* ── Reset & Base ── */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
+        /* ─── Reset & Base ─── */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        html,
-        body {
-            overflow-x: hidden;
-            max-width: 100%;
-            background: #0a0e1a;
-            color: #e8edf5;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        html {
             scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+            background: #0d0d0d;
+            color: #e5e5e5;
             user-select: none;
             -webkit-user-select: none;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            user-select: none;
-            pointer-events: none;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
         ::-webkit-scrollbar {
-            width: 6px;
-            background: #0a0e1a;
+            width: 4px;
+            background: #0d0d0d;
         }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #0ea5e9, #06b6d4);
-            border-radius: 12px;
+            background: #555;
+            border-radius: 20px;
         }
 
-        /* ── Glass ── */
+        /* ─── Glass (macOS style) ─── */
         .glass {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(14, 165, 233, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 0.5px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-dark {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 0.5px solid rgba(255, 255, 255, 0.06);
         }
 
-        /* ── Gradient Text (синий) ── */
-        .gradient-text {
-            background: linear-gradient(135deg, #38bdf8, #06b6d4, #2dd4bf);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ── Buttons ── */
+        /* ─── Buttons ─── */
         .btn-primary {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            font-weight: 700;
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            font-weight: 500;
             font-size: 0.95rem;
-            letter-spacing: 0.01em;
-            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-            color: #fff;
+            background: #ffffff;
+            color: #111;
             border: none;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            background: linear-gradient(135deg, #0284c7, #0891b2);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
         }
         .btn-primary:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 40px rgba(14, 165, 233, 0.35);
+            background: #f0f0f0;
+            transform: scale(1.02);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.4);
         }
-        .btn-primary:hover::after {
-            opacity: 1;
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            background: transparent;
+            color: #ccc;
+            border: 0.5px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
         }
-        .btn-primary span {
-            position: relative;
-            z-index: 1;
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.4);
+            transform: scale(1.02);
         }
 
-        /* ─── News Cards (без 3D-эффекта, только простой hover) ─── */
-        .news-card {
-            border-radius: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(14, 165, 233, 0.06);
-            padding: 2rem 2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* ─── Sections ─── */
+        .section {
+            padding: 6rem 1.5rem;
             position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
         }
-        .news-card::before {
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ─── Diagonal effect (subtle) ─── */
+        .diagonal-top {
+            position: relative;
+        }
+        .diagonal-top::before {
             content: '';
             position: absolute;
-            inset: -2px;
-            border-radius: 2rem;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.3), rgba(6, 182, 212, 0.3), rgba(45, 212, 191, 0.15));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: inherit;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 60%);
             pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+        }
+        .diagonal-bottom::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: inherit;
+            clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
+            pointer-events: none;
+        }
+
+        /* ─── News Cards (минимализм) ─── */
+        .news-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 28px;
+            padding: 2rem 2rem;
+            border: 0.5px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.25s ease;
         }
         .news-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(14, 165, 233, 0.2);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(14, 165, 233, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
         }
-        .news-card:hover::before {
-            opacity: 1;
-        }
-
         .news-icon {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             display: inline-block;
-            transition: transform 0.3s ease;
             margin-right: 0.5rem;
         }
-        .news-card:hover .news-icon {
-            transform: scale(1.15) rotate(-6deg);
-        }
-
         .news-badge {
             display: inline-block;
-            padding: 0.25rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
             letter-spacing: 0.03em;
             text-transform: uppercase;
-            background: rgba(14, 165, 233, 0.15);
-            color: #38bdf8;
-            border: 1px solid rgba(14, 165, 233, 0.2);
-            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.04);
+            color: #888;
+            border: 0.5px solid rgba(255,255,255,0.06);
+            transition: all 0.2s;
         }
         .news-card:hover .news-badge {
-            background: rgba(14, 165, 233, 0.25);
-            border-color: rgba(14, 165, 233, 0.4);
+            background: rgba(255,255,255,0.06);
+            color: #aaa;
         }
         .news-badge-update {
-            background: rgba(6, 182, 212, 0.15);
-            color: #67e8f9;
-            border-color: rgba(6, 182, 212, 0.2);
-        }
-        .news-card:hover .news-badge-update {
-            background: rgba(6, 182, 212, 0.25);
-            border-color: rgba(6, 182, 212, 0.4);
+            background: rgba(255,255,255,0.04);
+            color: #888;
         }
         .news-badge-launch {
-            background: rgba(45, 212, 191, 0.15);
-            color: #5eead4;
-            border-color: rgba(45, 212, 191, 0.2);
-        }
-        .news-card:hover .news-badge-launch {
-            background: rgba(45, 212, 191, 0.25);
-            border-color: rgba(45, 212, 191, 0.4);
+            background: rgba(255,255,255,0.04);
+            color: #888;
         }
         .news-badge-hot {
-            background: rgba(239, 68, 68, 0.15);
-            color: #fca5a5;
-            border-color: rgba(239, 68, 68, 0.2);
-            animation: pulse-badge 2s ease-in-out infinite;
+            background: rgba(255,255,255,0.04);
+            color: #888;
+            animation: none;
         }
-        @keyframes pulse-badge {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+        .news-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
         }
-
         .news-card:hover .news-title {
-            background: linear-gradient(135deg, #38bdf8, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ddd;
         }
-
+        .news-list {
+            list-style: none;
+            padding-left: 0;
+        }
         .news-list li {
-            transition: all 0.2s ease;
-            padding-left: 0.5rem;
+            color: #888;
+            padding: 0.15rem 0;
+            transition: color 0.2s;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        .news-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #555;
         }
         .news-card:hover .news-list li {
-            transform: translateX(4px);
-            color: rgba(255, 255, 255, 0.8);
+            color: #aaa;
         }
-        .news-list li:hover {
-            transform: translateX(8px) !important;
-            color: #38bdf8 !important;
+        .news-card .italic {
+            color: #666;
+        }
+        .news-card:hover .italic {
+            color: #888;
         }
 
-        /* ─── Particles (синие) ─── */
+        /* ─── Particles ─── */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -233,9 +226,8 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.3;
         }
-
         .content {
             position: relative;
             z-index: 2;
@@ -243,196 +235,15 @@
 
         .reveal {
             opacity: 0;
-            transform: translateY(30px) scale(0.95);
-            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
         }
         .reveal.visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
-        .glow-text {
-            text-shadow: 0 0 30px rgba(14, 165, 233, 0.15), 0 0 60px rgba(14, 165, 233, 0.05);
-            transition: text-shadow 0.5s;
-        }
-        .glow-text:hover {
-            text-shadow: 0 0 50px rgba(14, 165, 233, 0.4), 0 0 100px rgba(6, 182, 212, 0.2);
-        }
-
-        .no-select {
-            user-select: none;
-        }
-        * {
-            -webkit-touch-callout: none;
-        }
-
-        .footer-guard {
-            color: rgba(255, 255, 255, 0.15);
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            margin-top: 0.2rem;
-        }
-
-        /* ─── Островная шапка (как на главной) ─── */
-        .island-container {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .island-piece {
-            background: rgba(10, 14, 26, 0.6);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(14, 165, 233, 0.08);
-            border-radius: 9999px;
-            padding: 0.4rem 1.2rem;
-            box-shadow: 0 8px 60px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s ease;
-        }
-        .island-piece.scrolled {
-            background: rgba(10, 14, 26, 0.9);
-            border-color: rgba(14, 165, 233, 0.15);
-        }
-        .piece-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .piece-logo .icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1rem;
-            color: #fff;
-            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
-            transition: transform 0.3s ease;
-        }
-        .piece-logo:hover .icon {
-            transform: scale(1.08) rotate(-4deg);
-        }
-        .piece-logo .text {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #e8edf5;
-        }
-        .piece-logo .text .highlight {
-            background: linear-gradient(135deg, #38bdf8, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .piece-nav {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.2rem 0.3rem;
-        }
-        .piece-nav a {
-            padding: 0.3rem 0.9rem;
-            border-radius: 9999px;
-            color: rgba(255, 255, 255, 0.35);
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        .piece-nav a:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.04);
-        }
-        .piece-nav a.active {
-            color: #fff;
-            background: rgba(14, 165, 233, 0.1);
-        }
-
-        .piece-burger {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            cursor: pointer;
-            padding: 4px;
-        }
-        .piece-burger span {
-            width: 20px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 2px;
-        }
-
-        @media (max-width: 768px) {
-            .island-container {
-                top: 12px;
-                left: 12px;
-                right: 12px;
-                transform: none;
-                justify-content: space-between;
-                gap: 8px;
-            }
-            .island-piece {
-                border-radius: 16px;
-                padding: 0.4rem 0.8rem;
-            }
-            .piece-nav {
-                display: none;
-            }
-            .piece-nav.mobile-open {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: calc(100% + 10px);
-                left: 0;
-                right: 0;
-                background: rgba(10, 14, 26, 0.98);
-                backdrop-filter: blur(24px);
-                border-radius: 16px;
-                padding: 1rem;
-                gap: 0.3rem;
-                border: 1px solid rgba(14, 165, 233, 0.1);
-            }
-            .piece-nav.mobile-open a {
-                padding: 0.7rem 1rem;
-                text-align: center;
-            }
-            .piece-burger {
-                display: flex;
-            }
-            .piece-logo .text {
-                font-size: 0.8rem;
-            }
-            .piece-logo .icon {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .news-card {
-                padding: 1.25rem;
-            }
-            .btn-primary {
-                padding: 0.6rem 1.4rem;
-                font-size: 0.85rem;
-            }
-            .news-icon {
-                font-size: 2rem;
-            }
-        }
-
-        /* ─── Footer (как на главной) ─── */
+        /* ─── Footer & Header (как на главной) ─── */
         .footer-link {
             color: rgba(255, 255, 255, 0.2);
             transition: color 0.3s ease;
@@ -441,185 +252,315 @@
         .footer-link:hover {
             color: rgba(255, 255, 255, 0.5);
         }
+        .footer-guard {
+            color: rgba(255, 255, 255, 0.15);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+
+        /* ─── Island Header ─── */
+        .island {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(20,20,20,0.5);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 0.5px solid rgba(255,255,255,0.06);
+            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+        .island.scrolled {
+            background: rgba(20,20,20,0.85);
+            border-color: rgba(255,255,255,0.1);
+        }
+        .island .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .island .logo .icon {
+            width: 28px;
+            height: 28px;
+            background: #333;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+        .island nav {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+        .island nav a {
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            color: #888;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .island nav a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.04);
+        }
+        .island nav a.active {
+            color: #fff;
+            background: rgba(255,255,255,0.06);
+        }
+        .island .burger {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .island .burger span {
+            width: 18px;
+            height: 2px;
+            background: #888;
+            border-radius: 2px;
+        }
+        @media (max-width: 720px) {
+            .island {
+                top: 12px;
+                left: 12px;
+                right: 12px;
+                transform: none;
+                border-radius: 30px;
+                padding: 0.4rem 0.8rem;
+                justify-content: space-between;
+            }
+            .island nav {
+                display: none;
+            }
+            .island nav.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                right: 0;
+                background: rgba(20,20,20,0.96);
+                backdrop-filter: blur(30px);
+                border-radius: 24px;
+                padding: 0.8rem;
+                border: 0.5px solid rgba(255,255,255,0.06);
+                gap: 0.2rem;
+            }
+            .island nav.mobile-open a {
+                padding: 0.6rem 1rem;
+                text-align: center;
+            }
+            .island .burger {
+                display: flex;
+            }
+        }
+
+        .seo-hidden {
+            position: absolute;
+            left: -99999px;
+            top: -99999px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ─── PARTICLES ─── -->
     <canvas id="particles-canvas"></canvas>
 
-    <!-- ─── ОСТРОВНАЯ ШАПКА (как на главной) ─── -->
-    <div class="island-container" id="container">
-        <div class="island-piece" id="island1">
-            <a href="index.html" class="piece-logo">
-                <div class="icon">V</div>
-                <span class="text">Void<span class="highlight">Ware</span></span>
-            </a>
-        </div>
-        <div class="island-piece" id="island2">
-            <nav class="piece-nav" id="navLinks">
-                <a href="index.html">Главная</a>
-                <a href="news.html" class="active">Новости</a>
-                <a href="shop.html">Товары</a>
-                <a href="profile.html">Профиль</a>
-            </nav>
-            <div class="piece-burger" id="burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+    <div class="seo-hidden">
+        <h1>Новости VoidWare — обновления и анонсы</h1>
+        <p>Свежие новости о клиенте VoidWare для Minecraft 26.2.</p>
     </div>
 
-    <!-- ─── ОСНОВНОЙ КОНТЕНТ ─── -->
+    <!-- ─── ISLAND HEADER ─── -->
+    <header class="island" id="island">
+        <a href="index.html" class="logo" id="logoClicker">
+            <span class="icon">V</span>
+            <span>Void<span style="color:#888;">Ware</span></span>
+        </a>
+        <nav id="navLinks">
+            <a href="index.html">Главная</a>
+            <a href="news.html" class="active">Новости</a>
+            <a href="shop.html">Товары</a>
+            <a href="profile.html">Профиль</a>
+        </nav>
+        <div class="burger" id="burger">
+            <span></span><span></span><span></span>
+        </div>
+    </header>
+
+    <!-- ─── CONTENT ─── -->
     <div class="content">
 
         <div class="h-24 sm:h-28"></div>
 
-        <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-12 sm:pb-16 reveal no-select">
-            <div class="text-center">
-                <p class="uppercase tracking-[0.3em] text-blue-400 text-xs sm:text-sm font-semibold mb-3">Блог и анонсы</p>
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight glow-text">
-                    Новости <span class="gradient-text">VoidWare</span>
+        <!-- Hero заголовок -->
+        <section class="section" style="background:#0d0d0d; padding-top:2rem; padding-bottom:1rem;">
+            <div class="section-inner text-center">
+                <p class="uppercase tracking-[0.2em] text-white/30 text-xs sm:text-sm font-semibold mb-3">Блог и анонсы</p>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight" style="color:#fff;">
+                    Новости <span style="color:#888;">VoidWare</span>
                 </h1>
-                <p class="mt-4 text-white/50 text-base sm:text-lg max-w-2xl mx-auto">
+                <p class="mt-4 text-white/40 text-base sm:text-lg max-w-2xl mx-auto">
                     Все свежие обновления, исправления и новые возможности клиента.
                 </p>
             </div>
         </section>
 
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
-            <div class="grid gap-6 sm:gap-8">
+        <!-- Список новостей -->
+        <section class="section" style="background:#0d0d0d; padding-top:1rem; padding-bottom:4rem;">
+            <div class="section-inner">
+                <div class="grid gap-6 sm:gap-8">
 
-                <!-- Новость 1 -->
-                <div class="news-card reveal">
-                    <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
-                        <div class="flex items-center gap-3">
-                            <span class="news-icon">🌟</span>
-                            <div>
-                                <div class="flex flex-wrap items-center gap-3">
-                                    <span class="news-badge news-badge-hot">🔥 Горячее</span>
-                                    <span class="text-xs text-white/40">📅 16 июня 2026</span>
+                    <!-- Новость 1 -->
+                    <div class="news-card reveal">
+                        <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="news-icon">🌟</span>
+                                <div>
+                                    <div class="flex flex-wrap items-center gap-3">
+                                        <span class="news-badge news-badge-hot">🔥 Горячее</span>
+                                        <span class="text-xs text-white/30">📅 16 июня 2026</span>
+                                    </div>
+                                    <span class="text-xs text-white/20">✍️ Администрация VoidWare</span>
                                 </div>
-                                <span class="text-xs text-white/30">✍️ Администрация VoidWare</span>
                             </div>
                         </div>
-                    </div>
-                    <h2 class="news-title text-2xl sm:text-3xl md:text-4xl font-bold mb-3 tracking-tight">Обновление сайта</h2>
-                    <p class="text-white/60 text-base sm:text-lg mb-4">Мы обновили дизайн и функциональность сайта</p>
-                    <div class="text-white/70 leading-relaxed space-y-3">
-                        <p>Что нового:</p>
-                        <ul class="news-list list-disc list-inside space-y-1 ml-2 text-white/60">
-                            <li>✨ Полностью переработан дизайн страниц</li>
-                            <li>🚀 Добавлены анимированные элементы</li>
-                            <li>⚡ Улучшена производительность</li>
-                        </ul>
-                        <p class="mt-3 italic text-blue-300/80">🌟 Каждое обновление — шаг к совершенству!</p>
-                    </div>
-                </div>
-
-                <!-- Новость 2 -->
-                <div class="news-card reveal">
-                    <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
-                        <div class="flex items-center gap-3">
-                            <span class="news-icon">📰</span>
-                            <div>
-                                <div class="flex flex-wrap items-center gap-3">
-                                    <span class="news-badge news-badge-update">Обновление</span>
-                                    <span class="text-xs text-white/40">📅 9 июня 2026</span>
-                                </div>
-                                <span class="text-xs text-white/30">✍️ Администрация VoidWare</span>
-                            </div>
+                        <h2 class="news-title">Обновление сайта</h2>
+                        <p class="text-white/50 text-base sm:text-lg mb-3">Мы обновили дизайн и функциональность сайта</p>
+                        <div class="text-white/60 leading-relaxed space-y-2">
+                            <p>Что нового:</p>
+                            <ul class="news-list space-y-1">
+                                <li>Полностью переработан дизайн страниц</li>
+                                <li>Добавлены анимированные элементы</li>
+                                <li>Улучшена производительность</li>
+                            </ul>
+                            <p class="italic mt-3">🌟 Каждое обновление — шаг к совершенству!</p>
                         </div>
                     </div>
-                    <h2 class="news-title text-2xl sm:text-3xl md:text-4xl font-bold mb-3 tracking-tight">Улучшения сайта</h2>
-                    <p class="text-white/60 text-base sm:text-lg mb-4">Улучшили сайт новыми функциями</p>
-                    <div class="text-white/70 leading-relaxed space-y-3">
-                        <p>В последнем обновлении сайта появилось:</p>
-                        <ul class="news-list list-disc list-inside space-y-1 ml-2 text-white/60">
-                            <li>📌 Шапка сайта обновлена.</li>
-                            <li>🎨 Новый раздел новостей.</li>
-                            <li>⚡ Оптимизация и улучшения.</li>
-                        </ul>
-                        <p class="mt-3 italic text-blue-300/80">✨ Сайт стал ещё удобнее и мощнее!</p>
-                    </div>
-                </div>
 
-                <!-- Новость 3 -->
-                <div class="news-card reveal">
-                    <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
-                        <div class="flex items-center gap-3">
-                            <span class="news-icon">⚡</span>
-                            <div>
-                                <div class="flex flex-wrap items-center gap-3">
-                                    <span class="news-badge news-badge-update">Обновление</span>
-                                    <span class="text-xs text-white/40">📅 16 мая 2026</span>
+                    <!-- Новость 2 -->
+                    <div class="news-card reveal">
+                        <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="news-icon">📰</span>
+                                <div>
+                                    <div class="flex flex-wrap items-center gap-3">
+                                        <span class="news-badge news-badge-update">Обновление</span>
+                                        <span class="text-xs text-white/30">📅 9 июня 2026</span>
+                                    </div>
+                                    <span class="text-xs text-white/20">✍️ Администрация VoidWare</span>
                                 </div>
-                                <span class="text-xs text-white/30">✍️ Команда разработчиков</span>
                             </div>
                         </div>
-                    </div>
-                    <h2 class="news-title text-2xl sm:text-3xl md:text-4xl font-bold mb-3 tracking-tight">Обновление 0.1.3</h2>
-                    <p class="text-white/60 text-base sm:text-lg mb-4">Супер мощное обновление voidware 1.21.11.</p>
-                    <div class="text-white/70 leading-relaxed space-y-3">
-                        <p>В версии 0.1.3 мы добавили:</p>
-                        <ul class="news-list list-disc list-inside space-y-1 ml-2 text-white/60">
-                            <li>🐛 Огромное количество новых функций.</li>
-                            <li>🐛 Исправили много багов и обновили старые функции.</li>
-                            <li>🐛 Провели оптимизацию.</li>
-                        </ul>
-                        <p class="mt-3 italic text-blue-300/80">✨ Клиент стал еще удобнее и мощнее — обновляйтесь прямо сейчас!</p>
-                    </div>
-                </div>
-
-                <!-- Новость 4 -->
-                <div class="news-card reveal">
-                    <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
-                        <div class="flex items-center gap-3">
-                            <span class="news-icon">🚀</span>
-                            <div>
-                                <div class="flex flex-wrap items-center gap-3">
-                                    <span class="news-badge news-badge-launch">Открытие</span>
-                                    <span class="text-xs text-white/40">📅 11 мая 2026</span>
-                                </div>
-                                <span class="text-xs text-white/30">✍️ Администрация VoidWare</span>
-                            </div>
+                        <h2 class="news-title">Улучшения сайта</h2>
+                        <p class="text-white/50 text-base sm:text-lg mb-3">Улучшили сайт новыми функциями</p>
+                        <div class="text-white/60 leading-relaxed space-y-2">
+                            <p>В последнем обновлении сайта появилось:</p>
+                            <ul class="news-list space-y-1">
+                                <li>Шапка сайта обновлена</li>
+                                <li>Новый раздел новостей</li>
+                                <li>Оптимизация и улучшения</li>
+                            </ul>
+                            <p class="italic mt-3">✨ Сайт стал ещё удобнее и мощнее!</p>
                         </div>
                     </div>
-                    <h2 class="news-title text-2xl sm:text-3xl md:text-4xl font-bold mb-3 tracking-tight">Открытие сайта voidware</h2>
-                    <p class="text-white/60 text-base sm:text-lg mb-4">Мы провели открытие сайта voidware.ru</p>
-                    <div class="text-white/70 leading-relaxed space-y-3">
-                        <p>Что вы можете сделать на сайте:</p>
-                        <ul class="news-list list-disc list-inside space-y-1 ml-2 text-white/60">
-                            <li>🚀 Читать новости клиента.</li>
-                            <li>📉 Покупать подписки.</li>
-                            <li>⚙️ И многое другое...</li>
-                        </ul>
-                        <p class="mt-3 italic text-blue-300/80">💻 Играйте с удовольствием — VoidWare заботится о вашем комфорте.</p>
+
+                    <!-- Новость 3 -->
+                    <div class="news-card reveal">
+                        <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="news-icon">⚡</span>
+                                <div>
+                                    <div class="flex flex-wrap items-center gap-3">
+                                        <span class="news-badge news-badge-update">Обновление</span>
+                                        <span class="text-xs text-white/30">📅 16 мая 2026</span>
+                                    </div>
+                                    <span class="text-xs text-white/20">✍️ Команда разработчиков</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 class="news-title">Обновление 0.1.3</h2>
+                        <p class="text-white/50 text-base sm:text-lg mb-3">Супер мощное обновление voidware 1.21.11.</p>
+                        <div class="text-white/60 leading-relaxed space-y-2">
+                            <p>В версии 0.1.3 мы добавили:</p>
+                            <ul class="news-list space-y-1">
+                                <li>Огромное количество новых функций</li>
+                                <li>Исправили много багов и обновили старые функции</li>
+                                <li>Провели оптимизацию</li>
+                            </ul>
+                            <p class="italic mt-3">✨ Клиент стал еще удобнее и мощнее — обновляйтесь прямо сейчас!</p>
+                        </div>
                     </div>
+
+                    <!-- Новость 4 -->
+                    <div class="news-card reveal">
+                        <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="news-icon">🚀</span>
+                                <div>
+                                    <div class="flex flex-wrap items-center gap-3">
+                                        <span class="news-badge news-badge-launch">Открытие</span>
+                                        <span class="text-xs text-white/30">📅 11 мая 2026</span>
+                                    </div>
+                                    <span class="text-xs text-white/20">✍️ Администрация VoidWare</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 class="news-title">Открытие сайта voidware</h2>
+                        <p class="text-white/50 text-base sm:text-lg mb-3">Мы провели открытие сайта voidware.ru</p>
+                        <div class="text-white/60 leading-relaxed space-y-2">
+                            <p>Что вы можете сделать на сайте:</p>
+                            <ul class="news-list space-y-1">
+                                <li>Читать новости клиента</li>
+                                <li>Покупать подписки</li>
+                                <li>И многое другое...</li>
+                            </ul>
+                            <p class="italic mt-3">💻 Играйте с удовольствием — VoidWare заботится о вашем комфорте.</p>
+                        </div>
+                    </div>
+
                 </div>
 
-            </div>
-
-            <div class="mt-16 text-center border-t border-white/5 pt-12 reveal">
-                <p class="text-white/50 text-base sm:text-lg max-w-3xl mx-auto">
-                    Следите за обновлениями в нашем Telegram-канале, чтобы первыми узнавать о новых версиях VoidWare.
-                </p>
-                <div class="mt-6">
-                    <a href="https://t.me/VoidWareDlc" target="_blank" class="btn-primary no-select">
-                        <span>Подписаться</span>
-                        <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                    </a>
+                <!-- CTA под новостями -->
+                <div class="mt-16 text-center border-t border-white/5 pt-12 reveal">
+                    <p class="text-white/40 text-base sm:text-lg max-w-3xl mx-auto">
+                        Следите за обновлениями в нашем Telegram-канале, чтобы первыми узнавать о новых версиях VoidWare.
+                    </p>
+                    <div class="mt-6">
+                        <a href="https://t.me/VoidWareDlc" target="_blank" class="btn-primary">
+                            Подписаться
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ─── FOOTER (как на главной) ─── -->
-        <footer class="border-t border-white/5 bg-[#080c18] no-select">
+        <!-- ─── FOOTER ─── -->
+        <footer class="border-t border-white/5 bg-[#0a0a0a]">
             <div class="max-w-7xl mx-auto px-4 py-12">
                 <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
                     <div>
-                        <h3 class="text-2xl font-black gradient-text">VoidWare</h3>
+                        <h3 class="text-2xl font-black" style="color:#fff;">Void<span style="color:#666;">Ware</span></h3>
                         <p class="text-white/15 text-sm mt-2">© 2026 Все права защищены.</p>
                         <p class="footer-guard">TimofeenTuz Guard</p>
                     </div>
@@ -657,138 +598,113 @@
     </div>
 
     <!-- ─── SCRIPTS ─── -->
-
     <script>
-        // ── ЗАЩИТА ──
+        // ── Защита ──
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
-            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
-            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) { e.preventDefault(); }
-            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); }
-            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); }
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
+            if (e.key === 'F12' || e.keyCode === 123) e.preventDefault();
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) e.preventDefault();
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) e.preventDefault();
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) e.preventDefault();
+            if (e.ctrlKey && e.key === 'c') {
                 const tag = document.activeElement.tagName;
-                if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); }
+                if (tag !== 'INPUT' && tag !== 'TEXTAREA') e.preventDefault();
             }
         });
         document.addEventListener('selectstart', e => {
             const tag = e.target.tagName;
-            if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); }
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') e.preventDefault();
         });
         document.addEventListener('dragstart', e => e.preventDefault());
         document.addEventListener('copy', e => {
             const tag = document.activeElement.tagName;
-            if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); }
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') e.preventDefault();
         });
 
-        // ── Header scroll ──
-        const island1 = document.getElementById('island1');
-        const island2 = document.getElementById('island2');
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY > 20;
-            island1.classList.toggle('scrolled', scrolled);
-            island2.classList.toggle('scrolled', scrolled);
-        });
-
-        // ── Mobile menu ──
-        const burger = document.getElementById('burger');
-        const navLinks = document.getElementById('navLinks');
-        burger.addEventListener('click', () => {
-            navLinks.classList.toggle('mobile-open');
-        });
-
-        // ── Reveal ──
+        // ── Scroll Reveal ──
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.15 });
         reveals.forEach(el => observer.observe(el));
 
-        // ── Particles (синие) ──
-        (function initParticles() {
+        // ── Particles ──
+        (function() {
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
-            const PARTICLE_COUNT = 100;
+            let w, h;
+            const particles = [];
+            const COUNT = 60;
 
             function resize() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
+                w = window.innerWidth;
+                h = window.innerHeight;
+                canvas.width = w;
+                canvas.height = h;
             }
             window.addEventListener('resize', resize);
             resize();
 
-            class Particle {
+            class P {
                 constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedX = (Math.random() - 0.5) * 0.3;
-                    this.speedY = (Math.random() - 0.5) * 0.3;
-                    this.opacity = Math.random() * 0.4 + 0.1;
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.r = Math.random() * 1.5 + 0.5;
+                    this.dx = (Math.random() - 0.5) * 0.2;
+                    this.dy = (Math.random() - 0.5) * 0.2;
+                    this.o = Math.random() * 0.3 + 0.1;
                 }
                 update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x < 0 || this.x > width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                    this.x += this.dx;
+                    this.y += this.dy;
+                    if (this.x < 0 || this.x > w) this.dx *= -1;
+                    if (this.y < 0 || this.y > h) this.dy *= -1;
                 }
                 draw() {
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(200,200,200,${this.o})`;
                     ctx.fill();
-                    ctx.shadowColor = 'rgba(14, 165, 233, 0.1)';
-                    ctx.shadowBlur = 4;
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
                 }
             }
+            for (let i=0; i<COUNT; i++) particles.push(new P());
 
-            for (let i = 0; i < PARTICLE_COUNT; i++) {
-                particles.push(new Particle());
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, width, height);
-                particles.forEach(p => { p.update();
-                    p.draw(); });
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+                for (let i=0; i<particles.length; i++) {
+                    for (let j=i+1; j<particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
                         const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 140) {
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 120) {
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(56, 189, 248, ${0.04 * (1 - dist / 140)})`;
+                            ctx.strokeStyle = `rgba(200,200,200,${0.03 * (1 - dist/120)})`;
                             ctx.lineWidth = 0.5;
                             ctx.stroke();
                         }
                     }
                 }
-                requestAnimationFrame(animateParticles);
+                requestAnimationFrame(animate);
             }
-            animateParticles();
+            animate();
         })();
 
-        // ── Smooth anchor scroll ──
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
+        // ── Island scroll ──
+        const island = document.getElementById('island');
+        window.addEventListener('scroll', () => {
+            island.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // ── Mobile burger ──
+        const burger = document.getElementById('burger');
+        const nav = document.getElementById('navLinks');
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('mobile-open');
         });
     </script>
 
