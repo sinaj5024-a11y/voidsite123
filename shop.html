@@ -4,289 +4,472 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VoidWare Store — товары и подписки</title>
-    <script src="https://cdn.tailwindcss.com">
-    </script>
-    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
-    <link rel="shortcut icon" href="/favicon.jpg" />
-    <link rel="apple-touch-icon" href="/favicon.jpg" />
-
+    <meta name="description" content="Ключи доступа к клиенту VoidWare на месяц, навсегда и сброс HWID. Лучшие цены и мгновенная активация." />
+    <link rel="icon" href="/favicon.jpg" />
     <style>
-        /* ── Reset & Base ── */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
+        /* ─── Reset & Base ─── */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        html,
-        body {
-            overflow-x: hidden;
-            max-width: 100%;
-            background: #0a0e1a;
-            color: #e8edf5;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        html {
             scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+            background: #0d0d0d;
+            color: #e5e5e5;
             user-select: none;
             -webkit-user-select: none;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            user-select: none;
-            pointer-events: none;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
         ::-webkit-scrollbar {
-            width: 6px;
-            background: #0a0e1a;
+            width: 4px;
+            background: #0d0d0d;
         }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #0ea5e9, #06b6d4);
-            border-radius: 12px;
+            background: #555;
+            border-radius: 20px;
         }
 
-        /* ── Glass ── */
+        /* ─── Glass (macOS style) ─── */
         .glass {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(14, 165, 233, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 0.5px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-dark {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 0.5px solid rgba(255, 255, 255, 0.06);
         }
 
-        /* ── Gradient Text (синий) ── */
-        .gradient-text {
-            background: linear-gradient(135deg, #38bdf8, #06b6d4, #2dd4bf);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ── Buttons ── */
+        /* ─── Buttons ─── */
         .btn-primary {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            font-weight: 700;
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            font-weight: 500;
             font-size: 0.95rem;
-            letter-spacing: 0.01em;
-            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-            color: #fff;
+            background: #ffffff;
+            color: #111;
             border: none;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            background: linear-gradient(135deg, #0284c7, #0891b2);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
         }
         .btn-primary:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 40px rgba(14, 165, 233, 0.35);
+            background: #f0f0f0;
+            transform: scale(1.02);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.4);
         }
-        .btn-primary:hover::after {
-            opacity: 1;
-        }
-        .btn-primary span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-buy {
+        .btn-outline {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            padding: 0.5rem 1.4rem;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-            color: #fff;
-            border: none;
+            gap: 0.5rem;
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            background: transparent;
+            color: #ccc;
+            border: 0.5px solid rgba(255,255,255,0.2);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            z-index: 10;
+            transition: all 0.25s ease;
+            text-decoration: none;
         }
-        .btn-buy::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            background: linear-gradient(135deg, #0284c7, #0891b2);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        .btn-buy:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 40px rgba(14, 165, 233, 0.4);
-        }
-        .btn-buy:hover::after {
-            opacity: 1;
-        }
-        .btn-buy span {
-            position: relative;
-            z-index: 1;
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.4);
+            transform: scale(1.02);
         }
 
-        /* ── Product Cards (без 3D, простой hover) ── */
-        .product-card {
-            border-radius: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(14, 165, 233, 0.06);
-            padding: 1.5rem 1.5rem 1.2rem 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* ─── Sections ─── */
+        .section {
+            padding: 6rem 1.5rem;
             position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
+        }
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ─── Diagonal effect (subtle) ─── */
+        .diagonal-top {
+            position: relative;
+        }
+        .diagonal-top::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: inherit;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 60%);
+            pointer-events: none;
+        }
+        .diagonal-bottom::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: inherit;
+            clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
+            pointer-events: none;
+        }
+
+        /* ─── Hero (shop) ─── */
+        .hero-shop {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(ellipse at 30% 20%, #1a1a1a, #0d0d0d 70%);
+            padding-top: 100px;
+        }
+        .hero-shop h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: #fff;
+        }
+        .hero-shop h1 span {
+            color: #aaa;
+        }
+        .hero-shop .sub {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: #888;
+            margin-top: 0.2rem;
+        }
+        .hero-shop p {
+            color: #777;
+            max-width: 600px;
+            margin: 1.5rem auto;
+            font-size: 1.1rem;
+        }
+        .hero-shop .badge {
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            background: rgba(255,255,255,0.04);
+            border: 0.5px solid rgba(255,255,255,0.06);
+            font-size: 0.8rem;
+            color: #888;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 640px) {
+            .hero-shop h1 { font-size: 2.8rem; }
+            .hero-shop .sub { font-size: 1rem; }
+        }
+
+        /* ─── Product Cards ─── */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+        .product-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 28px;
+            padding: 2rem 1.8rem;
+            border: 0.5px solid rgba(255,255,255,0.04);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            min-height: 310px;
-        }
-        .product-card::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 2rem;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.3), rgba(6, 182, 212, 0.3), rgba(45, 212, 191, 0.15));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.4s ease;
         }
         .product-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(14, 165, 233, 0.2);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(14, 165, 233, 0.08);
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-6px);
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
         }
-        .product-card:hover::before {
-            opacity: 1;
+        .product-card .icon {
+            font-size: 2.8rem;
+            margin-bottom: 0.4rem;
         }
-
-        .product-icon {
-            font-size: 2.6rem;
-            line-height: 1;
+        .product-card h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #fff;
             margin-bottom: 0.2rem;
-            display: inline-block;
-            transition: transform 0.3s ease;
         }
-        .product-card:hover .product-icon {
-            transform: scale(1.15) rotate(-6deg);
-        }
-
-        .product-title {
-            font-size: 1.5rem;
-            font-weight: 900;
-            line-height: 1.1;
-            transition: all 0.3s;
-            margin-bottom: 0;
-        }
-        .product-card:hover .product-title {
-            background: linear-gradient(135deg, #38bdf8, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .product-desc {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.85rem;
-            margin: 0.3rem 0 0 0;
+        .product-card .desc {
+            color: #888;
+            font-size: 0.95rem;
             line-height: 1.5;
+            flex: 1;
         }
-        .product-desc-sub {
-            color: rgba(255, 255, 255, 0.35);
-            font-size: 0.75rem;
-            margin: 0.15rem 0 0 0;
-            line-height: 1.4;
+        .product-card .desc-sub {
+            color: #555;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
         }
-
-        .product-price {
-            font-size: 2rem;
-            font-weight: 900;
-            display: inline-block;
-            transition: all 0.3s;
-            line-height: 1;
-        }
-        .product-card:hover .product-price {
-            background: linear-gradient(135deg, #38bdf8, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            transform: scale(1.05);
-        }
-
-        .product-footer {
+        .product-card .footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            border-top: 0.5px solid rgba(255,255,255,0.04);
+            padding-top: 1.2rem;
+        }
+        .product-card .price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+        .product-card .price small {
+            font-size: 1rem;
+            color: #888;
+            font-weight: 400;
+        }
+        .product-card .badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.04);
+            border: 0.5px solid rgba(255,255,255,0.06);
+            font-size: 0.7rem;
+            color: #888;
+            letter-spacing: 0.04em;
             margin-top: 0.5rem;
         }
+        .product-card .badge-popular {
+            background: rgba(255,215,0,0.08);
+            border-color: rgba(255,215,0,0.15);
+            color: #f0c040;
+        }
+        .btn-buy {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1.6rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            background: #ffffff;
+            color: #111;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .btn-buy:hover {
+            background: #f0f0f0;
+            transform: scale(1.03);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
 
-        .product-badge {
-            display: inline-block;
-            padding: 0.1rem 0.6rem;
-            border-radius: 9999px;
-            font-size: 0.55rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-            background: rgba(14, 165, 233, 0.15);
-            color: #38bdf8;
-            border: 1px solid rgba(14, 165, 233, 0.2);
-            transition: all 0.3s;
+        /* ─── CTA Box ─── */
+        .cta-box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 40px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            border: 0.5px solid rgba(255,255,255,0.04);
+            backdrop-filter: blur(10px);
+        }
+        .cta-box h2 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .cta-box h2 span {
+            color: #aaa;
+        }
+        .cta-box p {
+            color: #777;
+            max-width: 500px;
+            margin: 1rem auto;
+        }
+        .cta-box .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.8rem;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            border-top: 0.5px solid rgba(255,255,255,0.04);
+            padding: 2.5rem 1.5rem;
+            background: #0a0a0a;
+            margin-top: 2rem;
+        }
+        footer .inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        footer h3 {
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.2rem;
+        }
+        footer h3 small {
+            color: #666;
+            font-weight: 400;
+        }
+        footer .foot-link {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 0.9rem;
+            display: block;
             margin-top: 0.3rem;
         }
-        .product-card:hover .product-badge {
-            background: rgba(14, 165, 233, 0.25);
-            border-color: rgba(14, 165, 233, 0.4);
-            transform: scale(1.05);
+        footer .foot-link:hover {
+            color: #aaa;
         }
-        .product-badge-popular {
-            background: rgba(251, 191, 36, 0.15);
-            color: #fcd34d;
-            border-color: rgba(251, 191, 36, 0.2);
-            animation: pulse-badge 2s ease-in-out infinite;
+        footer .copy {
+            margin-top: 2rem;
+            text-align: center;
+            color: #444;
+            font-size: 0.75rem;
+            border-top: 0.5px solid rgba(255,255,255,0.03);
+            padding-top: 2rem;
         }
-        @keyframes pulse-badge {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+        @media (max-width: 640px) {
+            footer .inner { grid-template-columns: 1fr; gap: 1.5rem; }
         }
 
-        /* Скрываем заднюю часть — она не нужна */
-        .product-card-back {
+        /* ─── Island Header (macOS style) ─── */
+        .island {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(20,20,20,0.5);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 0.5px solid rgba(255,255,255,0.06);
+            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+        .island.scrolled {
+            background: rgba(20,20,20,0.85);
+            border-color: rgba(255,255,255,0.1);
+        }
+        .island .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .island .logo .icon {
+            width: 28px;
+            height: 28px;
+            background: #333;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+        .island nav {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+        .island nav a {
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            color: #888;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .island nav a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.04);
+        }
+        .island nav a.active {
+            color: #fff;
+            background: rgba(255,255,255,0.06);
+        }
+        .island .burger {
             display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .island .burger span {
+            width: 18px;
+            height: 2px;
+            background: #888;
+            border-radius: 2px;
+        }
+        @media (max-width: 720px) {
+            .island {
+                top: 12px;
+                left: 12px;
+                right: 12px;
+                transform: none;
+                border-radius: 30px;
+                padding: 0.4rem 0.8rem;
+                justify-content: space-between;
+            }
+            .island nav {
+                display: none;
+            }
+            .island nav.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                right: 0;
+                background: rgba(20,20,20,0.96);
+                backdrop-filter: blur(30px);
+                border-radius: 24px;
+                padding: 0.8rem;
+                border: 0.5px solid rgba(255,255,255,0.06);
+                gap: 0.2rem;
+            }
+            .island nav.mobile-open a {
+                padding: 0.6rem 1rem;
+                text-align: center;
+            }
+            .island .burger {
+                display: flex;
+            }
         }
 
-        /* ─── Particles (синие) ─── */
+        /* ─── Particles ─── */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -295,553 +478,281 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.3;
         }
-
         .content {
             position: relative;
             z-index: 2;
         }
 
+        /* ─── Reveal animation ─── */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.7s ease, transform 0.7s ease;
         }
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        .glow-text {
-            text-shadow: 0 0 30px rgba(14, 165, 233, 0.15), 0 0 60px rgba(14, 165, 233, 0.05);
-            transition: text-shadow 0.5s;
-        }
-        .glow-text:hover {
-            text-shadow: 0 0 50px rgba(14, 165, 233, 0.4), 0 0 100px rgba(6, 182, 212, 0.2);
-        }
-
-        .no-select {
-            user-select: none;
-        }
-        * {
-            -webkit-touch-callout: none;
-        }
-
-        .footer-guard {
-            color: rgba(255, 255, 255, 0.15);
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            margin-top: 0.2rem;
-        }
-
-        /* ─── Островная шапка (как на главной) ─── */
-        .island-container {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .island-piece {
-            background: rgba(10, 14, 26, 0.6);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(14, 165, 233, 0.08);
-            border-radius: 9999px;
-            padding: 0.4rem 1.2rem;
-            box-shadow: 0 8px 60px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s ease;
-        }
-        .island-piece.scrolled {
-            background: rgba(10, 14, 26, 0.9);
-            border-color: rgba(14, 165, 233, 0.15);
-        }
-        .piece-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .piece-logo .icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1rem;
-            color: #fff;
-            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
-            transition: transform 0.3s ease;
-        }
-        .piece-logo:hover .icon {
-            transform: scale(1.08) rotate(-4deg);
-        }
-        .piece-logo .text {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #e8edf5;
-        }
-        .piece-logo .text .highlight {
-            background: linear-gradient(135deg, #38bdf8, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .piece-nav {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.2rem 0.3rem;
-        }
-        .piece-nav a {
-            padding: 0.3rem 0.9rem;
-            border-radius: 9999px;
-            color: rgba(255, 255, 255, 0.35);
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        .piece-nav a:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.04);
-        }
-        .piece-nav a.active {
-            color: #fff;
-            background: rgba(14, 165, 233, 0.1);
-        }
-
-        .piece-burger {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            cursor: pointer;
-            padding: 4px;
-        }
-        .piece-burger span {
-            width: 20px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 2px;
-        }
-
-        @media (max-width: 768px) {
-            .island-container {
-                top: 12px;
-                left: 12px;
-                right: 12px;
-                transform: none;
-                justify-content: space-between;
-                gap: 8px;
-            }
-            .island-piece {
-                border-radius: 16px;
-                padding: 0.4rem 0.8rem;
-            }
-            .piece-nav {
-                display: none;
-            }
-            .piece-nav.mobile-open {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: calc(100% + 10px);
-                left: 0;
-                right: 0;
-                background: rgba(10, 14, 26, 0.98);
-                backdrop-filter: blur(24px);
-                border-radius: 16px;
-                padding: 1rem;
-                gap: 0.3rem;
-                border: 1px solid rgba(14, 165, 233, 0.1);
-            }
-            .piece-nav.mobile-open a {
-                padding: 0.7rem 1rem;
-                text-align: center;
-            }
-            .piece-burger {
-                display: flex;
-            }
-            .piece-logo .text {
-                font-size: 0.8rem;
-            }
-            .piece-logo .icon {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .product-card {
-                padding: 1rem 1rem 0.8rem 1rem;
-                min-height: 270px;
-            }
-            .product-title {
-                font-size: 1.2rem;
-            }
-            .product-price {
-                font-size: 1.6rem;
-            }
-            .product-icon {
-                font-size: 2rem;
-            }
-            .btn-buy {
-                padding: 0.35rem 0.9rem;
-                font-size: 0.7rem;
-            }
-            .product-desc {
-                font-size: 0.75rem;
-            }
-            .product-desc-sub {
-                font-size: 0.65rem;
-            }
-        }
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .product-card {
-                min-height: 290px;
-            }
-            .product-title {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* ─── Footer (как на главной) ─── */
-        .footer-link {
-            color: rgba(255, 255, 255, 0.2);
-            transition: color 0.3s ease;
-            text-decoration: none;
-        }
-        .footer-link:hover {
-            color: rgba(255, 255, 255, 0.5);
+        .seo-hidden {
+            position: absolute;
+            left: -99999px;
+            top: -99999px;
         }
     </style>
 </head>
 <body>
 
-    <!-- ─── PARTICLES ─── -->
     <canvas id="particles-canvas"></canvas>
 
-    <!-- ─── ОСТРОВНАЯ ШАПКА (как на главной) ─── -->
-    <div class="island-container" id="container">
-        <div class="island-piece" id="island1">
-            <a href="index.html" class="piece-logo">
-                <div class="icon">V</div>
-                <span class="text">Void<span class="highlight">Ware</span></span>
-            </a>
-        </div>
-        <div class="island-piece" id="island2">
-            <nav class="piece-nav" id="navLinks">
-                <a href="index.html">Главная</a>
-                <a href="news.html">Новости</a>
-                <a href="shop.html" class="active">Товары</a>
-                <a href="profile.html">Профиль</a>
-            </nav>
-            <div class="piece-burger" id="burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+    <div class="seo-hidden">
+        <h1>VoidWare Store — товары и подписки для клиента Minecraft</h1>
+        <p>Ключи доступа на месяц, навсегда, сброс HWID. Лучшие цены и мгновенная активация.</p>
     </div>
 
-    <!-- ─── ОСНОВНОЙ КОНТЕНТ ─── -->
+    <!-- ─── ISLAND HEADER ─── -->
+    <header class="island" id="island">
+        <a href="index.html" class="logo" id="logoClicker">
+            <span class="icon">V</span>
+            <span>Void<span style="color:#888;">Ware</span></span>
+        </a>
+        <nav id="navLinks">
+            <a href="index.html">Главная</a>
+            <a href="news.html">Новости</a>
+            <a href="shop.html" class="active">Товары</a>
+            <a href="profile.html">Профиль</a>
+        </nav>
+        <div class="burger" id="burger">
+            <span></span><span></span><span></span>
+        </div>
+    </header>
+
+    <!-- ─── CONTENT ─── -->
     <div class="content">
 
-        <div class="h-24 sm:h-28"></div>
-
-        <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-8 sm:pb-12 reveal no-select">
-            <div class="text-center">
-                <p class="uppercase tracking-[0.3em] text-blue-400 text-xs sm:text-sm font-semibold mb-3">Магазин</p>
-                <h1 class="text-4xl sm:text-5xl md:text-7xl font-black leading-tight tracking-tight glow-text">
-                    Лучший клиент<br />
-                    <span class="gradient-text">для Minecraft.</span>
-                </h1>
-                <p class="mt-4 sm:mt-6 text-white/50 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
-                    VoidWare создавался с огромным вниманием к деталям. Разработчики потратили много времени на стабильность,
-                    визуальную часть, обходы античитов и максимальную оптимизацию клиента.
-                </p>
-                <div class="mt-4 text-xs text-blue-400/40 animate-pulse">⬇️ Наведи на карточку — увидишь магию!</div>
+        <!-- HERO SHOP -->
+        <section class="hero-shop section diagonal-top diagonal-bottom" style="background: radial-gradient(ellipse at 40% 30%, #1a1a1a, #0d0d0d 70%);">
+            <div class="section-inner">
+                <div class="badge">✦ Магазин VoidWare</div>
+                <h1>Ключи <span>доступа</span></h1>
+                <div class="sub">Выберите подходящий тариф</div>
+                <p>Приобретайте ключи для клиента VoidWare — месяц, навсегда или сброс HWID. Мгновенная активация и поддержка 24/7.</p>
             </div>
         </section>
 
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-
-                <!-- Карточка 1: Месяц -->
-                <div class="product-card reveal">
-                    <div class="flex flex-col h-full">
-                        <div class="flex-1">
-                            <span class="product-icon">⌛</span>
-                            <h3 class="product-title">Ключ на месяц</h3>
-                            <p class="product-desc">Полный доступ ко всем функциям клиента на 30 дней</p>
-                            <p class="product-desc-sub">Ежедневные обновления, обходы античитов и приоритетная поддержка</p>
+        <!-- PRODUCTS -->
+        <section class="section" style="background:#0f0f0f;">
+            <div class="section-inner">
+                <div style="text-align:center; margin-bottom:2.5rem;">
+                    <span style="color:#666; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase;">Наши предложения</span>
+                    <h2 style="font-size:2.8rem; font-weight:600; color:#fff; margin-top:0.2rem;">Выберите свой <span style="color:#888;">тариф</span></h2>
+                    <p style="color:#555; margin-top:0.3rem;">Лучшие цены на рынке</p>
+                </div>
+                <div class="product-grid">
+                    <!-- Месяц -->
+                    <div class="product-card reveal">
+                        <div class="icon">⌛</div>
+                        <h3>Ключ на месяц</h3>
+                        <div class="desc">Полный доступ ко всем функциям клиента на 30 дней. Ежедневные обновления, обходы античитов и приоритетная поддержка.</div>
+                        <div class="desc-sub">Идеально для тестирования и коротких проектов</div>
+                        <div class="footer">
+                            <span class="price">25₽ <small>/ месяц</small></span>
+                            <a href="https://funpay.com/lots/offer?id=68840552" target="_blank" class="btn-buy">Купить →</a>
                         </div>
-                        <div>
-                            <div class="product-footer">
-                                <span class="product-price">25₽</span>
-                                <a href="https://funpay.com/lots/offer?id=68840552" target="_blank" class="btn-buy">
-                                    <span>Купить</span>
-                                    <svg class="w-3.5 h-3.5 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                                </a>
-                            </div>
-                            <span class="product-badge product-badge-popular">🔥 Популярный</span>
-                        </div>
+                        <span class="badge badge-popular">🔥 Популярный</span>
                     </div>
-                </div>
 
-                <!-- Карточка 2: Навсегда -->
-                <div class="product-card reveal">
-                    <div class="flex flex-col h-full">
-                        <div class="flex-1">
-                            <span class="product-icon">♾️</span>
-                            <h3 class="product-title">Ключ навсегда</h3>
-                            <p class="product-desc">Пожизненный доступ с получением всех будущих обновлений</p>
-                            <p class="product-desc-sub">Эксклюзивные функции, бета-доступ и приоритетная поддержка</p>
+                    <!-- Навсегда -->
+                    <div class="product-card reveal">
+                        <div class="icon">♾️</div>
+                        <h3>Ключ навсегда</h3>
+                        <div class="desc">Пожизненный доступ с получением всех будущих обновлений. Эксклюзивные функции, бета-доступ и приоритетная поддержка.</div>
+                        <div class="desc-sub">Выгодное вложение для постоянных игроков</div>
+                        <div class="footer">
+                            <span class="price">65₽ <small>/ навсегда</small></span>
+                            <a href="https://funpay.com/lots/offer?id=68840421" target="_blank" class="btn-buy">Купить →</a>
                         </div>
-                        <div>
-                            <div class="product-footer">
-                                <span class="product-price">65₽</span>
-                                <a href="https://funpay.com/lots/offer?id=68840421" target="_blank" class="btn-buy">
-                                    <span>Купить</span>
-                                    <svg class="w-3.5 h-3.5 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                                </a>
-                            </div>
-                            <span class="product-badge">⭐ Лучшая цена</span>
-                        </div>
+                        <span class="badge">⭐ Лучшая цена</span>
                     </div>
-                </div>
 
-                <!-- Карточка 3: Сброс HWID -->
-                <div class="product-card reveal">
-                    <div class="flex flex-col h-full">
-                        <div class="flex-1">
-                            <span class="product-icon">⚙️</span>
-                            <h3 class="product-title">Сброс HWID</h3>
-                            <p class="product-desc">Мгновенный сброс HWID и полное восстановление доступа</p>
-                            <p class="product-desc-sub">Без потери прогресса, автоматическая активация за 5 минут</p>
+                    <!-- Сброс HWID -->
+                    <div class="product-card reveal">
+                        <div class="icon">⚙️</div>
+                        <h3>Сброс HWID</h3>
+                        <div class="desc">Мгновенный сброс HWID и полное восстановление доступа. Без потери прогресса, автоматическая активация за 5 минут.</div>
+                        <div class="desc-sub">Если вы сменили железо или возникла ошибка</div>
+                        <div class="footer">
+                            <span class="price">20₽ <small>/ раз</small></span>
+                            <a href="https://funpay.com/lots/offer?id=68840800" target="_blank" class="btn-buy">Купить →</a>
                         </div>
-                        <div>
-                            <div class="product-footer">
-                                <span class="product-price">20₽</span>
-                                <a href="https://funpay.com/lots/offer?id=68840800" target="_blank" class="btn-buy">
-                                    <span>Купить</span>
-                                    <svg class="w-3.5 h-3.5 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                                </a>
-                            </div>
-                            <span class="product-badge">🔄 Мгновенно</span>
-                        </div>
+                        <span class="badge">🔄 Мгновенно</span>
                     </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 reveal no-select">
-            <div class="rounded-[2.5rem] sm:rounded-[3.5rem] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden border border-blue-400/10"
-            style="background: radial-gradient(ellipse at 50% 80%, rgba(14,165,233,0.12), rgba(5,5,13,0.9) 70%);">
-                <div class="absolute inset-0 pointer-events-none">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-blue-500/10 blur-3xl rounded-full"></div>
-                </div>
-                <div class="relative z-10">
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 glow-text">
-                        Есть вопросы? <span class="gradient-text">Напиши нам!</span>
-                    </h2>
-                    <p class="text-white/50 text-base sm:text-lg max-w-xl mx-auto mb-8">
-                        Мы всегда на связи в Telegram — поможем с выбором и ответим на все вопросы.
-                    </p>
-                    <a href="https://t.me/VoidWareDlc" target="_blank" class="btn-primary no-select">
-                        <span>Написать в Telegram</span>
-                        <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- ─── FOOTER (как на главной) ─── -->
-        <footer class="border-t border-white/5 bg-[#080c18] no-select">
-            <div class="max-w-7xl mx-auto px-4 py-12">
-                <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
-                    <div>
-                        <h3 class="text-2xl font-black gradient-text">VoidWare</h3>
-                        <p class="text-white/15 text-sm mt-2">© 2026 Все права защищены.</p>
-                        <p class="footer-guard">TimofeenTuz Guard</p>
+        <!-- CTA -->
+        <section class="section" style="background:#0d0d0d;">
+            <div class="section-inner">
+                <div class="cta-box glass-dark reveal">
+                    <h2>Есть вопросы? <span>Напишите нам!</span></h2>
+                    <p>Мы всегда на связи в Telegram — поможем с выбором, ответим на все вопросы и решим любые проблемы.</p>
+                    <div class="actions">
+                        <a href="https://t.me/VoidWareDlc" target="_blank" class="btn-primary">Написать в Telegram</a>
+                        <a href="faq.html" class="btn-outline">Перейти в FAQ</a>
                     </div>
-                    <div>
-                        <h4 class="font-semibold text-sm text-white/25 uppercase tracking-wider">Навигация</h4>
-                        <ul class="mt-4 space-y-2 text-sm">
-                            <li><a href="news.html" class="footer-link">Новости</a></li>
-                            <li><a href="shop.html" class="footer-link">Товары</a></li>
-                            <li><a href="profile.html" class="footer-link">Профиль</a></li>
-                            <li><a href="faq.html" class="footer-link">FAQ</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-sm text-white/25 uppercase tracking-wider">Информация</h4>
-                        <ul class="mt-4 space-y-2 text-sm">
-                            <li><a href="terms-of-service.html" class="footer-link">Соглашение</a></li>
-                            <li><a href="privacy-policy.html" class="footer-link">Конфиденциальность</a></li>
-                            <li><a href="faq.html" class="footer-link">FAQ</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-sm text-white/25 uppercase tracking-wider">Контакты</h4>
-                        <ul class="mt-4 space-y-2 text-sm">
-                            <li><a href="https://t.me/VoidWareDlc" target="_blank" class="footer-link flex items-center gap-2">📱 Telegram</a></li>
-                            <li><a href="mailto:voidware@vk.com" class="footer-link flex items-center gap-2">📧 voidware@vk.com</a></li>
-                        </ul>
+                    <div style="margin-top:1.5rem; color:#555; font-size:0.8rem; display:flex; gap:2rem; justify-content:center;">
+                        <span>⚡ 55+ онлайн</span>
+                        <span>⭐ 4.9/5</span>
+                        <span>🔄 Поддержка 24/7</span>
                     </div>
                 </div>
-                <div class="mt-10 pt-6 border-t border-white/5 text-center text-white/5 text-xs">
-                    <p>VoidWare — неофициальный клиент для Minecraft. Не связан с Mojang AB.</p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="inner">
+                <div>
+                    <h3>Void<span style="color:#666;">Ware</span></h3>
+                    <p style="color:#555; font-size:0.8rem; margin-top:0.3rem;">© 2026 Все права защищены.</p>
+                    <p style="color:#444; font-size:0.7rem; margin-top:0.2rem; letter-spacing:0.05em;">TimofeenTuz Guard</p>
                 </div>
+                <div>
+                    <h4 style="color:#666; font-weight:500; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Навигация</h4>
+                    <a href="news.html" class="foot-link">Новости</a>
+                    <a href="shop.html" class="foot-link">Товары</a>
+                    <a href="profile.html" class="foot-link">Профиль</a>
+                    <a href="faq.html" class="foot-link">FAQ</a>
+                </div>
+                <div>
+                    <h4 style="color:#666; font-weight:500; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Информация</h4>
+                    <a href="terms-of-service.html" class="foot-link">Соглашение</a>
+                    <a href="privacy-policy.html" class="foot-link">Конфиденциальность</a>
+                    <a href="faq.html" class="foot-link">FAQ</a>
+                </div>
+                <div>
+                    <h4 style="color:#666; font-weight:500; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Контакты</h4>
+                    <a href="https://t.me/VoidWareDlc" target="_blank" class="foot-link">📱 Telegram</a>
+                    <a href="mailto:voidware@vk.com" class="foot-link">📧 voidware@vk.com</a>
+                </div>
+            </div>
+            <div class="copy">
+                <p>VoidWare — неофициальный клиент для Minecraft. Не связан с Mojang AB.</p>
             </div>
         </footer>
 
-    </div>
+    </div><!-- /content -->
 
     <!-- ─── SCRIPTS ─── -->
-
     <script>
-        // ── ЗАЩИТА ──
+        // --- Protection ---
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
-            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
-            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) { e.preventDefault(); }
-            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); }
-            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); }
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
+            if (e.key === 'F12' || e.keyCode === 123) e.preventDefault();
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) e.preventDefault();
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) e.preventDefault();
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) e.preventDefault();
+            if (e.ctrlKey && e.key === 'c') {
                 const tag = document.activeElement.tagName;
-                if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); }
+                if (tag !== 'INPUT' && tag !== 'TEXTAREA') e.preventDefault();
             }
         });
         document.addEventListener('selectstart', e => {
             const tag = e.target.tagName;
-            if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); }
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') e.preventDefault();
         });
         document.addEventListener('dragstart', e => e.preventDefault());
         document.addEventListener('copy', e => {
             const tag = document.activeElement.tagName;
-            if (tag !== 'INPUT' && tag !== 'TEXTAREA') { e.preventDefault(); }
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') e.preventDefault();
         });
 
-        // ── Header scroll ──
-        const island1 = document.getElementById('island1');
-        const island2 = document.getElementById('island2');
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY > 20;
-            island1.classList.toggle('scrolled', scrolled);
-            island2.classList.toggle('scrolled', scrolled);
-        });
-
-        // ── Mobile menu ──
-        const burger = document.getElementById('burger');
-        const navLinks = document.getElementById('navLinks');
-        burger.addEventListener('click', () => {
-            navLinks.classList.toggle('mobile-open');
-        });
-
-        // ── Reveal ──
+        // --- Scroll Reveal ---
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.15 });
         reveals.forEach(el => observer.observe(el));
 
-        // ── Particles (синие) ──
-        (function initParticles() {
+        // --- Particles ---
+        (function() {
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
-            const PARTICLE_COUNT = 100;
+            let w, h;
+            const particles = [];
+            const COUNT = 60;
 
             function resize() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
+                w = window.innerWidth;
+                h = window.innerHeight;
+                canvas.width = w;
+                canvas.height = h;
             }
             window.addEventListener('resize', resize);
             resize();
 
-            class Particle {
+            class P {
                 constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedX = (Math.random() - 0.5) * 0.3;
-                    this.speedY = (Math.random() - 0.5) * 0.3;
-                    this.opacity = Math.random() * 0.4 + 0.1;
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.r = Math.random() * 1.5 + 0.5;
+                    this.dx = (Math.random() - 0.5) * 0.2;
+                    this.dy = (Math.random() - 0.5) * 0.2;
+                    this.o = Math.random() * 0.3 + 0.1;
                 }
                 update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x < 0 || this.x > width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                    this.x += this.dx;
+                    this.y += this.dy;
+                    if (this.x < 0 || this.x > w) this.dx *= -1;
+                    if (this.y < 0 || this.y > h) this.dy *= -1;
                 }
                 draw() {
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(200,200,200,${this.o})`;
                     ctx.fill();
-                    ctx.shadowColor = 'rgba(14, 165, 233, 0.1)';
-                    ctx.shadowBlur = 4;
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
                 }
             }
+            for (let i=0; i<COUNT; i++) particles.push(new P());
 
-            for (let i = 0; i < PARTICLE_COUNT; i++) {
-                particles.push(new Particle());
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, width, height);
-                particles.forEach(p => { p.update();
-                    p.draw(); });
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+                for (let i=0; i<particles.length; i++) {
+                    for (let j=i+1; j<particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
                         const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 140) {
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 120) {
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(56, 189, 248, ${0.04 * (1 - dist / 140)})`;
+                            ctx.strokeStyle = `rgba(200,200,200,${0.03 * (1 - dist/120)})`;
                             ctx.lineWidth = 0.5;
                             ctx.stroke();
                         }
                     }
                 }
-                requestAnimationFrame(animateParticles);
+                requestAnimationFrame(animate);
             }
-            animateParticles();
+            animate();
         })();
 
-        // ── Smooth anchor scroll ──
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
+        // --- Island scroll effect ---
+        const island = document.getElementById('island');
+        window.addEventListener('scroll', () => {
+            island.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // --- Mobile burger ---
+        const burger = document.getElementById('burger');
+        const nav = document.getElementById('navLinks');
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('mobile-open');
         });
     </script>
 
