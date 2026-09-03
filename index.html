@@ -3,51 +3,1133 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VoidWare — Сайт временно не работает</title>
+    <title>VoidWare — лучший клиент для Minecraft 26.2</title>
+    <meta name="description" content="VoidWare — топовый чит-клиент для Minecraft 26.2 и ниже. Обходы, PvP, фарм, стабильность и максимальный FPS." />
+    <link rel="icon" href="/favicon.jpg" />
     <style>
+        /* ─── Reset & Base ─── */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        html {
+            scroll-behavior: smooth;
+        }
         body {
-            background: #0a0e1a;
-            color: #e8edf5;
-            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+            background: #0d0d0d;
+            color: #e5e5e5;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 20px;
+        }
+
+        /* ─── Glass (macOS style) ─── */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 0.5px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-dark {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 0.5px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* ─── Buttons ─── */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            background: #ffffff;
+            color: #111;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        .btn-primary:hover {
+            background: #f0f0f0;
+            transform: scale(1.02);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+        }
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            background: transparent;
+            color: #ccc;
+            border: 0.5px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.4);
+            transform: scale(1.02);
+        }
+
+        /* ─── Sections ─── */
+        .section {
+            padding: 6rem 1.5rem;
+            position: relative;
+        }
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ─── Diagonal effect (subtle) ─── */
+        .diagonal-top {
+            position: relative;
+        }
+        .diagonal-top::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: inherit;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 60%);
+            pointer-events: none;
+        }
+        .diagonal-bottom::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: inherit;
+            clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
+            pointer-events: none;
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
             text-align: center;
-            padding: 20px;
-            user-select: none;
-            -webkit-user-select: none;
+            background: radial-gradient(ellipse at 30% 20%, #1a1a1a, #0d0d0d 70%);
+            padding-top: 100px;
         }
-        .container h1 {
-            font-size: 2.5rem;
+        .hero h1 {
+            font-size: 5rem;
             font-weight: 700;
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.04em;
+            color: #fff;
         }
-        .container p {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.4);
-            font-weight: 400;
+        .hero h1 span {
+            color: #aaa;
+        }
+        .hero .sub {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #888;
+            margin-top: 0.2rem;
+        }
+        .hero p {
+            color: #777;
+            max-width: 600px;
+            margin: 1.5rem auto;
+            font-size: 1.1rem;
+        }
+        .hero .badge {
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            background: rgba(255,255,255,0.04);
+            border: 0.5px solid rgba(255,255,255,0.06);
+            font-size: 0.8rem;
+            color: #888;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
         }
         @media (max-width: 640px) {
-            .container h1 {
-                font-size: 2rem;
+            .hero h1 { font-size: 3.2rem; }
+            .hero .sub { font-size: 1.2rem; }
+        }
+
+        /* ─── Marquee ─── */
+        .marquee {
+            overflow: hidden;
+            padding: 1rem 0;
+            border-top: 0.5px solid rgba(255,255,255,0.04);
+            border-bottom: 0.5px solid rgba(255,255,255,0.04);
+            background: #111;
+        }
+        .marquee-track {
+            display: flex;
+            gap: 2.5rem;
+            animation: marqueeScroll 30s linear infinite;
+            width: max-content;
+        }
+        .marquee-track span {
+            color: #444;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+        .marquee-track .hl {
+            color: #777;
+        }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ─── Stat Cards ─── */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2.5rem;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 0.5px solid rgba(255,255,255,0.04);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-6px);
+            border-color: rgba(255,255,255,0.08);
+        }
+        .stat-card .number {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+        .stat-card .label {
+            color: #777;
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
+        }
+        .stat-card .sub {
+            color: #444;
+            font-size: 0.75rem;
+            margin-top: 0.3rem;
+        }
+
+        /* ─── Photo Gallery (large, vertical) ─── */
+        .photo-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 2.5rem;
+        }
+        .photo-item {
+            background: rgba(255,255,255,0.02);
+            border-radius: 28px;
+            overflow: hidden;
+            border: 0.5px solid rgba(255,255,255,0.04);
+            transition: all 0.3s ease;
+        }
+        .photo-item:hover {
+            background: rgba(255,255,255,0.03);
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.08);
+        }
+        .photo-item .thumb {
+            aspect-ratio: 16 / 9;
+            background: #111;
+            overflow: hidden;
+        }
+        .photo-item .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .photo-item:hover .thumb img {
+            transform: scale(1.02);
+        }
+        .photo-item .info {
+            padding: 1.8rem 2rem 2rem;
+        }
+        .photo-item .info h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+        .photo-item .info p {
+            color: #888;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 640px) {
+            .photo-item .info { padding: 1.2rem; }
+            .photo-item .info h3 { font-size: 1.2rem; }
+        }
+
+        /* ─── Feature Cards ─── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2.5rem;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            padding: 1.8rem 1.5rem;
+            border: 0.5px solid rgba(255,255,255,0.04);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            background: rgba(255,255,255,0.03);
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.08);
+        }
+        .feature-card .icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.6rem;
+        }
+        .feature-card h4 {
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .feature-card p {
+            color: #777;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        /* ─── About ─── */
+        .about-box {
+            background: rgba(255,255,255,0.02);
+            border-radius: 28px;
+            padding: 2.5rem;
+            border: 0.5px solid rgba(255,255,255,0.04);
+        }
+        .about-box h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        .about-box p {
+            color: #888;
+            line-height: 1.8;
+        }
+        .about-box ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem 1.5rem;
+            list-style: none;
+            margin-top: 1.2rem;
+            padding: 0;
+        }
+        .about-box ul li {
+            color: #999;
+            font-size: 0.95rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .about-box ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+        @media (max-width: 640px) {
+            .about-box ul { grid-template-columns: 1fr; }
+            .about-box { padding: 1.5rem; }
+            .about-box h2 { font-size: 1.6rem; }
+        }
+
+        /* ─── Video ─── */
+        .video-wrapper {
+            border-radius: 24px;
+            overflow: hidden;
+            background: #111;
+            border: 0.5px solid rgba(255,255,255,0.06);
+        }
+        .video-wrapper video {
+            width: 100%;
+            max-height: 500px;
+            display: block;
+            object-fit: contain;
+            background: #0a0a0a;
+        }
+
+        /* ─── Reviews ─── */
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2.5rem;
+        }
+        .review-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            padding: 1.8rem;
+            border: 0.5px solid rgba(255,255,255,0.04);
+        }
+        .review-card .stars {
+            color: #888;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+        .review-card blockquote {
+            color: #aaa;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0.8rem 0;
+        }
+        .review-card .author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        .review-card .author .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        .review-card .author .name {
+            font-weight: 500;
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+        .review-card .author .detail {
+            color: #666;
+            font-size: 0.7rem;
+        }
+
+        /* ─── CTA ─── */
+        .cta-box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 40px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            border: 0.5px solid rgba(255,255,255,0.04);
+            backdrop-filter: blur(10px);
+        }
+        .cta-box h2 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .cta-box h2 span {
+            color: #aaa;
+        }
+        .cta-box p {
+            color: #777;
+            max-width: 500px;
+            margin: 1rem auto;
+        }
+        .cta-box .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.8rem;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            border-top: 0.5px solid rgba(255,255,255,0.04);
+            padding: 2.5rem 1.5rem;
+            background: #0a0a0a;
+            margin-top: 2rem;
+        }
+        footer .inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        footer h3 {
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.2rem;
+        }
+        footer h3 small {
+            color: #666;
+            font-weight: 400;
+        }
+        footer .foot-link {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 0.3rem;
+        }
+        footer .foot-link:hover {
+            color: #aaa;
+        }
+        footer .copy {
+            margin-top: 2rem;
+            text-align: center;
+            color: #444;
+            font-size: 0.75rem;
+            border-top: 0.5px solid rgba(255,255,255,0.03);
+            padding-top: 2rem;
+        }
+        @media (max-width: 640px) {
+            footer .inner { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
+
+        /* ─── Island Header (macOS style) ─── */
+        .island {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(20,20,20,0.5);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 0.5px solid rgba(255,255,255,0.06);
+            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+        .island.scrolled {
+            background: rgba(20,20,20,0.85);
+            border-color: rgba(255,255,255,0.1);
+        }
+        .island .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .island .logo .icon {
+            width: 28px;
+            height: 28px;
+            background: #333;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+        .island nav {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+        .island nav a {
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            color: #888;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .island nav a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.04);
+        }
+        .island nav a.active {
+            color: #fff;
+            background: rgba(255,255,255,0.06);
+        }
+        .island .burger {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .island .burger span {
+            width: 18px;
+            height: 2px;
+            background: #888;
+            border-radius: 2px;
+        }
+        @media (max-width: 720px) {
+            .island {
+                top: 12px;
+                left: 12px;
+                right: 12px;
+                transform: none;
+                border-radius: 30px;
+                padding: 0.4rem 0.8rem;
+                justify-content: space-between;
             }
-            .container p {
-                font-size: 1.1rem;
+            .island nav {
+                display: none;
             }
+            .island nav.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                right: 0;
+                background: rgba(20,20,20,0.96);
+                backdrop-filter: blur(30px);
+                border-radius: 24px;
+                padding: 0.8rem;
+                border: 0.5px solid rgba(255,255,255,0.06);
+                gap: 0.2rem;
+            }
+            .island nav.mobile-open a {
+                padding: 0.6rem 1rem;
+                text-align: center;
+            }
+            .island .burger {
+                display: flex;
+            }
+        }
+
+        /* ─── Easter Egg & Particles ─── */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+        .easter-egg-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(30px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .easter-egg-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .easter-egg-overlay img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 28px;
+            border: 0.5px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+        }
+        .easter-egg-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            color: #444;
+            font-size: 0.8rem;
+            display: none;
+        }
+        .easter-egg-counter.show { display: block; }
+
+        /* ─── Reveal animation ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .seo-hidden {
+            position: absolute;
+            left: -99999px;
+            top: -99999px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Сайт временно не работает</h1>
-        <p>Клиент закрыт, следите за новостями @VoidWareDlc</p>
+
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="seo-hidden">
+        <h1>VoidWare — лучший чит-клиент для Minecraft 26.2</h1>
+        <p>Топовый клиент для Minecraft 26.2 и ниже с максимальными обходами, PvP-модулями и автоматическим фармом.</p>
     </div>
+
+    <!-- ─── ISLAND HEADER ─── -->
+    <header class="island" id="island">
+        <a href="#" class="logo" id="logoClicker">
+            <span class="icon">V</span>
+            <span>Void<span style="color:#888;">Ware</span></span>
+        </a>
+        <nav id="navLinks">
+            <a href="#" class="active">Главная</a>
+            <a href="#">Новости</a>
+            <a href="#">Товары</a>
+            <a href="#">Профиль</a>
+        </nav>
+        <div class="burger" id="burger">
+            <span></span><span></span><span></span>
+        </div>
+    </header>
+
+    <!-- ─── CONTENT ─── -->
+    <div class="content">
+
+        <!-- HERO -->
+        <section class="hero section diagonal-top diagonal-bottom" style="background: radial-gradient(ellipse at 40% 30%, #1a1a1a, #0d0d0d 70%);">
+            <div class="section-inner">
+                <div class="badge">✦ Версия 2.0 — Топ чит 2026</div>
+                <h1>Void<span style="color:#888;">Ware</span></h1>
+                <div class="sub">Лучший клиент для Minecraft 26.2 и ниже</div>
+                <p>Максимальные обходы античита, невидимость для серверов, высокий FPS и полный контроль над игрой.</p>
+                <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2rem;">
+                    <a href="#" class="btn-primary">Начать использовать</a>
+                    <a href="#features" class="btn-outline">Все возможности</a>
+                </div>
+                <div style="display:flex; gap:2rem; justify-content:center; margin-top:2rem; color:#555; font-size:0.9rem;">
+                    <span>⭐ 4.9/5</span>
+                    <span>👤 55+ онлайн</span>
+                    <span>🔄 Обновления каждую неделю</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARQUEE -->
+        <div class="marquee">
+            <div class="marquee-track">
+                <span>✦ VOIDWARE — ЛУЧШИЙ КЛИЕНТ ДЛЯ MINECRAFT 26.2</span>
+                <span class="hl">✦ ОБХОДЫ FUNSKY, PVP, ФАРМ</span>
+                <span>✦ СТАБИЛЬНОСТЬ 99.7%</span>
+                <span class="hl">✦ 55+ АКТИВНЫХ</span>
+                <span>✦ ПОДДЕРЖКА 24/7</span>
+                <span class="hl">✦ ОБНОВЛЕНИЯ КАЖДУЮ НЕДЕЛЮ</span>
+                <span>✦ VOIDWARE — ЛУЧШИЙ КЛИЕНТ ДЛЯ MINECRAFT 26.2</span>
+                <span class="hl">✦ ОБХОДЫ FUNSKY, PVP, ФАРМ</span>
+                <span>✦ СТАБИЛЬНОСТЬ 99.7%</span>
+                <span class="hl">✦ 55+ АКТИВНЫХ</span>
+                <span>✦ ПОДДЕРЖКА 24/7</span>
+                <span class="hl">✦ ОБНОВЛЕНИЯ КАЖДУЮ НЕДЕЛЮ</span>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <section class="section" style="background:#0f0f0f;">
+            <div class="section-inner">
+                <div style="text-align:center; margin-bottom:2rem;">
+                    <span style="color:#666; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase;">Наша статистика</span>
+                    <h2 style="font-size:2.8rem; font-weight:600; color:#fff; margin-top:0.2rem;">Цифры, <span style="color:#888;">которые говорят сами за себя</span></h2>
+                </div>
+                <div class="stat-grid">
+                    <div class="stat-card reveal">
+                        <div class="number">5,234</div>
+                        <div class="label">Запусков клиента</div>
+                        <div class="sub">+12% за месяц</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="number">55</div>
+                        <div class="label">Активных игроков</div>
+                        <div class="sub">онлайн каждый день</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="number">99.7%</div>
+                        <div class="label">Стабильность работы</div>
+                        <div class="sub">почти без вылетов</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="number">4.9</div>
+                        <div class="label">Средняя оценка</div>
+                        <div class="sub">на основе отзывов</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHOTO GALLERY (large, vertical) -->
+        <section class="section" style="background:#0d0d0d;">
+            <div class="section-inner">
+                <div style="text-align:center; margin-bottom:2.5rem;">
+                    <span style="color:#666; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase;">Галерея</span>
+                    <h2 style="font-size:2.8rem; font-weight:600; color:#fff; margin-top:0.2rem;">Визуалы и <span style="color:#888;">функции</span></h2>
+                    <p style="color:#555; margin-top:0.5rem;">Смотрите, как работают наши модули – каждый скриншот с описанием</p>
+                </div>
+                <div class="photo-gallery">
+                    <div class="photo-item reveal">
+                        <div class="thumb"><img src="visual.png" alt="Визуалы" loading="lazy" /></div>
+                        <div class="info">
+                            <h3>🎨 Новые визуалы</h3>
+                            <p>Самые лучшие и легко настраиваемые визуальные эффекты – обновлённый интерфейс, шейдеры, анимации и цветовые схемы. Полный контроль над внешним видом клиента.</p>
+                        </div>
+                    </div>
+                    <div class="photo-item reveal">
+                        <div class="thumb"><img src="combat.png" alt="Combat" loading="lazy" /></div>
+                        <div class="info">
+                            <h3>⚔️ Combat-функции</h3>
+                            <p>Лучшие legit-модули для честной игры и мощные рейдж-возможности для доминирования в PvP. AIM, AURA, автоматические задержки и многое другое.</p>
+                        </div>
+                    </div>
+                    <div class="photo-item reveal">
+                        <div class="thumb"><img src="pve.png" alt="PvE" loading="lazy" /></div>
+                        <div class="info">
+                            <h3>⛏️ PvE / Фарм</h3>
+                            <p>Огромный набор функций для автоматизации фарма ресурсов, быстрой добычи, автоматического боя с мобами и прохождения PvE-контента. Экономьте время и получайте ресурсы моментально.</p>
+                        </div>
+                    </div>
+                    <div class="photo-item reveal">
+                        <div class="thumb"><img src="bypass.png" alt="Bypass" loading="lazy" /></div>
+                        <div class="info">
+                            <h3>🛡️ Обходы античита</h3>
+                            <p>Лучшие байпасы для серверов FunSky и других популярных проектов. Стабильные обходы всех видов античитов, включая самые современные системы защиты.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section id="features" class="section" style="background:#0f0f0f;">
+            <div class="section-inner">
+                <div style="text-align:center; margin-bottom:2.5rem;">
+                    <span style="color:#666; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase;">Возможности</span>
+                    <h2 style="font-size:2.8rem; font-weight:600; color:#fff; margin-top:0.2rem;">Всё для <span style="color:#888;">доминирования</span></h2>
+                    <p style="color:#555;">Топовые модули, которые сделают вас неуязвимым</p>
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-card reveal"><div class="icon">🛡️</div><h4>Обходы античита</h4><p>Продвинутая система байпасов</p></div>
+                    <div class="feature-card reveal"><div class="icon">⚡</div><h4>Максимальная стабильность</h4><p>Работает без вылетов</p></div>
+                    <div class="feature-card reveal"><div class="icon">🚀</div><h4>Оптимизация FPS</h4><p>Высокая производительность</p></div>
+                    <div class="feature-card reveal"><div class="icon">✨</div><h4>Современный UI</h4><p>Красивый и удобный интерфейс</p></div>
+                    <div class="feature-card reveal"><div class="icon">🔒</div><h4>Анти-детект</h4><p>Защита от любых античитов</p></div>
+                    <div class="feature-card reveal"><div class="icon">🔄</div><h4>Совместимость</h4><p>1.21.11, 1.16.5 и ниже</p></div>
+                    <div class="feature-card reveal"><div class="icon">💬</div><h4>Поддержка 24/7</h4><p>Всегда на связи в Telegram</p></div>
+                    <div class="feature-card reveal"><div class="icon">📦</div><h4>Регулярные обновления</h4><p>Новые функции каждую неделю</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT + VIDEO -->
+        <section class="section" style="background:#0d0d0d;">
+            <div class="section-inner">
+                <div class="about-box reveal">
+                    <h2>О клиенте <span style="color:#888;">VoidWare</span></h2>
+                    <p>
+                        VoidWare — это топовый чит-клиент, созданный для полного превосходства на серверах Minecraft 26.2 и ниже. Мы объединили передовые технологии обхода античитов, интуитивный интерфейс и высокую производительность, чтобы каждый игрок мог чувствовать себя уверенно.
+                    </p>
+                    <p style="margin-top:1rem;">
+                        Клиент разрабатывается с учётом всех современных требований: поддержка последних версий, регулярные обновления, адаптация под разные сервера (FunSky, PvP, анархия) и активная обратная связь от нашего сообщества.
+                    </p>
+                    <ul>
+                        <li>Полная совместимость с Minecraft 1.21.11, 1.16.5 и ниже</li>
+                        <li>Интеллектуальная система обхода античитов (байпасы)</li>
+                        <li>Оптимизация для слабых и мощных ПК</li>
+                        <li>Красивый и настраиваемый интерфейс</li>
+                        <li>Быстрая и отзывчивая поддержка 24/7</li>
+                        <li>Регулярные обновления и новые функции</li>
+                        <li>Безопасная HWID-активация</li>
+                        <li>Доступ к эксклюзивным модулям (AURA, AIM, фарм)</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top:3rem;" class="reveal">
+                    <h3 style="font-size:1.8rem; font-weight:600; color:#fff; margin-bottom:0.5rem;">Обзор клиента <span style="color:#888;">VoidWare</span></h3>
+                    <div class="video-wrapper glass">
+                        <video controls preload="metadata" playsinline controlsList="nodownload">
+                            <source src="obzor.mp4" type="video/mp4" />
+                            <p style="padding:2rem; color:#666;">Ваш браузер не поддерживает видео.</p>
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVIEWS -->
+        <section class="section" style="background:#0f0f0f;">
+            <div class="section-inner">
+                <div style="text-align:center; margin-bottom:2.5rem;">
+                    <span style="color:#666; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase;">Отзывы</span>
+                    <h2 style="font-size:2.8rem; font-weight:600; color:#fff; margin-top:0.2rem;">Что говорят <span style="color:#888;">игроки</span></h2>
+                </div>
+                <div class="review-grid">
+                    <div class="review-card reveal">
+                        <div class="stars">★★★★★</div>
+                        <blockquote>"Лучший клиент, который я пробовал. Обходы работают идеально, FPS высокий."</blockquote>
+                        <div class="author"><div class="avatar">А</div><div><div class="name">Alex_Pro</div><div class="detail">Игрок 3 года</div></div></div>
+                    </div>
+                    <div class="review-card reveal">
+                        <div class="stars">★★★★★</div>
+                        <blockquote>"Интерфейс просто огонь! Всё плавно, красиво и интуитивно понятно."</blockquote>
+                        <div class="author"><div class="avatar">М</div><div><div class="name">MegaPvP</div><div class="detail">Про игрок</div></div></div>
+                    </div>
+                    <div class="review-card reveal">
+                        <div class="stars">★★★★☆</div>
+                        <blockquote>"Отличный клиент, хотелось бы больше визуальных тем. В остальном всё супер!"</blockquote>
+                        <div class="author"><div class="avatar">Д</div><div><div class="name">DarkMaster</div><div class="detail">Игрок 1 год</div></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section" style="background:#0d0d0d;">
+            <div class="section-inner">
+                <div class="cta-box glass-dark reveal">
+                    <h2>Готов к <span>абсолютному превосходству</span>?</h2>
+                    <p>Присоединяйся к сообществу VoidWare и получи доступ к лучшим функциям для Minecraft 26.2 и ниже.</p>
+                    <div class="actions">
+                        <a href="#" class="btn-primary">Начать сейчас</a>
+                        <a href="#" class="btn-outline">Узнать больше</a>
+                    </div>
+                    <div style="margin-top:1.5rem; color:#555; font-size:0.8rem; display:flex; gap:2rem; justify-content:center;">
+                        <span>⚡ 55+ онлайн</span>
+                        <span>⭐ 4.9/5</span>
+                        <span>🔄 Еженедельные обновления</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="inner">
+                <div>
+                    <h3>Void<span style="color:#666;">Ware</span></h3>
+                    <p style="color:#555; font-size:0.8rem; margin-top:0.3rem;">© 2026 Все права защищены.</p>
+                    <p style="color:#444; font-size:0.7rem; margin-top:0.2rem; letter-spacing:0.05em;">TimofeenTuz Guard</p>
+                </div>
+                <div>
+                    <h4 style="color:#666; font-weight:500; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Навигация</h4>
+                    <a href="#" class="foot-link">Новости</a>
+                    <a href="#" class="foot-link">Товары</a>
+                    <a href="#" class="foot-link">Профиль</a>
+                    <a href="#" class="foot-link">FAQ</a>
+                </div>
+                <div>
+                    <h4 style="color:#666; font-weight:500; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Информация</h4>
+                    <a href="#" class="foot-link">Соглашение</a>
+                    <a href="#" class="foot-link">Конфиденциальность</a>
+                    <a href="#" class="foot-link">FAQ</a>
+                </div>
+                <div>
+                    <h4 style="color:#666; font-weight:500; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Контакты</h4>
+                    <a href="#" class="foot-link">📱 Telegram</a>
+                    <a href="#" class="foot-link">📧 voidware@vk.com</a>
+                </div>
+            </div>
+            <div class="copy">
+                <p>VoidWare — неофициальный клиент для Minecraft. Не связан с Mojang AB.</p>
+            </div>
+        </footer>
+
+    </div><!-- /content -->
+
+    <!-- ─── EASTER EGG ─── -->
+    <div class="easter-egg-overlay" id="easterEggOverlay">
+        <img src="/ownervoidware.png" alt="Easter" id="easterEggImage" draggable="false" />
+    </div>
+    <div class="easter-egg-counter" id="easterEggCounter">Кликни ещё <span id="clickCount">10</span> раз на логотип...</div>
+
+    <!-- ─── SCRIPTS ─── -->
+    <script>
+        // --- Protection ---
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || e.keyCode === 123) e.preventDefault();
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) e.preventDefault();
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) e.preventDefault();
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) e.preventDefault();
+            if (e.ctrlKey && e.key === 'c') {
+                const tag = document.activeElement.tagName;
+                if (tag !== 'INPUT' && tag !== 'TEXTAREA') e.preventDefault();
+            }
+        });
+        document.addEventListener('selectstart', e => {
+            const tag = e.target.tagName;
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') e.preventDefault();
+        });
+        document.addEventListener('dragstart', e => e.preventDefault());
+        document.addEventListener('copy', e => {
+            const tag = document.activeElement.tagName;
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA') e.preventDefault();
+        });
+
+        // --- Scroll Reveal ---
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+        reveals.forEach(el => observer.observe(el));
+
+        // --- Easter Egg ---
+        (function() {
+            const logo = document.getElementById('logoClicker');
+            const overlay = document.getElementById('easterEggOverlay');
+            const counter = document.getElementById('easterEggCounter');
+            const countSpan = document.getElementById('clickCount');
+            let count = 0, active = false;
+            const NEED = 10;
+
+            logo.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (active) return;
+                count++;
+                if (count < NEED) {
+                    counter.classList.add('show');
+                    countSpan.textContent = NEED - count;
+                    logo.style.transform = 'scale(0.95)';
+                    setTimeout(() => logo.style.transform = '', 150);
+                }
+                if (count >= NEED) {
+                    active = true;
+                    counter.classList.remove('show');
+                    overlay.classList.add('active');
+                    setTimeout(() => {
+                        overlay.classList.remove('active');
+                        setTimeout(() => { count = 0; active = false; }, 300);
+                    }, 5000);
+                }
+            });
+
+            overlay.addEventListener('click', function() {
+                overlay.classList.remove('active');
+                setTimeout(() => { count = 0; active = false; counter.classList.remove('show'); }, 300);
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    overlay.classList.remove('active');
+                    setTimeout(() => { count = 0; active = false; counter.classList.remove('show'); }, 300);
+                }
+            });
+        })();
+
+        // --- Particles ---
+        (function() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            const particles = [];
+            const COUNT = 60;
+
+            function resize() {
+                w = window.innerWidth;
+                h = window.innerHeight;
+                canvas.width = w;
+                canvas.height = h;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class P {
+                constructor() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.r = Math.random() * 1.5 + 0.5;
+                    this.dx = (Math.random() - 0.5) * 0.2;
+                    this.dy = (Math.random() - 0.5) * 0.2;
+                    this.o = Math.random() * 0.3 + 0.1;
+                }
+                update() {
+                    this.x += this.dx;
+                    this.y += this.dy;
+                    if (this.x < 0 || this.x > w) this.dx *= -1;
+                    if (this.y < 0 || this.y > h) this.dy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(200,200,200,${this.o})`;
+                    ctx.fill();
+                }
+            }
+            for (let i=0; i<COUNT; i++) particles.push(new P());
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+                for (let i=0; i<particles.length; i++) {
+                    for (let j=i+1; j<particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(200,200,200,${0.03 * (1 - dist/120)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // --- Island scroll effect ---
+        const island = document.getElementById('island');
+        window.addEventListener('scroll', () => {
+            island.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // --- Mobile burger ---
+        const burger = document.getElementById('burger');
+        const nav = document.getElementById('navLinks');
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('mobile-open');
+        });
+    </script>
+
 </body>
 </html>
